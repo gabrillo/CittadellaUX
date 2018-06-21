@@ -1,0 +1,159 @@
+ Programmazione, 11 Giu 2003 alle 12:38 - da Sir Action
+ Reply : CSS e HTML, msg #742 da Furjo
+
+grazie a Brinta, ho trovato una possibile alternativa, ovvero "urare gli stili
+all'interno di <pre>
+
+ho trovato questo style sheet..
+
+<HTML>
+<HEAD>
+<STYLE TYPE="text/css">
+pre
+{
+  color: #BBBBBB;
+  font-family: Courier New;
+  font-size: 8pt;
+}
+.fg0{ color: #000000; } .bg0{ background-color: #000000; }
+.fg1{ color: #BB0000; } .bg1{ background-color: #BB0000; }
+.fg2{ color: #00BB00; } .bg2{ background-color: #00BB00; }
+.fg3{ color: #BBBB00; } .bg3{ background-color: #BBBB00; }
+.fg4{ color: #0000BB; } .bg4{ background-color: #0000BB; }
+.fg5{ color: #BB00BB; } .bg5{ background-color: #BB00BB; }
+.fg6{ color: #00BBBB; } .bg6{ background-color: #00BBBB; }
+.fg7{ color: #BBBBBB; } .bg7{ background-color: #BBBBBB; }
+.fg8{ color: #555555; } .bg8{ background-color: #555555; }
+.fg9{ color: #FF5555; } .bg9{ background-color: #FF5555; }
+.fg10{ color: #55FF55; } .bg10{ background-color: #55FF55; }
+.fg11{ color: #FFFF55; } .bg11{ background-color: #FFFF55; }
+.fg12{ color: #5555FF; } .bg12{ background-color: #5555FF; }
+.fg13{ color: #FF55FF; } .bg13{ background-color: #FF55FF; }
+.fg14{ color: #55FFFF; } .bg14{ background-color: #55FFFF; }
+.fg15{ color: #FFFFFF; } .bg15{ background-color: #FFFFFF; }
+</STYLE>
+</HEAD>
+<BODY BGCOLOR="#000000">
+<PRE>
+
+==================================
+ Programmazione, 11 Giu 2003 alle 15:25 - da Sir Action
+ Reply : HTML e tavole, msg #749 da Ping
+
+Property:      text-align
+Values:        left, right, center, justify
+Initial:       UA specific
+Inherited:     yes
+
+This property describes how text is aligned within the element. The actual
+justification algorithm used is UA and human language dependent.
+
+Example:
+
+      DIV.center { text-align: center }
+
+
+Since 'text-align' inherits, all block-level elements inside the 'DIV' element
+with 'CLASS=center' will be centered. Note that alignments are relative to the
+width of the element, not the canvas. If 'justify' is not supported, the UA
+will supply a replacement. Typically, this will be 'left' for western
+languages.
+
+CSS1 core: UAs may treat 'justify' as 'left' or 'right', depending on whether
+the element's default writing direction is left-to-right or right-to-left,
+respectively.
+
+cos%/1iso8859-15ì?
+==================================================================
+ Programmazione, 11 Giu 2003 alle 16:01 - da Sir Action
+ Reply : HTML e tavole, msg #762 da Ping
+
+.centeredtable {
+margin-left: auto;
+margin-right: auto;
+}
+
+That assumes you set a width on the table.
+=======================================================================
+ Programmazione, 11 Giu 2003 alle 16:01 - da Furjo
+ Reply : HTML e tavole, msg #762 da Ping
+
+TABLE {
+    margin-left: auto;
+    margin-right: auto
+}
+
+     -- http://www.w3.org/TR/REC-CSS2/tables.html
+=========================================================================
+ Programmazione, 11 Giu 2003 alle 16:03 - da Sir Action
+ Reply : HTML e tavole, msg #765 da Ping
+
+oppure
+
+in your CSS:
+
+  table.center {width:70%; margin-left:15%; margin-right:15%;}
+
+And this in your HTML:
+
+  <table class="center">
+    ...
+  </table>
+
+  <table class="center">
+    ...
+  </table>
+
+o anche
+
+ If you want your table to be of fixed width, define your CSS like this:
+
+  div.container {width:98%; margin:1%;}
+  table#table1 {text-align:center; margin-left:auto; margin-right:auto;
+width:100px;}
+  tr,td {text-align:left;}
+
+Set "width:100px" to whatever width you need.
+
+"text-align: center" is there for Internet Explorer, which won't work without
+it. Unfortunately, "text-align: center" will center all the text inside your
+table cells, but we counter that by setting "tr" and "td" to align left.
+
+In your HTML, you would then do this:
+
+  <div class="container">
+    <table id="table1">
+      ...
+    </table>
+  </div>
+
+======================================================================
+ Mail, 11 Giu 2003 alle 15:34 - da Sir Action per Ping
+ Subject : aha!
+
+roperty:       white-space
+Values:        normal, pre, nowrap
+Initial:       normal
+Inherited:     yes
+
+This property declares how whitespace inside the element is handled: the
+'normal' way (where whitespace is collapsed), as 'pre' (which behaves like the
+'PRE' element in HTML) or as 'nowrap' (where wrapping is done only through BR
+elements):
+
+      PRE { white-space: pre }
+      P   { white-space: normal }
+
+
+The initial value of 'white-space' is 'normal', but a UA will typically have
+default values for all HTML elements according to the suggested rendering of
+elements in the HTML specification .
+
+CSS1 core: UAs may ignore the 'white-space' property in author's and reader's
+style sheets, and use the UA's default values instead.
+
+non occorre nemmeno il <pre> :)
+basta ridefinire i tag e usare questa propriet%/1iso8859-15à :)
+
+"basta" è un po' furjesco, dovrei pensare a come fare per farlo efficiente...
+

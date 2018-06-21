@@ -1,0 +1,40 @@
+Si, ma devi essere un po' piu' specifico con le domande. Ora come ora non
+posso mettermi a scrivere un libro sul funzionamento del client, ma se mi
+chiedi cose precise posso risponderti.
+ 
+Comunque il protocollo di comunicazione C/S e' molto semplice: il client fa
+le richieste al server inviando stringhe del tipo:
+ 
+"XXXX Arg1|Arg2|...|ArgN\n"
+ 
+Dove 'XXXX' sono quattro caratteri (per ora lettere maiuscole) che
+identificano il comando, Arg1...ArgN sono gli N argomenti del comando
+separati dal carattere '|' (che quindi non puo' apparire fra gli argomenti)
+e la stringa termina con un Line Feed '\n'
+ 
+Ad esempio, per chiedere il profile dell'utente Furjo, il client invia una
+stringa fatta nel modo seguente (se ricordo bene)
+"PRFL Furjo\n"
+ 
+Il server risponde nel modo seguente:
+"ABC Arg1|Arg2|...|ArgN\n"
+ 
+dove 'ABC' e' un codice numerico di tre cifre. La prima cifra indica che
+tipo di risposta e':
+A == 1 : Errore nell'ultima richiesta del client.
+A == 2 : Ok, gli argomenti che seguono sono la risposta del server
+         (In questo caso se B==1 significa che la risposta continua nelle
+          stringhe successive)
+A == 8 : Comandi di esecuzione immediata da parte del server (Login timeout,
+         shutdown etc.)
+A == 9 : Comandi dal server non urgenti (Xmsg, notifiche, etc...)
+ 
+Per i comandi possibili c'e' un file SERVER da qualche parte, se non ce l'hai
+te lo spedisco, mentre per la loro sintassi (cioe' cosa significano i vari
+argomenti) la cosa migliore e' dare un'occhiata alle funzioni che
+implementano i vari comandi che comunque sono brevi e di facile lettura, ma
+se hai problemi basta che chiedi.
+ 
+Ti consiglio, una volta che hai le routine che gestiscono i sockets, di
+implementare il comando HWHO
+

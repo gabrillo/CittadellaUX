@@ -1,0 +1,12 @@
+
+Descrizione degli scripts
+-------------------------
+
+./Make    Compila tutto (client + server)
+./Purge   Cancella i files *~ e *.o
+./server/autorun        Lancia il cittaserver 
+./server/restartserver  Manda un kill -HUP al server per fare un reboot
+./server/stopserver     Shutdown del server e ferma 'autorun'
+./server/touchlogs      Crea i file di logs vuoti
+./server/purge_bbsdata  Cancella tutti i dati della BBS per ricominciare
+                        da zero (Fare attenzione :)

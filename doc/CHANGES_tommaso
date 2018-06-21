@@ -1,0 +1,80 @@
+27/7/2001
+nei file:
+client/src/makefile (aggiunto -DMKSTEMP a MYFLAG)
+client/src/utility.c (aggiunto time.h)
+client/src/sysop.c (aggiunto time.h e string.h)
+client/src/configurazione.c (aggiunto string.h)
+client/src/inkey.c (aggiunto stdlib.h, warning sulla funzione "exit")
+client/src/pager.c (aggiunto string.h)
+client/src/login.c (aggiunto string.h)
+
+client/src/aide.c (modifica mkstemp)
+client/src/edit.c (modifica mkstemp attenzione in entrambi si usa 
+	           TEMP_EDIT_TEMPLATE, ed e' definito all'inizio di ogni file)
+client/src/floor_cmd.c (modifica mkstemp, stesso discorso di sopra)
+client/src/room_cmd.c (modifica mkstemp, stesso discorso di sopra
+client/src/sysop.c (modifica mkstemp, stesso discorso di sopra)
+
+Ho lasciato ovunque la definizione ad inizio file, perche' cosi' decidi
+se tutti debbano avere lo stesso nome oppure no...
+
+
+25/7/2001
+
+nei file:
+share/hash.c
+share/text.c
+server/src/cache_post.c
+server/src/room_ops.c
+server/src/x.c
+server/src/memstat.c
+aggiunto #include <string.h> per evitare warning (strcmp, memcpy..)
+
+nei file:
+server/src/signals.h
+server/src/urna.h
+
+trasformato
+#endif _SIGNALS_H
+in 
+#endif /* _SIGNALS_H*/
+per evitare warning: extra tokens at end of #endif directive
+
+nel file 
+server/src/interprete.c:
+trasformate tutte le occorrenze simili a:
+{ "TABC", { &cmd_tabc }, PASS_ARG },
+in
+{ "TABC", { (void *)&cmd_tabc }, PASS_ARG },
+non ci sono piu' gli warning
+
+nei file 
+server/src/utente.c
+server/src/utente_cmd.c
+server/src/x.c
+
+Ho aggiunto delle parti incluse dentro 
+#ifdef MKSTEMP
+
+per l'utilizzo di mkstemp invece di tempnam.
+nel ramo else dell'#ifdef c'e' il vecchio codice.
+All'inizio di ogni file dopo gli include c'e' la define del template
+andrebbero riunite tutte in un unico header, e definite solo 
+se MKSTEMP e' definito.
+
+in server/src/Makefile ho messo che venga definita MKSTEMP
+tra i MYFLAGS
+
+Un consiglio, da molte parti si fa uso di "./tmp", forse sarebbe meglio 
+fare una define della TMPDIR, e magari anche dei prefissi dei vari 
+file temporanei, a questo punto si possono anche ricostruire i templates,
+definendo ad esempio:
+
+#define TMP_BR_TEMPLATE TMPDIR "/" PFX_BR "XXXXXX"
+
+devi sapere che il preprocessore se trova una cosa del tipo "pippo" "pluto"
+la trasforma in "pippopluto", questo e' comodo nell'esempio che ti
+ho fatto vedere prima ma anche quando una printf ti sfora dagli 80 
+caratteri.
+
+ 

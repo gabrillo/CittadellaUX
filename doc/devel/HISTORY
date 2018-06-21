@@ -1,0 +1,120 @@
+
+Ecco le uniche tracce delle origini di Cittadella/UX sopravvissute...
+
+                                  o---O---o
+
+ Apr  9 12:13 1998 da Ping 
+ Subject : Cittadella
+
+Allora... intanto ciao... :)
+
+mi sono studiato i sorgenti ieri sera: il client lo domino (e' facile) e 
+ho capito abbastanza bene anche il funzionamento del server. L'unica 
+parte oscura rimane quella con i FD_ (che mi studiero' prossimamente) e 
+in generale la gestione dei socket, che comunque non mi e' indispensabile 
+(magari me la spiegherai un giorno a voce...) Inoltre per pigrizia non ho 
+cercato di capire nei dettagli la funzione elabora_input() che ha un 
+aspetto scoraggiante, se mi dici in due parole cosa fa magari guadagno un 
+po' di tempo.
+
+Per quanto riguarda la gestione dei dati degli utenti mi sono fatto un 
+idea abbastanza chiara di quello che voglio fare, e penso di scriverla 
+nei prossimi giorni. L'unica cosa e' che non dobbiamo modificare 
+contemporaneamente i sorgenti :) quindi ecco cosa propongo:
+
+1) Su linuz ci dovrebbe essere sempre l'ultima versione, se puoi lavora 
+direttamente li' e non su chim se puoi.
+2) Buona parte delle mie modifiche (che in realta sono aggiunte) andra' 
+in utente.c e sara' piu' o meno indipendente dal resto. Non credo che 
+avrai bisogno di toccare quel file in questi giorni, se devi farlo avvertimi.
+3) quando sara' tutto pronto dovro' fare delle piccole modifiche a 
+cittaserver e al client, ma le preparo a parte e poi ti avverto quando le 
+sposto.
+
+Fammi sapere che ne pensi.
+
+Per quanto riguarda la parte piu' tecnica ecco cosa vorrei fare:
+1) Una lista permanente di dati_ut con tutti i dati degli utenti
+2) una funzione che carica da file_utenti al boot la lista dei dati degli 
+   utenti 
+3) una funzione che scrive in file_utenti al reboot e a ogni 
+   crash_save_perfavore() la lista dei dati degli utenti
+4) una funzione che cancella una struttura di utente dalla lista dei dati
+5) questa funzione verrebbe tra l'altro chiamata automaticamente per 
+   cancellare gli utenti non validati diciamo dopo 48 ore. Questo per due 
+   motivi: 
+   a) Ora c'e' la possibilita' di collegarsi come 'Ospite'
+   b) Visto che si tiene tutto in memoria inutile di riempirla di schifezze
+6) La validazione la farei automatica via mail (i punti 5 e 6 li faro' 
+   pero' in un secondo tempo)
+7) Una funzione trova_puntatore_utente(nome) che dato un nome 
+   restituisce il puntatore alla sua struttura di dati o null se l'utente non
+   esiste. Questa funzione verra' chiamata al login per capire se l'utente
+   e' nuovo o esiste gia', ma sara' anche uteile per esempio quando si fa 
+   un profile.
+8) cambierei la riga 'struct dati_ut utente' della struttura sessione in
+   'struct dati_ut *utente' che punta a una struttura nella lista degli 
+   utenti. In questo modo al login si chiama trova_puntatore_utente(nome) 
+   e si fa puntare questa variabile alla struttura dell'utente (o a una 
+   nuova se l'utente e' nuovo). Mi sembra piu' pulito che mettersi a 
+   ricopiare tutti i dati. In questo caso apparirebbe (login in corso) in
+   HWHO quando questo puntatore vale NULL
+9) Dopo il login se l'utente e' nuovo si mette nello stato CON_REGISTR
+   e aspetta tutta la registrazione. Ci sara' quindi una nuova parte di
+   interprete_comandi() per le stringhe che cominciano con 'RGST' per 
+   riempire la registrazione (e qui ci sono le modifiche a cittaserver e al 
+   client) Questa e' forse la parte un pochino piu' delicata che voglio 
+   fare con calma.
+
+
+                                                                           
+ Apr  9 15:35 1998 da Ric 
+ Reply : baco citta, msg #1003 da Ping
+
+Rispondo solo all'ultimo messaggio perche' sono un po' di corsa...
+Comunque in linea di massima approvo il programma che elenchi e scrivi 
+pure tutto quello che ti viene in mente che e' utile ad entrambi.
+
+Cittadella deve aver continuato a girare su ping perche' lo script preved 
+un reboot automatico se non trova un file .killscript nella stessa directory
+(controlla, perche' se non avevi fatto un touch .killscript e non hai 
+killato lo script a mano allora il server dovrebbe essersi riattivato da se')
+
+Il baco non e' esattamente quello che pensavo, ma d'altro canto quella 
+parte la sto ristrutturando di brutto e quindi se ci saranno bachi 
+dovrebbero essere diversi...
+
+prima di commentare i punti che segnalavi ne volevo aggiungere un paio:
+
+1 - Modificare la gestione delle variabili di configurazione con lettura 
+delle stesse da un file tipo sysconfig creato da setup esterno e letto 
+all'avvio del server (e quindi eliminazione di config.c).
+2 - aggiungere il codice di gestione criptazione password
+                
+del punto due me ne occupo sicuramente io, se hai i menu praticamente 
+pronti e tutto il resto forse il punto 1 lo sbrighi prima tu.
+
+
+                                                                           
+ Apr  9 16:07 1998 da Ping 
+ Reply : baco citta, msg #1004 da Ric
+
+Non ho capito bene che parte stai ristrutturando di brutto, comunque 
+l'essenziale e' che le modifiche siano indipendenti dal mio lavoro, 
+altrimenti avvertimi (per ora comunque non tocco ne' server ne' client ma 
+solo utente.c) In ogni caso stai lavorando su linuz?
+
+Invece non ho capito bene il tuo punto 1.
+In pratica si tratta di riscrivere un setup.c che salva i dati in un file 
+letto dal server. Ma che dati? nome bbs, etc etc, ma poi bisognera' 
+pensare alla lunghezza del file dei messaggi, al numero massimo di mail e 
+di rooms etc... Queste cose anche le vuoi mettere nel setup? mi sembrano 
+problemi abbastanza complicati, ai quali tocca ragionare con molta calma. 
+E in ogni caso sono cose che verranno in un secondo tempo, credo. 
+Comunque piu' ci penso e piu' mi piace l'idea di un file messaggi per 
+room, e le room vengono caricate in una lista. A questo punto non ci 
+sarebbero piu' limiti di numero di room: in qualunque istante se ne puo' 
+cancellare o creare una. Ma ci si pensera'...
+ciao
+
+

@@ -1,0 +1,165 @@
+Who-list flag overview:
+  
+% - User is a Helping Hand, you can ask him/her questions on how the system
+   works by pressing 'shift-q'.
+ 
+* - User has disabled message reception.
+ 
+# - Terminal locked by user (User might be on the toilet :)
+ 
+? - It's a newbie user, in other words, the user has spent less than 8 hours
+    total on this system and can be considered a rookie user...
+ 
+$ - This user earns lots and lots of money and shared a bit with the system
+    administration *smile*
+ 
+@ - This user is like the first officer on a star ship, this user should be
+    able to do some higher priviledged commands. He/she might help you too.
+ 
+! - This is a person you have to suck up to: it's one of the system
+    administrators, he/she is all mighty and can execute any command...
+ 
+& - This flag indicates that the person is as dead as can be, they are a ghost
+    user. You won't ever see this flag: you can't see ghosts! 
+
+-----------------------------------------------------------------------------
+
+Commands on any Recipient prompt are:
+ 
+ctrl-C - Abort this function, return to the Short or Read prompt.
+ctrl-D - Abort this function, return to the Short or Read prompt.
+ctrl-E - Add all (online) enemies to the list of recipients.
+ctrl-F - Add all (online) friends to the list of recipients.
+ctrl-R - Remove the current typed in name from the recipients list.
+ctrl-T - Add all (online) users currently in your 'talked to' list.
+  0..9 - Is replaced by the corresponding Quicklist entry.
+     , - Add the current user to the list of recipients, prompt for an
+         other new name.
+   TAB - Try to complete the name you started using the online user
+database.
+
+-----------------------------------------------------------------------------
+
+     K - List All Known rooms (all available ones)
+           U - indicates Unread messages.
+           N - indicates New room.
+           R - indicates your Room Aide-ship of that room.
+           Z - indicates Zapped status of th room.
+           I - indicates Invite Only rooms where you are NOT invited for.
+           C - Indicates Chat room. 
+
+-----------------------------------------------------------------------------
+
+Yell Menu
+ 
+     Y - Yell to one of the Sysops
+     D - Request deletion of your account
+     U - Undo deletion of your account
+ 
+     Q - Quit 
+
+Your account has been marked for deletion at the next purger run. Until then
+you can still login and undo the deletion using the undo function in the yell
+menu.
+
+-----------------------------------------------------------------------------
+
+Options Menu
+ 
+     <b> - Have messages beep when they arrive...................... [No]
+     <B> - Beep at newly posted messages in current room............ [No]
+ctrl-<b> - Hold messages status..................................... [Receive]
+     <c> - Send yourself a Carbon Copy when sending mail............ [CC]
+     <C> - Send yourself a Carbon Copy when mailing eXpresses....... [CC]
+     <E> - Hide enemies from the who list........................... [Show]
+     <f> - Follow up mode........................................... [Off]
+     <F> - Follow up mode at login.................................. [Off]
+     <m> - Pause after 24 lines of text............................. [Yes]
+     <M> - Check for people sending you a message upon logout....... [No]
+     <n> - Display room number before room name..................... [No]
+     <r> - Message reception status................................. [Accept]
+     <R> - Message reception status at login........................ [Accept]
+     <s> - Hold eXpress messages while reading posts................ [Receive]
+     <t> - Terminal Type............................................ [DUMB]
+     <T> - Prompt at login for Terminal Type........................ [Saved]
+     <l> - Allow use of terminal Highlighting attribute............. [Yes]
+     <L> - Allow use of terminal Flash attribute.................... [No]
+ctrl-<L> - Display starfield simulation when locked................. [No]
+     <e> - Expert mode.............................................. [Verbose]
+
+-----------------------------------------------------------------------------
+ 
+Ping locked this BrintaBBS session on Wed Sep 06 17:02:03 2000.
+ 
+Terminal has been locked for 11 Seconds.
+ 
+All control is transferred to JYS
+Hit <space> to enter password to get access again!
+ 
+Current users online: [16]
+Current connecting  : [0]
+ 
+-----------------------------------------------------------------------------
+<y>ell
+ 
+When you <y>ell (<y> at any prompt), your message is posted to a
+forum which the Sysops read when they log on.  The first one who
+has the knowledge and/or access privileges needed to solve the
+problem, answers or deals with the issue, then deletes the post
+so that others will not attempt to do so redundantly.
+ 
+ 
+Upon <y>elling, you will be presented with the following screen:
+ 
+Please choose from one of the following options.  The choices 1-4 will provide
+you with a quick overview for the standard procedure for common problems,
+which
+may save you the trouble of needing to Yell or make the process run smoother.
+ 
+Press <1> if you need further help with your validation key.
+Press <2> if you want to know how to change your BBS online name.
+Press <3> if you need information on age-verification procedures.
+Press <4> if you want to know what to do if you forgot your BBS password.
+ 
+Typing <Y> (shift <y>) will allow you to upload your note.
+ 
+A copy of your <y>ell will be forwarded to your Mail>.
+ 
+DO NOT <y>ell to be validated unless you have been on the system
+for a week, have not yet been validated, and do not understand
+why.  Doing so will only slow down the process.
+ 
+A <y>ell to the Sysops can take up to 24 hours to answer, so please be patient
+and do not repeatedly <y>ell asking if you have been heard.  You may wish to
+ask to send a Question to a system guide for help (hit 'Q') or ask in a
+general
+forum.  Please remember that Yells and Questions are intended for BBS-related
+questions only, not for general help with your computer or other Internet
+services.
+ 
+If you are in doubt as to whether your question is appropriate
+for a <y>ell, please read the topic "Wheretogethelp." 
+
+%%
+
+To change your ISCABBS account name:
+ 
+1)  <p>rofile the name you want to make sure it's not in use.
+ 
+2)  If you're in any invite-only forums, send Mail> to the Forum
+    Moderators of those forums and tell them that you're changing
+    your name.  Remember to tell them what your new name will be!
+ 
+3)  <y>ell to the Sysops, and tell them the new name you've chosen.
+    When a Sysop responds to the <y>ell, a new account will be created
+    for you under that name.  The new account will have the same
+    password as your old account.  Your old account will be automatically
+    marked for deletion.
+ 
+4)  If applicable, your Guide-flag and/or your age-verification will be
+    automatically transferred to the new account.  However, you may need
+    to toggle your Guide-flag on.  The first time you jump to Kama Sutra>,
+    or to any guessname forum, you will need to type the forum's full name.
+ 
+5)  If you are an FM, please note the name of the forum in your
+    <y>ell to the Sysops. 

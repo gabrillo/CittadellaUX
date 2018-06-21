@@ -1,0 +1,213 @@
+ 
+ Salotto, 23 Giu 2000 alle 16:09 - da Ric
+ Reply : noi democrats, msg #42 da Ping
+ 
+Per le votazioni forse si puo` far apparire un prompt al login che ti
+chiede se vuoi votare subito (richiede maggiori modifiche nella procedura
+di login) o piu` tardi tramite il comando apposito (o eventualmente
+ripetera` la richiesta al login successivo) oppure piu` semplicemente far
+emettere (automat) un post nella Lobby che annuncia la cosa e far usare
+il comando, molto piu` semplice, ma si rischia che qualcuno non legga il
+post.
+ 
+Se al momento dell'ok per il riconoscimento dell'utente venisse
+controllato anche se deve votare allora il prompt al login sarebbe una
+questione solo client e userebbe lo stesso comando. Boh, non e` urgente.
+ 
+*************************************************************
+ 
+ Salotto, 23 Giu 2000 alle 15:31 - da Ric
+ Subject : noi democrats
+ 
+molto in generale credo si possa pensare a come implementare dei referendum
+ 
+il quesito avrebbe un tempo di apertura (dal giorno al giorno) e potrebbe
+essere un qualunque quesito su cui gli aide decidono di consultare il popolo.
+al login ogni utente maggiorenne avrebbe la possibilita di esprimere un
+giudizio di astenersi o posporlo (eventualmente non votando affatto).
+ 
+allo scadere del tempo le statistiche relative al voto verrebbero postate
+nella Lobby dal programma stesso (wow la trasparenza) e la struttura del
+referendum eliminata dal corrispondente file..
+ 
+Non mi sembra troppo complesso..
+ 
+I criteri di diritto al voto andrebbero stabiliti (anzianita come
+utente, numero di post, o nulla del tutto.. questione spinosa li si
+potrebbe lasciarlo completamente configurabile da parte degli aide e
+cosi sarebbero loro a decidere eventualmente volta per volta quanto sono
+democratici)
+ 
+una struttura tipo dovrebbe contenere:
+il quesito
+la data di apertura
+la data di chiusura
+un vettore con il voto di ogni utente (ha votato si/no/bianca, non ha votato)
+i criteri di diritto al voto
+anzianita minima
+minimo # di chiamate
+minimo # di post
+minimo # di X
+ 
+----
+ 
+Bene io l'ho buttata li, penso farebbe contente (o azzittirebbe) molta gente
+e non credo sia particolarmente complesso (fra parentesi l'ho visto su
+ISCA qualcosa del genere o Brinta, boh, non ricordo)
+ 
+***************************************************************************
+
+ Salotto, 20 Giu 2000 alle 18:57 - da Ric
+ 
+sai di cosa si sente la mancanza? di 'ennemila messaggi sono stati
+inseriti mentre scrivevi...' tendo a perdermene alcuni.
+ 
+********************************************************
+
+ Salotto, 21 Giu 2000 alle 12:59 - da Ric
+
+se non sbaglio a livello generale le cose funzionano cosi:
+
+- server: attiva una connessione madre e attende il collegamento da parte di
+  un client. Se il client si identifica come personale ne ricava l'host dal
+  socket (almeno ci prova). Se e il client pubblico allora se lo fa dire
+  dal client stesso (perche si fida del fatto di averlo riconosciuto bene
+  come tale).
+
+- client personale: lo lanci da shell, si connette e finisce li.
+ 
+ ----------------------------------------------------------------------------
+
+Ipotesi:
+ 
+un processo puo cedere un socket ad un altro e dimenticarsene
+ 
+- il server apre due connessioni madre, una per chi usa telnet, una
+  per chi ha il client personale.
+ 
+- periodicamente controlla se ci sono connessioni, quelle con client
+  personale le tratta + o - normalmente (vedi poi), quelle dalla seconda
+  porta le tratta cosi:
+ 
+- ne ricava l'host (cosi lo sa da subito e il problema sparisce)
+- genera una chiave casuale
+- fa partire il client pubblico e gli passa la chiave casuale
+  come argomento e il socket di cui a quel punto si disfa)
+ 
+- quando alla prima connessione madre si ha un utente da localhost al
+  momento della identificazione se il client si identifica come pubblico
+  viene richiesta la chiave casuale (che finora non ha mai viaggiato sulla
+  rete fra l'altro). Il server ne verifica l'emissione e risale quindi
+  all'host dell'utente per cui l'aveva creata.
+ 
+------------------------------------------------------------------------------
+ 
+Vantaggi:
+ 
+- la configurazione delle due porte e identica nel nostro caso e nessun
+  intervento di root e necessario nel caso senza firewall.
+ 
+- il server controlla quasi completamente il tutto e il sistema dovrebbe
+  essere piu sicuro e meno casalingo.
+ 
+***********************************************************
+ 
+ Viva Cittadella!, 21 Giu 2000 alle 17:26 - da Ping
+ Subject : Documentazione
+ 
+Come avete sicuramente visto giocando con il vostro comando preferito <H>,
+Cittadella/UX ha un bel po' di documentazione, qualcosa preso dalla
+Emperor's piu' il manuale che ne spiega l'utilizzo. Ho cercato di
+impegnarmi, ma ovviamente mancano diverse cose, i tasti associati ai
+comandi sono in qualche caso cambiati, etc. e manca anche tempo.
+ 
+A mio avviso la documentazione e' molto importante, soprattutto se
+vogliamo riuscire a far rimanere qualche nuovo utente...
+ 
+Propongo percio':
+ 
+Una room Cittadoc> dove segnalare errori nella documentazione, omissioni,
+    e contributi originali da aggiungere. L'idea e' di avere un Room Aide
+    che raccoglie il tutto e tiene la documentazione aggiornata.
+    Inizialmente ci sara' un po' di lavoro, ma poi si trattera' solo di
+    fare il mantainer, e comunque se ci diamo tutti da fare la cosa non
+    dovrebbe essere tanto pesante.
+ 
+Una room Cittadella Help> dove chiedere aiuto sul funzionamento della bbs.
+    Anche qui il Room Aide ha il compito di raccogliere le domande e
+    risposte in una CittaFAQ che aggiungeremo alla documentazione.
+ 
+Infine ripropongo Cittapagina Web> per discutere la pagina web della bbs.
+    Il Room Aide in questo caso diventerebbe mantainer della home page
+    con tanto di accesso all'account BBS di ping.
+ 
+ 
+Propongo infine che le precedenti room vengano create solo dopo che
+qualcuno si sia offerto di fare il RA per la room.
+ 
+Sir Action parlava di fare pubblicita' alla bbs in vari modi: aspetterei
+che la BBS sia a regime e che i nuovi utenti possano trovare tutte le
+informazioni necessarie al funzionamento della BBS su una home page fatta
+per benino... cosi' magari qualcuno rimane...
+
+***************************************************
+ 
+ Aide, 21 Giu 2000 alle 18:08 - da Ping
+ Subject : Continuiamo qui che mail) fa casino...
+ 
+Il comando <B>ug Report lo voglio migliorare e' scomodo: voglio che metta
+i report in un file, che poi puo' venir letto da chiunque quando legge la
+BBS per verificare che il proprio bug non e' gia' stato notificato.
+ 
+Insisto allo stato attuale delle cose di avere i bug reports nella room
+Cittadella Bugs> della Emperor's, (1) perche' ci devono rimanere finche
+non vengono sistemati, e qui scrollerebbero dopo 4 giorni (2) ormai
+sembra una possibilita' remota, ma ricordiamoci che stiamo ancora
+testando Cittadella e che potrebbe crashare da un momento all'altro
+(3) Voglio un unico posto dove tenere i post, altrimenti ci impazzisco....
+Quando Cittadella avra' il suo mega di spazio a disposizione magari si
+sposta qui....
+ 
+**************************************************** 
+ 
+ Aide, 22 Giu 2000 alle 10:31 - da Ric
+ Subject : progetti vari...
+ 
+Su BRiNTA hanno da tempo implementato quelli che chiamano Helping Hands,
+sono utenti esperti che si mettono a disposizione dei nuovi in modo tale
+che ci sia quasi sempre qualcuno in linea a cui chiedere assistenza.
+ 
+Il quesito del nuovo utente viene immesso in modo simile ad un Xmsg, il
+server cerca poi fra gli  HHands connessi (non so che criterio usi fra
+questi, ma ne sceglie uno) e invia la richiesta di aiuto. L'HH risponde
+tramite Xmsg appena possibile. Gli HHs potrebbero avere una loro room in
+cui confrontarsi e in cui il server posterebbe la richiesta di aiuto in
+caso di nessun HH connesso al momento.
+ 
+Un HH potrebbe avere livello 5 direi..
+ 
+********************************************************
+ 
+ Aide, 22 Giu 2000 alle 10:51 - da Ping
+ Reply : ancora profile, msg #32 da Ric
+ 
+HH: si mi piace l'idea
+Qualche ritocco cosmetico va sicuramente fatto al profile e al resto...
+
+inoltre un flag per chiedere di non ricevere gli X mentre leggo i post
+(ma tenerli in coda)
+
+******************************************************
+ 
+ Aide, 22 Giu 2000 alle 10:55 - da Ric
+ Reply : profile, msg #33 da Ping
+ 
+direi che deve poter usare delete e move.. altrimenti non so cosa possa
+fare nella room tranne postare da room helper.. non gestisce il topic,
+non edita la room, non scrive le info, deve sottostare alle direttive del
+RA.. beh, che gli spetti almeno la bassa manovalanza, no?
+ 
+*******************************************************
+
+Manca il numero di messaggi lasciati in chat...
+

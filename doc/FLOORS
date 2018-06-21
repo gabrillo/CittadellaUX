@@ -1,0 +1,101 @@
+Dobbiamo testare il funzionamento dei floors. Questo significa non solo che
+non sono presenti bugs, ma che il comportamento sia naturale e funzionale.
+Percio', oltre a rintracciare bugs, e' benvenuto qualunque commento sulla
+praticita' dei comandi e ogni suggerimento di modifica.
+ 
+Un po' di concetti anzitutto: il floor raggruppa un certo numero di room.
+I nomi dei floors teminano con ':'. L'utente, configurando il client, puo'
+scegliere di usare i floors, o non vederli (nel qual caso tutto gli appare
+come prima). Se decide di vedere i floors, viene modificata la sua scanlist,
+in modo tale che con <g>oto (e tutti gli altri comandi per cambiare room)
+segua l'ordine dei floors invece che il vecchio ordine delle room. Ad
+esempio con <g>oto va nella prossima room del floor con messaggi nuovi, e se
+non ce ne sono cerca nel floor successivo, e cosi' via, fino al ritorno
+nella baseroom (Lobby).
+I floors possiedono inoltre la loro propria Floor Lobby] : e' una room
+speciale, distinta dal carattere ']' che ha il ruolo di 'lobby del floor'.
+Questa room non e' eliminabile, se non dopo la distruzione del floor, e
+rimane sempre come prima room del floor. Tuttavia e' editabile, e sta a chi
+gestisce il floor decidere se e' visibile a tutti (per babble, suggerimenti
+del floor, annunci, o altro) o visibile solamente ai room aides (non e'
+implementato, ma vorrei mettere la possibilita' di renderla visibile solo ai
+room aide di room che stanno nel floor.) e quindi usarla solamente a scopo
+di gestione del floor, o non usarla per niente.
+Il gestore del floor e' ovviamente il Floor Aide. E' stato creato l'apposito
+livello 7, tra room aide e aide, per costoro. Puo' diventare floor aide un
+qualunque utente validato, e viene portato automaticamente a livello 7 una
+volta designato. La cosa interessante, e' che il Floor Aide ha TUTTI i
+poteri dell'aide nel floor e nelle sue room: percio' puo' nominare room
+aide, editare le room, ma anche CREARE nuove room o distruggere delle
+vecchie room. Ovviamente i poteri del Floor Aide sono facilmente
+riconfigurabili, tuttavia mi piace dare il massimo del potere ai FA in
+quanto questo decentralizza il potere nella BBS. Ad esempio, potremo
+ottenere una bbs molto piu' dinamica, in quanto se un utente desidera una
+nuova room, invece di passare da room di suggerimenti, essere discussa,
+aspettare l'aide, etc. potra' semplicemente mandare un mail al floor aide e
+chiedergli di creare la room. Ma qui ci stiamo perdendo in questioni di
+gestione, che discuteremo piu' a lungo in un posto piu' appropriato.
+ 
+I comandi che avete a disposizione per gestire i floors sono i seguenti:
+ 
+<.Fa> (floor aide)   : per designare un nuovo floor aide per 
+                       il floor corrente.
+<.Fc> (floor create) : Creazione di un nuovo floor. Viene automaticamente
+                       creata anche la Floor Lobby corrispondente.
+<.Fd> (floor delete) : Elimina il floor corrente. Il floor di base (Piazza
+                       Centrale:) non e' cancellabile. Tutte le room ancora
+                       presenti nel floor vengono aggiunte in fondo al
+		       floor Piazza Centrale:, compresa la Floor Lobby].
+		       La configurazione della Floor Lobby] viene tuttavia
+		       modificata, rendendola cosi' cancellabile.
+<.FE> (floor edit info) : Edita le floor info.
+<.Fi> (floor info)      : Legge le floor info.
+<.FI> (floor info dettagliate) : Legge le floor info con piu' dettagli
+<.fl> (floor ist)       : Lista dei floors presenti con alcune informazioni.
+<.fm> (move room)       : Cambia floor per la room corrente. La room finisce
+                          in fondo alla lista di room del suo nuovo floor.
+			  Non e' possibile spostare la Floor Lobby] (anche
+			  se non sono sicuro di aver implementato questa cosa.
+ 
+Mancano due comandi fondamentali: il Floor Goto, che permette di andare
+nella prima room conosciuta (o con messaggi nuovi) di un determinato floor,
+e un comando per scambiare la posizione di due room all'interno dello stesso
+floor (il comando <.as>wap rooms non influisce sulla posizione delle room
+nei floors, ma solo nella march list nel caso in cui si configura il client
+per non vedere i floors.). Poi ovviamente il comando per scambiare di
+posizione tra due floors. E il comando Floor Edit. Tutta roba che pero'
+terminero' molto presto.
+ 
+Veniamo finalmente al punto: cosa bisogna fare per i test? Creare/distruggere
+un fottio di floors e room, spostare room da un floor all'altro, postarci
+dentro e verificare che la march list funziona correttamente anche nei casi
+piu' strani. Creare altri utenti di test, e farli floor aide per vedere se
+hanno accesso a tutto cio' che gli spetta e nulla di piu'. E in particolare
+vedere se vi piace il layout, se e' comodo da usare, se modifichereste
+alcuni comportamenti della march list o dei comandi, etc...
+ 
+Un'ultima cosa, IMPORTANTE: per favore non toccate i floors Piazza
+Principale: e Sviluppo: e le room che vi sono in essi! grazie.
+ 
+E allora, buon lavoro!!!
+
+
+______________________________________________________________________________
+  Rappresentazione scematica della struttura dei floors.
+ 
+                                floor_list
+                     first  /               \   last
+                          /                   \
+              prev     |/                       \|      next
+         NULL <--- floor <--> floor <--> ... <--> floor ---> NULL
+                   |   |
+                   |   |-> foor_data (Struttura con i dati del floor)
+             rooms |
+                  \|/
+  NULL <--- f_room_list <--> f_room_list <--> ... <--> f_room_list ---> NULL
+       prev       |                |                         |     next
+                 \|/              \|/                       \|/
+                 room             room                      room
+
+
+%----------------------------------------------------------------------------%

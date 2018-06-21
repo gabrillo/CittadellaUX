@@ -1,0 +1,495 @@
+- Followup a X con recipiente multiplo deve rispondere a tutti.
+- sistemare i blog
+- sistemare file allegati
+
+
+
+                             *---| TODO LIST |---*
+
+
+NOTE DI SVILUPPO
+* Memory leak se una connessione cade: controllare.
+* Rendere funzionante la BBS con MEMSTAT non definito, sistemare memstat.
+- coda input delle sessioni nel server deve contenere l'INTERA stringa in
+  arrivo, altrimenti cade la connessione. Mantenere per ora MAX_STRINGA
+  grosso; modificare elabora_input() per ricevere un po' alla volta.
+- CONTROLLARE msg_load_data() e msg_save_data(), in particolare per vedere
+  se e' necessaria una routine di conversione.
+  Sono stati aggiunti un vettore con fmnum e due long con highmsg e highloc
+  Per effettuare la transizione in modo morbido, highmsg e highloc vengono
+  registrati anche in room->data, ma andranno eliminati nella 0.4.1
+- sto eliminando highmsg e highloc dalle room data, e le infilo nella
+  struttura msg. Terminare la conversione, controllare la consistenza.
+  permettere l'accesso a questi dati solamente attraverso funzioni specializzate
+  e nascondere quindi l'implementazione dietro all'interfaccia.
+- Verificare che il file messaggi di base #0 e' ok o se tocca iniziare da 1.
+
+CRASH
+* se mi chiedo di loggarmi quando ho gia' una sessione attiva e la voglio
+  eliminare, e inoltre questa e' l'ultima sessione della lista_sessioni,
+  si verifica un crash del server.
+
+URGENTI
+* Liberare file dei messaggi scrollati e/o sovrascritti
+
+POP3
+- Sistemarlo
+
+COLORI
+- funzione set_usercolor()
+
+CITTAWEB
+- Nell'indice, mettere anche la lista delle room NON accessibili da web
+- nelle room scrivere chiaramente quanti messaggi sono presenti nella BBS
+- Mettere la roba comune del CSS in un CSS_COMMON
+
+LETTURA MESSAGGI & METADATA
+- Leggere file testo col pager interno, nuovo mime type .cml
+- Spoiler: farne un allegato.
+
+EDITOR
+* Sistemare Yank (Ctrl-G) che non funziona bene....
+* Aggiungere Ctrl-T e Meta-i all'help F1 e quello per lo YANK
+* backspace inizio riga permette di tirarsi indietro parole di un char troppo
+  lunghe
+- Decidere quale tasto associare allo YANK
+- il carattere NOBREAK_SPACE (ascii=160) sputtana il terminale... sembra..
+- Possibilita' scelta autosave editor da config client
+- creare libreria indipendente per il cittaeditor
+  => cittaless, citteditor
+- tab completion per path file
+
+FILE MESSAGGI
+* Controllo al caricamento delle room che il FM corrispondente esiste,
+  altrimenti metterle nel FM basic
+- Comando per cambiare FM associato a una room
+
+BLOG
+* Quando entro nel blog la prima volta, appare un numero di post etc strani
+- Rendere il cestino compatibile con i blog?
+- Owner deve poter editare parte della config room...
+- Casa: prima di tornare in Lobby (se l'opzione e' attivata)
+- Who: [A Casa Sua]  [In Visita da un altro Utente]
+- comando .eb per postare direttamente nel proprio blog?
+
+FIND
+- Usare in save_post() un find_insert che usa gia' i dati noti.
+- find dice se non e' possibile cercare nella room!
+- Se il find viene disattivato, allora togliere la room dall'indice?
+
+FILESERVER
+* Flag per upload solo da room aide
+* Progress bar del download non arriva sempre in fondo...
+- Quando i post vengono sovrascritti, oppure vengono scrollati, eliminare
+  i file associati.
+- Sistemare l'argomento mdlist per tutte le occorrenze di get_text_full()
+
+ROOMS
+* Sistemare room->data->type, in particolare greppare ROOM_DYNAMICAL
+* room_known() deve essere aggiornato per funzionare coi blog
+- delegare room_type() al client
+- considerare la possibilita' di migrare completamente la gestione del fullroom
+  e dei flag utente associati alla room al sistema dfr (quello dei blog)
+- Quando zappo una room ad invito non perdo l'invito. Bisogna dare la
+  possibilita' di togliere l'invito.
+- who knows room
+* Se un utente e' cacciato da una room, puo' comunque scriverci e leggerla
+  finche' non ne esce.
+* Non so se e' voluto, ma dopo un kickout dalla BBS rientrando trovo tutti i
+  messaggi non letti.
+
+POST
+* Sostituire t->reply_to (nome utente) con la rispettiva matricola.
+* Non e' permesso il carattere "|" nei subject.
+  Sistemare il formato dell'header, in modo da permettere questo carattere
+  e il CML.
+- CML (almeno accenti) nel subject (problemi col formato dell'header nel
+  file dei messaggi pero`; da fare con cautela).
++ <#> e <$> per andare avanti/indietro nel thread dei reply come in Emperor's
+* Sostituire "System" con fork+exec cosi' da evitare link maligni.
+
+EMAIL
+- Al boot invia via email tutti i mail/blog nuovi al proprietario
+- Possibilita' di inviare un Email a tutti gli utenti (per notificare
+  shutdown, cambiamento di indirizzo etc.)
+
+MAIL
+- Mail multipli
+- Risposta di gruppo a mail multipli.
+- Reply a post in Salotto, Aide, etc, finisce anche in mailbox utente.
+- Carbon copy dei mail in Mail) al proprio indirizzo Email.
+- Mail: possibilita' di forwardare un mail (<F> da prompt di lettura?)
+- Comando per postare un mail da una room qualunque?
+
+EXPRESS-MESSAGES
+* sistemare i multi-recipient X.
+- Diario X: permettere il forward dei messaggi
+
+X & CHAT
+- CML nella chat. Editor CML per la chat (line editor).
+- Usare l'editor interno nuovo per gli express message.
+
+SASSATE
+- *** Compare Orso ha tirato una sassata a Gabrillo.
+  *** Compare Orso ti ha tirato una sassata.
+  Dopo dieci sassate, la connessione cade.
+  Hall of Shame dei lapidati
+  *muore lapidato*
+  "Oops, la connessione di Gabrillo e' franata."
+
+NOVITA'
+- implementare il Tip of the Day.
+- Implementare le medaglie. Comando per crearne una nuova, distruggerla,
+  assegnarne una a un utente e togliergliela.
+- Clipboard per editare degli appunti, con la possibilita' poi o di dumparla
+  nell'hold, o postarla direttamente o inviarla come X
+- Yell to sysop (invia mail a S, A, FA, RA; Cancella account; Ripristina
+  account; cambia nickname)
+
+AIDE & SYSOP COMMANDS
+- .arr: da allineare meglio la lista delle room per stanze con più di 9999
+  messaggi inseriti (ad oggi solo Chiacchiere>) Aggiungere info DIR_ROOM
+
+ALTRI
+* problemi col server se edito il profile (perdo sincronia?)
+* Mettere versione server nei log al boot
+* HWHO: idle+chat -> nome utente sfora
+* Problema ad inserire col jump il nome di una room con la virgola!
+- riorganizzare directory tree del client.
+- room->data->highmsg e room->data->highloc sono inutilizzati ma c'e' uno
+        schifo nel load/save delle room che lo usa.
+- In generale fare attenzione con le room virtuali perche' possono non avere
+  room->msg definito.
+- Usare CML per i messaggi e file di help. Viene usato il CML se il
+  file inizia con <cml> e termina con </cml>, altrimenti lo considera
+  raw text.
+- Lock Terminal: informazione numero utenti e tempo trascorso
+  --> screen savers?
+
+NOTE:
+- size_t is long unsigned int in Mac OS X
+
+
+*******************************************************************************
+
+
+ Suggerimenti, 23 Giu 2005 alle 11:49 - da Furjo
+ Subject: tempi differenziati nelle stanze monopost
+
+Beh dipende: se vuoi fare stanze "a risposta immediata" come Libera
+Associazione e stanze più lente ma monopost (magari una stanza di giochi dove
+è importante che ognuno legga tutti i messaggi precedenti prima di scrivere il
+suo, tipo per scrivere un romanzo a puntate) i tempi differenziati servono.
+
+
+                                                                               
+ Suggerimenti, 23 Giu 2005 alle 11:50 - da Furjo
+ Subject: ultimo post scritto nel <p>rofile
+
+Mi piacerebbe vedere nel profile (o in una who list alternativa) il nome
+della stanza dove l'utente ha lasciato l'ultimo post non anonimo.
+ 
+
+*******************************************************************************
+
+
+Tipi di room
+
+                DINAMICO  FULLROOM
+NORMALI            N          Y
+MAIL               N          Y
+BLOG               Y          Y
+FIND               Y          N
+
+Lo skip setta sempre il fullroom al messaggio corrente, anche se questo
+era gia' vecchio da mo'...
+
+- nel who
+14:59 Ilnomepiulungodelmondo!!+  :Ilnomepiulungodelm gw-external.cribecu.sns.it 
+
+Login        Nome Utente               Room               Da Host/[Doing]
+----- ------------------------- ------------------- ----------------------------
+14:45 Ilnomepiulungodelmondo!!.  Lobby               gw-external.cribecu.sns.it 
+14:41 Gabrillo                  Lobby               nat1.venere.tdnet.it     
+
+- Cambiando i dati valgrind mi dice:
+URL della Home Page []:
+==14533==
+==14533== Source and destination overlap in strncpy(0x9C5FE130, 0x9C5FE130,
+64)
+==14533==    at 0x3414C556: strncpy (mac_replace_strmem.c:113)
+==14533==    by 0x807487B: new_str_def_m (utility.c:141)
+==14533==    by 0x8073B7A: edit_user (utente_client.c:682)
+==14533==    by 0x804A10B: ciclo_client (cittaclient.c:411)
+
+
+Next Releases: (* veloci da fare, + importante, - puo' aspettare, ~ bugs)
+^^^^^^^^^^^^^^
+- Comando .Sysop Tortura utente per il prossimo client neurale.
+- /Cittadella/cvs/cittadella/client/bin$ ./cittaclient -lNu "Mr Test\n"
+  incasina il server
+- Se io inizio il mio doing con un colore non-hilighted, e continuo con
+  lo stesso colore hilighted, il risultato e' tutto hilighted.
+- <r>eply in Mail) quando si riceve una Mail generata con <r>eply, essa
+  porterà nell'intestazione il numero del messaggio a cui il mittente ha
+  <r>isposto, numero che pero' si riferisce alla Mailbox del mittente, e
+  non del destinatario, e quindi e` assolutamente inutile per capire a quale
+  messaggio abbia davvero risposto.  Mi spiego meglio: io (A) mando una mail
+  a B. Essa avrà ad esempio numero 123 nella mia mailbox ma numero 456 nella
+  mailbox di B. Quando questi risponderà, mi manderà dunque una mail che
+  riporterà nell'intestazione: Reply: <soggetto>, msg #456 da A ma il numero
+  456 non mi aiuta in alcun modo a capire a quale messaggio abbia in realtà
+  risposto, perché nella mia mailbox è il messaggio 123.
+- Subject : rifiutare gli X messages il controllo viene fatto al momento
+  dell'inizio del messaggio, non dell'effettivo invio.  per cui se il
+  destinatario sospende la ricezione dei messaggi dopo che qualcuno ha
+  cominciato a scrivergli, il messaggio X verrà ugualmente recapitato.
+- Comando per vedere header del messaggio corrente, in particolare per
+  poterlo cancellare con un .Sfd
+- Puntatore a annuncio nuovo sondaggio nei dati urna. Il post viene
+  cancellato in caso di eliminazione del sondaggio con post di notifica
+  in aide.
+- Aggiungere porta client remoto alle INFO e far dire al client se e`
+  obsoleto a che porta si trova il client remoto.
+- dump messaggi in html usando html2cml, con variabile di configurazione
+  in cittaclient.rc
+- Implementare il raffreddore. Comando <T>occa altro utente.
+- Quando viene immesso un testo con l'editor esterno (in cml o no), prima
+  di inviarlo al server andrebbe formattato per non superare i 79 caratteri
+  per riga (facendo attenzione ai tag cml).
+- sistemare i '\n' dove chiamo cml_print (usare <br> ?)
+- Aggiungere in cittadella.rc BOLD, ANSI_COLORS, keymapping, colori...
+
+- per sicurezza extract_int() e extract_long() dovrebbero usare extracta().
+- Considerare la possibilita' di un extract in cui \| corrisponde al
+  carattere '|' e non a un delimitatore => posso usare '|' nel doing, etc...
+- aggiungere delle slot per client alternativi.
+
+~ rendere --username case-unsensitive.
+~ se arriva notifica "nuovo post" quando ho gia' finito di leggere i post
+  questa viene visualizzata troppo tardi (insomma..)
+~ Se arriva un messaggio mentre digito un dot comand, il dot command deve
+  essere riproposto quando riappare il prompt.
+~ Il server deve controllare la lunghezza delle righe dei messaggi, non
+  solamente il numero di linee
+~ E' possibile inviare mail anonimi con connessione diretta alla porta 4000
+
+~ verificare lungh max stringhe in tab_completion
+~ Problemi lungh nomi room e tab completion e goto...
+  (provare a creare una room con lungh massima del nome per crederci!)
+~ Flag 'Zapped' nelle known rooms
+~ Routines march e known room.
+~ '#' controllo argomento client; a livello server non deve restituire
+  errore se il messaggio e' nel fm ma e' stato sovrascritto...
+
+- Comando <P> per avere profile dettagliato.
+- Opzione config per ricevere i messaggi o meno al prompt di lettura.
+
+- Avverte al login prompt se lo shutdown e' in corso. Se mancano meno di 5
+  minuti allo shutdown chiede di riprovare dopo.
+- Se si fa <del> dopo <.s> annulla lo skip e riporta a <.>
+- Flags (Xmsg, Helping Hands) nella <w>ho-list
+- case unsensitive tokens in cittacfg.c
+- strdup -> strndup in cittacfg.c
+- sostituire new_str_def_M e new_str_def_m con macro e implementarle un'unica
+  volta.
++ Inviare al login con configurazione server anche # friends.
+- mettere a posto cmd_rgst() in utente_cmd.c
++ Ristrutturare struttura utente:
+  - utente->lasthost 256 bytes!! accorciare!
+  - Estendere struttura utente (compleanno, timezone)
+       -> auguri quando e' il compleanno.
++ sostituire atoi() e atol() in server con strtol
++ controllo sul numero di righe di un post. Se con l'editor esterno supero il
+  limite, mi avverte e chiede se voglio postarlo troncato. Magari lascia il
+  resto nel buffer dell'hold.
+- Profile myself: evidenziare i campi che non sono pubblici.
+* Disattivare <.Sfh>
+- Statistiche server globbali (vedi sotto)
+- aggiungere al log delle nuove connessioni se si tratta di client locale.
++ Postare i Bug reports in Bugs>, loggarli in apposito file.
+- Rivalidazione se viene modificata la registrazione (email)
+- ristrutturare la gestione degli errori dalla parte del client.
+  ridefinire in modo furbo i codici di errore in comm.h
+- Gestione di piu' possibili server, tenere i loro indirizzi in
+  .cittaclientrc e possibilita' di cambiare server da client
+* Irrobustire il protocollo dell'header dei messaggi nel file dei messaggi. 
+* Completare crash_save_perfavore()
+* Quando viene modificata la configurazione del server, la nuova
+  configurazione deve essere notificata a tutti i client.
+* La % di vita online non viene aggiornata correttamente mentre l'utente e'
+  collegato.
+* La gestione delle password con <crypt.h> non funziona.
+* Il mail di validazione deve contenere anche il nome dell'utente che si
+  valida.
+* Se una guess room viene modificata mentre un utente ci sta scrivendo,
+  questo viene spedito in lobby e posta li' anche se non ha il livello
+  richiesto. Fare qualche controllo in piu'.
+* file_messaggi.c: Non tiene conto di fm->nmsg e fm->ndel.
+
+Comandi Nuovi:
+^^^^^^^^^^^^^^
+- Comando <V> per la validazione automatica.
++ Comandi di configurazione interna della bbs (lock utenti etc...)
+
+Bug Fix vari da fare:
+^^^^^^^^^^^^^^^^^^^^^
+
+General (probably in the 0.3 developement tree):
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+* crypted connection.
+* FTP protocol & Directory rooms. (esiste una proposta di implementazione)
+* Multi-language support.
+* Multi-server comunication (Mirroring?)
+* Cambiare server (anche senza il multiserver)
+- proxy_cittaclient
+* Reminder + Sveglia (La sveglia si puo' fare locale nel client)
+* bansite + bandomain
+* Lista di attesa e numero massimo di connessioni
+* Mailing list rooms? permette con un mail di lasciare un post, e se iscritto
+  si ricevono via mail i post che vengono lasciati da altri utenti.
+* search con regexp nel pager.
+* Dopo un tempo (lungo: 3 mesi? sei mesi?) di assenza manda un mail
+  all'utente chiedendogli che fine ha fatto, uno alla settimana. Quando e'
+  passato un altro mese, elimina l'account.
+* Helping Hands (li chiamiamo Cittadella Guru?)
+- screensavers!
+- Terminfo
+
+Aggiungere alle statistiche del server:
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+- tenere le statistiche di connessione sulla settimana e non totali
+- Numero di Login Banners presenti.
+- Utente con piu' post, piu' X, piu' connessioni, + rapporti P/C X/C X/P.
+- Utente che ha sprecato la % di vita maggiore su cittadella,
+  e quello con un tempo di connessione maggiore
+- Qualcosa tipo 14 utenti hanno lasciato il 90% dei post?
+- Client locale: statistiche indipendenti per ogni tipo di client
+- Proxy client: statistiche per ogni uno
+
+Lettere inutilizzate per comandi:
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+G I J L N T Z m o q y ! # ^ & * ( ) _ = + \ |
+<#> --> Read message #
+<P> --> Profile myself
+<*> --> block notes menu
+<!> --> menu sveglia/reminder
+Togliere <O> modifica password di un utente
+<S> shutdown del server (magari potrebbe diventare server statistics)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  Cittadella/UX 0.1.16                                Connessione #27498
+  Povo, Italia                                Ci sono 172 utenti su 4563
+
+     ____                                  _   _       _
+    | __ )  ___ _ ____   _____ _ __  _   _| |_(_)     (_)_ __
+    |  _ \ / _ \ '_ \ \ / / _ \ '_ \| | | | __| |     | | '_ \
+    | |_) |  __/ | | \ V /  __/ | | | |_| | |_| |     | | | | |
+    |____/ \___|_| |_|\_/ \___|_| |_|\__,_|\__|_|     |_|_| |_|
+ 
+     ____ _ _   _            _      _ _         ____  ____ ____
+    / ___(_) |_| |_ __ _  __| | ___| | | __ _  | __ )| __ ) ___|
+   | |   | | __| __/ _  |/ _  |/ _ \ | |/ _  | |  _ \|  _ \___ \
+   | |___| | |_| || (_| | (_| |  __/ | | (_| | | |_) | |_) |__) |
+    \____|_|\__|\__\__,_|\__,_|\___|_|_|\__,_| |____/|____/____/
+ 
+ 
+  Cittadella BBS: Benvenuti nel mondo reale!
+  Banner 2; (o una riga vuota)
+  Banner 3; (oppure niente riga)
+ 
+Inserire il nome che si vuole utilizzare presso la bbs oppure 'Ospite'
+nel caso si voglia solo dare un'occhiata ('Esci' chiude la connessione).
+ 
+Nome    :   
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ Salotto, 13 Lug 2000 alle 13:51 - da Ric
+ Subject : idea 1
+ 
+semplice da programmare credo, indipendente dal resto dello sviluppo, non
+richiede modifiche alle strutture attuali e penso abbastanza utile.
+ 
+servono un file esterno in piu' (tipo quello dei referendum, con una serie
+di strutture analoghe e una routine da eseguire al boot.
+ 
+con un comando apposito (ad esempio <R>eminder, non mi sembra la R sia
+utilizzata ora) si inserisce una data (che si verifica sia almeno quella di
+domani, basta la data del giorno senza orario) e un breve testo (max 5 linee).
+ 
+Utente, data e testo vanno in una struttura e con quella nel file.
+ 
+al boot il file viene scorso, se un qualche reminder scade in data odierna
+l'utente riceve il testo in un mail da Cittadella BBS con subject Reminder
+(o Promemoria) con il testo che aveva lasciato e la struttura viene eliminata.
+ 
+----
+ 
+Eventuale aggiunta:
+Comando per la lettura degli eventuali reminder in sospeso. Al prompt di
+lettura l'utente puo' decidere di editare o eliminare il Reminder (cosa che
+dovrebbe essere piuttosto semplice se li abbiamo tutti ancora in ram.. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+ Salotto, 13 Lug 2000 alle 14:07 - da Ric
+ Subject : idea 2 *eheh*
+
+Questa e' da rimandare alla futura modifica della struttura utente..
+
+con un apposito comando si inserisce un tempo in ore/minuti (che il server
+convertira' in tic-tac e schiocchera' nella struttura utente). Ad ogni ciclo
+se questo tempo e' non nullo viene decrementato, se si annulla l'utente riceve
+una specie di X. Alla disconnessione questo tempo viene comunque annullato.
+
+Eventualmente ci si puo' aggiungere un testo di una ventina di caratteri (da
+cancellare anch'esso al logout) cosi' da avere un risultato tipo:
+ 
+*** DRIN! Sono le 12:30  : Ti si scuoce la pasta.
+ 
+Si puo' settare una sola sveglia che annulla l'eventuale precedente. Se
+l'utente e' idle, impegnato, lockato sono cavoli suoi.. 
+
+%%%%%%%%%%%%%%%%%%%%
+
+ Salotto, 22 Giu 2000 alle 18:12 - da Ric
+ Subject : statistiche
+ 
+ma un dato tipo
+ 
+Massimo numero di utenti contemporaneamente connessi :
+193 utenti il 14/03/2001 alle 16.30
+ 
+non sarebbe una pippa? avrebbe anche un valore molto storico...
+
+_____________________________________________________________________________
+man console_codes
+_____________________________________________________________________________
+Make your personal information hidden? (Y/n): Yes.
+
+Enter new password to use (maximum of #8 characters): *
+Re-enter password: *
+
+
+Does your terminal-emulator support ANSI color codes? (y/N): Yes.
+
+Foreground test: white | red | green | magenta | blue
+Background test: white | red | green | magenta | blue
+
+Do you see multiple colors in the above two lines? (Y/n): Yes.
+
+Continuing using ANSI terminal mode.
+
+Save current terminal type or ask for type on each logon? (s/A): Saved.
+
+
+*** Bark!! Bark!!! Your watchdog noticed something at 14:11! ***
+Your account has been validated by a validator.
+
+
+- <.aep> -> (MEM Free not recognized pointer.)x2 + modificare testo
+  visualizzato dal client...
+- Comando <P> per avere profile dettagliato.

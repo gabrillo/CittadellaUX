@@ -1,0 +1,6 @@
+/****************************************************************************
+* Cittadella/UX client                   (C) M. Caldarelli and R. Vianello  *
+*                                                                           *
+* File : messaggi.c                                                         *
+*        Comandi di gestione dei messaggi nelle room.                       *
+****************************************************************************/

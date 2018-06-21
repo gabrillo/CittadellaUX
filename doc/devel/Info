@@ -1,0 +1,50 @@
+
+Cittadella Sviluppo>
+ 
+ Questa room e' dedicata allo sviluppo del software Cittadella/UX,
+ che viene utilizzato per far girare Cittadella BBS>.
+ 
+ Potete postare qui ogni tipo di suggerimento, sia per rendere piu'
+ piacevole e amichevole l'interazione tramite il client, sia per
+ proporre l'implementazione di nuovi comandi e nuove possibilita'.
+ 
+ Sfogate la vostra immaginazione!!
+ 
+ Regole:
+ 
+ - I bachi di Cittadella/UX vanno notificati nella room Cittadella Bugs>.
+ - La gestione e lo sviluppo di Cittadella BBS (rooms, etc...) vanno
+   discussi in Viva Cittadella!>
+ - I flames vanno in Flames> (tautologico, ma da non dimenticare)
+
+-----------------------------------------------------------------------
+
+Cittadella Bugs>
+ 
+ In questa room potete segnalare i bachi che avete riscontrato
+ utilizzando Cittadella BBS.
+
+ Prima di fare un bug report, cercate di capire se il baco che avete
+ trovato e' riproducibile, e poi descrivete sinteticamente le
+ operazioni che portano al comportamento sballato di Cittadella.
+ 
+ Cercate di dare tutte le informazioni in vostro possesso che possono
+ aiutare a capire l'origine del problema.
+ 
+ Regole:
+
+  - L'assenza di un comando o di una feature non e' un bug: limitatevi
+    a suggerirne l'implementazione in Cittadella Sviluppo>.
+  - Prima di segnalare un baco, rileggetevi i Bug reports presenti, per
+    evitare di notificarne uno gia' noto (a meno che non abbiate nuove
+    informazioni a proposito).
+  - Siate educati nelle vostre segnalazioni, altrimenti andate in Flames>.
+ 
+ Nota: E' possibile inviare un Bug Report con il comando <B>. Presto
+       i bug reports verranno automaticamente postati anche qui, ma
+       nel frattempo vi consiglio di postare direttamente le vostre
+       segnalazioni, affinche' siano visibili a tutti.
+ 
+
+ 
+ 

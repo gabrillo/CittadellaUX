@@ -1,0 +1,16 @@
+
+			Ho beccato un piccolo problema che mi complica
+			le cose per contare i votanti...
+			La funzione che controlla se un utente conosce
+			una stanza, room_know
+			ha come parametri un puntatore a 
+			sessione e la room.
+			 
+			Quando conto i possibili votanti, non posso
+			passare la sessione, ovviamente, perch l'utente
+			potrebbe non essere collegato.
+			 Direi che per ora tolgo il controllo, e considero
+			 come votante anche chi non conosce la room...
+			 
+			 A meno che non ci siano altre funzioni. (O
+			 di non farlo a mano)

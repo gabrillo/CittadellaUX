@@ -1,0 +1,40 @@
+CTRL-A  1
+CTRL-B  2
+CTRL-E  5
+CTRL-F  6
+CTRL-G  7
+CTRL-H  8
+CTRL-I  9
+CTRL-K 11
+CTRL-L 12
+CTRL-N 14
+CTRL-O 15
+CTRL-P 16
+CTRL-T 20
+CTRL-U 21
+CTRL-X 24
+CTRL-Y 25
+
+Backspace 127
+ESCAPE     27
+
+Cursor Up   : 27 91 65  ESC+"[A"
+Cursor Down : 27 91 66  ESC+"[B"
+Cursor Right: 27 91 67  ESC+"[C"
+Cursor Left : 27 91 68  ESC+"[D"
+
+Home        : 27 91 49 126  ESC+"[1~"
+Insert      : 27 91 50 126  ESC+"[2~"
+Delete      : 27 91 51 126  ESC+"[3~"
+End         : 27 91 52 126  ESC+"[4~"
+Page Up     : 27 91 53 126  ESC+"[5~"
+Page Down   : 27 91 54 126  ESC+"[6~"
+
+F1 : 27 91 91 65
+F2 : 27 91 91 66
+F3 : 27 91 91 67
+F4 : 27 91 91 68
+F5 : 27 91 91 69
+F6 : 27 91 49 55 126
+F7 : 27 91 49 56 126
+F8 : 27 91 49 57 126

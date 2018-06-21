@@ -1,0 +1,159 @@
+ 
+Comandi del server
+------------------
+ 
+Un numero indica in che file si trova:
+ (1) cittaserver.c   (2) utente_cmd.c   (3) sysconfig.c   (4) x.c
+ (5) room_ops.c      (6) generic.c      (7) fm_cmd.c      (8) messaggi.c
+ (9) mail.c         (10) urna.c        (11) march.c      (12) banner.c
+(13) floor_ops.c     (*) da implementare
+ 
+AVAL (2)  Auto-validazione dell'utente mediante validation key
+BEND (4)  Broadcast END: spedisce il broadcast
+BIFF (9)  Chiede al server il numero di nuovi mail
+BRDC (4)  BRoaDCast
+BREG (2)  Mette l'utente nello stato di registrazione
+BUGB (1)  BUG report Begin
+BUGE (1)  BUG report End
+CASC (4)  Chat ASColta: entra in un canale di chat
+CEND (4)  Chat END: spedisce il messaggio nella chat
+CFGG (2)  Get user ConFiGuration
+CFGP (2)  Put user ConFiGuration
+CHEK (2)  Invia al client dei dati sull'utente
+CLAS (4)  Chat LAScia: esce dal canale di chat
+CMSG (4)  Chat: messaggio in chat
+CUSR (2)  Caccia USeR: caccia dalla BBS un utente connesso
+CWHO (4)  Chat WHO: Lista degli utenti connessi ai canali chat
+ECHO      Invia un testo al client
+ESYS (3)  Edit SYSconfig: modifica la configurazione del server
+EUSR (2)  Edit USeR: modifica i dati di un utente
+FAID (13) Floor Aide   (AIDE ONLY)
+FDEL (13) Floor Delete (FLOORAIDE ONLY)
+FEDT (13) Floor Edit   (FLOORAIDE ONLY)
+FLST (13) Invia la lista dei Floor con la loro configurazione (FLOORAIDE
+ONLY).
+FMCR (7)  Crea un nuovo file messaggi (SYSOP ONLY)
+FMDP (7)  Delete Post (fmnum, msgnum, msgpos) (SYSOP ONLY)
+FMHD (7)  Restituisce la lista degli headers di un file messaggi (SYSOP ONLY)
+FMRI (7)  Read info on file messages (SYSOP ONLY)
+FMRM (7)  Elimina un file messaggi (SYSOP ONLY)
+FMRP (7)  Legge il messaggio con dati pos. e num. da un FM. (SYSOP ONLY)
+FMVR (13) Floor Move Room: Cambia floor alla room corrente. (FLOORAIDE ONLY)
+FMXP (7)  Espande un file messaggi (SYSOP ONLY)
+FNEW (13) Crea un nuovo floor (AIDE ONLY)
+FRDG (2)  Get Friend-list
+FRDP (2)  Put Friend-list
+GMTR (2)  Get Matricola: restituisce la matricola o zero se l'utente non
+esiste
+GOTO (11) Goto commands (Goto, Jump, Skip, Abandon, etc...)
+GREG (2)  Get REGistration: spedisce la registrazione dell'utente al client
+GUSR (2)  Get USeR: spedisce i dati di un utente al client
+GVAL (2)  Genera Validation Key
+HELP (6)  <H> Invia al client il file di Help
+HWHO (6)  <W> Lista Connessioni (Nome+Host+Ora connessione)
+INFO (6)  Spedisce al client le informazioni sul server
+KUSR (2)  Kill USeR: Elimina definitivamente un utente
+LBAN (12) Get full Login Banner (server info + Logo + Login Banner)
+ ***LBCH (12) Create Hash table for login banner
+ ***LBAD (12) Add Login Banner
+LBEB (4) Login Banner Edit Begin
+LBEE (4) Login Banner Edit End
+LBGT (12) Get Login Banner file
+LSSH (6)  Subshell locale per l'utente.
+LTRM (6)  Lock del terminale
+MCPY (8)  Copia il messaggio corrente in un'altra room
+MDEL (8)  Cancella il messaggio corrente
+MMOV (8)  Sposta il messaggio corrente in un'altra room
+ ***MSGS (6)  Messaggi standard
+MSGI (6)  Richiesta messaggi standard e files di help
+NOOP      NO OPeration
+NWSB (4)  Begin trasmissione News
+NWSE (4)  End trasmissione News
+PRFB (4)  Begin edit profile personale dell'utente
+PRFE (4)  Fine Edit Profile
+PRFG (2)  Legge il profile personale di un utente
+PRFL (2)  Invia al client il profile dell'utente richiesto
+PSTB (4)  Inizializza l'invio di un post
+PSTE (4)  Fine Post
+ ***PSTS (4)  Fine Post a Sysop, Aide o RA
+PWDC (2)  Check password
+PWDN (2)  New password
+PWDU (2)  Change password to an user
+QUIT (2)  Logout dell'utente
+RAID (5)  Setta Room Aide per room corrente
+RDEL (5)  Cancella una room
+READ (8)  Legge un post
+REDT (5)  Room EDiT
+RGST (2)  Riceve i dati dell'utente dal client e modifica la struttura dati_ut
+RIEB (4)  Room Info Edit: Begin
+RIEE (4)  Room Info Edit: End
+RINF (5)  Read INFo sulla room corrente
+RINV (5)  Room INVite user
+RIRQ (5)  Room Invite ReQuest
+RKRL (5)  Read Known Room List 
+RLEN (5)  Modify Room Length
+RLST (5)  Read room list
+RNEW (5)  Room NEW
+RNRH (5)  Designa un nuovo room helper per la room corrente
+RSLG (3)  Read SysLoG: spedisce al client il file di log del server
+RSST (3)  Read Server STatistics
+RSWP (5)  Room SWaP
+RSYS (3)  Read SYSconfig: spedisce al client la configurazione del server
+RUSR (2)  Lista degli utenti della BBS
+RUZP (5)  UnZap All Rooms.
+RZAP (5)  Zap Room.
+RZPA (5)  Zap All Rooms.
+***SCTR (10) Controlla referendum
+SDEL (10) Cancella un sondaggio
+SDWN (6)  ShutDoWN del server
+SINF (10) Richiede informazioni su di un particolare sondaggio
+SLST (10) Lista dei sondaggi in corso
+SRIS (10) Risponde sondaggio
+SRNB (10) Nuovo sondaggio : inizia l'invio
+SRNE (10) Nuovo sondaggio : termina l'invio
+SSTP (10) Interrompe un sondaggio
+TABC (6)  Tab completion "buf|num|mode" cerca l'occorrenza #num di buf
+TEXT (4)  Invia una riga di testo
+TIME (6)  Invia ora e data al client
+TMSG (8)  Test MeSsaGe: controlla presenza messaggio Room|Locnum
+UOCC (2)  User OCCupato: mette l'utente nello stato OCCUPATO
+USER (2)  Inizio connessione utente
+USR1 (2)  Connesione utente
+XEND (4)  X-message END
+XINM (4)  X in Mail: invia l'X in mail se il destinatario si e' scollegato.
+XMSG (4)  X-MeSsaGe
+
+----------------------------------------------------------------------------
+Comando    : GOTO
+Server cmd : cmd_goto(session, arg)   File : march.c   Include: march.h
+Descrizione: vai alla prossima room conosciuta.
+             Restituisce il nome della nuova room, il numero di messaggi
+             presenti e il numero di quelli ancora non letti.
+Livello Min: L'utente deve essere connesso.
+Sintassi   : "GOTO mode|nome|tipo"
+Argomenti  : mode: 0 - goto -> set all messages read.
+                   1 - skip -> leave fullroom unchanged.
+                   2 - abandon -> only set read the effectively read msgs.
+                   3 - Scan -> next known room, even if there are no new
+		               messages.
+                   4 - Home -> Torna alla Lobby) senza modificare il fullroom.
+                   5 - Mail -> Vai nella Mailroom.
+                   (Nei modi 0, 1 e 2 va nelle room con nuovi messaggi)
+             nome: nome della room o del floor di destinazione. Se (null),
+	           va nella prossima room o prossimo floor.
+             tipo: 0 - room
+                   1 - floor
+Restituisce: "%d Nomeroom>|NumMsg|NewMsg|Newgen|RoomFlags"
+             dove Newgen=1 se la room e' di nuova generazione, 0 altrimenti.
+-----------------------------------------------------------------------------
+Comando    : RNEW (Room NEW)
+Server cmd : cmd_rnew(session, arg)   File : room_ops.c  Include : room_ops.h
+Descrizione: Crea una nuova room.
+Livello Min: MINLVL_NEWROOM (Aide di default)
+Sintassi   : "RNEW roomname|fmnum|maxmsg"
+Argomenti  : roomname: Nome nuova room
+             fmnum   : file messaggi associato alla room
+	     maxmsg  : Numero di messaggi nella room
+Restituisce: "OK num" dove num e' il numero di matricola della nuova room
+             oppure messaggio di errore.
+-----------------------------------------------------------------------------

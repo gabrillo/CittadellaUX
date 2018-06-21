@@ -1,0 +1,1218 @@
+----------------------------------------------------------------------
+
+ Jun  1 14:55 2000 da LightKnight
+ Subject : Zap
+ 
+Quando zappo una room mi rimane dentro la room... dovrebbe uscire ed
+andare alla successiva, no?              
+
+-----------------------------------------------------------------
+
+ Jun 23 14:07 2000 da Sir action
+ Subject : toc toc
+ 
+se ho il terminale bloccato, il toc toc e' un messaggio che viene tenuto
+in attesa, mentre sarebbe piu' logico che mi dicesse che sta epr
+sconnettermi...     
+
+---------------------------------------------------------------------
+ Cittadella Bugs, 30 Giu 2000 alle 15:56 - da Furjo
+ Subject : <.><u><l> e <.><u><v><0>
+
+Topolic dice che c'e' un sondaggio da votare ma se faccio <.><u><l> non 
+scrive nulla... c'e' poi un altro baco minore: <.><u><v><0> non mi dice che 
+il sondaggio zero non esiste
+
+
+                                    o---O---o
+
+ Cittadella Bugs, 30 Giu 2000 alle 16:06 - da Sir Action
+ Subject : bug minore
+
+cosmetico direi....
+
+quando viene il messaggio ello shoutdown del server mentre si sta 
+scrivendo un X message, ti riappare il prompt della room in cui sei e la 
+scrittura del messaggio va a capo...
+
+
+                                    o---O---o
+
+ Cittadella Bugs, 30 Giu 2000 alle 16:10 - da Furjo
+ Reply : bug minore, msg #26 da Sir Action
+
+il baco del prompt e' legato all'editor interno: io lo uso anche per scrivere 
+i post ed ho avuto lo stesso problema
+
+
+                                    o---O---o
+
+ Cittadella Bugs, 30 Giu 2000 alle 16:55 - da Furjo
+ Subject : sondaggi
+
+votando un sondaggio, si preme una lettera ma lui risponde con il numero 
+corrispondente (a=1, b=2 ecc). Un baco cosmetico, come dice Sir Action...
+
+
+                                    o---O---o
+
+ Cittadella Bugs, 3 Lug 2000 alle 10:01 - da Sir Action
+ Subject : cosmeticalities
+
+quando faccio un Reply nella stanza mail, non prende automaticamente il 
+nome della persona a cui faccio il reply...
+
+
+                                    o---O---o
+
+ Cittadella Bugs, 10 Lug 2000 alle 23:56 - da Furjo
+ Subject : --no-banner
+
+se uso --no-banner mi dumpa il core... se serve, posso spedirlo. Ah visto che 
+ci sono lo ripeto pubblicamente: --username e` case sensitive e vuole semple 
+l'iniziale maiuscola, anche se normalmente non la si scrive.
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 12 Lug 2000 alle 20:37 - da Furjo
+ Subject : Help>
+
+Cittadella Help> aveva cambiato nome e c'erano due messaggi nuovi, ma 
+premendo <spazio> non ci sono entrato. Ho dovuto fare <j>ump per entrare ed 
+accorgermene.
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 26 Lug 2000 alle 15:39 - da Sir Action
+ Subject : microscopico
+
+se chiedo di poter zappare questa loom, e sono in lobby, lui, ovviamente, non 
+me lo lascia fare, ma non mi da nessun messaggiono di "suddito infedele"
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 27 Lug 2000 alle 11:44 - da Sir Action
+ Subject : reboot
+
+so che e' microscopico, ma, ero in chiacchiere, ho fatto il logout, e quando 
+sono tornato dopo il reboot, avevo gli ultimi messaggi messi in chiacchiere 
+settati come non letti, anche se li avevo finiti...
+ 
+una volta il logout non settava come letti i messaggi gia' letti, mentre il 
+kickout (per idle time o per altro login o chissa' perche') non lo faceva?
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 27 Lug 2000 alle 11:51 - da Sir Action
+ Subject : bachettino minimo
+
+(mi sa che ora sono rimaste solo le piccolezze, come quando si cercano i 24 
+particolari nella settimana enigmistica, che i pirimi 15 sono lampanti, dal 
+21mo in poi e' un'impresa! ;-)
+ 
+ero in america Oggi> ho letto tutti i post, ne ho inseriti 2 nuovi, mentre 
+inserivo il secondo Faso ne ha messo un'altro, mi e' comparso il messaggio ma 
+premendo spazio il messaggio chemi ha visualizzato era il primo dei messaggi 
+che erano nuovi quando sono entrato nella stanza (ma la numerazione era 
+giusta, ergo, c'erano 3 messaggi nuovi quando sono entrato, 3 ne ho messi io, 
+1 faso e mi dava effettivamente 7 messaggi "nuovi" da leggere)
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 27 Lug 2000 alle 16:53 - da Faso
+ Subject : .<e><p>
+
+Ho fatto .<e><p> per immettere il mio profile, ma ho ottenuto questa 
+risposta:
+ sei sicuro di voler dimenticare questa stanza? (s/n)
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 28 Lug 2000 alle 12:25 - da Ping
+ Subject : Matching del nome delle room
+
+Non elimina gli spazi in fondo al nome:
+jump to: 'Chiacchiere ' non funziona...
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 28 Lug 2000 alle 13:10 - da Pisa?nograzie
+ Subject : Chiacchiere> Jump to : C                          
+
+Non sei autorizzato ad accedere alla room 'C'.    
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 31 Lug 2000 alle 15:45 - da Sir Action
+ Subject : solito bug cosmetico
+
+[da un profile]
+E' collegata da amlinux.science.unitn.it
+E' idle da 1 min e 57 sec.
+E' occupata in questo momento.
+[fine citazione]
+ 
+o e' idle, o e' occpuata ;-)
+ 
+(certo, mi si potrebbe dire "e' occupata significa che stqa scrivendo un 
+post, mentre idle significa che seppur scrivente, e' ferma" ma lo stesso non 
+e' bellissimo :)
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 31 Lug 2000 alle 18:44 - da Sir Action
+ Subject : forse nel client
+
+nonostante un certo utente abbia il sesso in evidenza (e se avete visto il 
+doppio senso andate a confessarvi immantinente) 
+se gli si manda un X message ed essA e' occupatA il client dice che e' 
+occupatO...
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 1 Ago 2000 alle 10:10 - da Sir Action
+ Subject : nuove room
+
+allora, Top ha creato una nuova room...
+ 
+poi vi ha scritto dentro un messaggio
+ 
+io, con "spazio" non entravo nella nuova room, ne' mi diceva che c'erano 
+messaggi nuovi nella room...
+ 
+una volta entratovi con j A Milano
+ 
+mi dava 0 messaggi nuovi su 1 presenti...
+
+
+                                    o---O---o
+
+ Doc Cittadella, 1 Ago 2000 alle 16:51 - da Fuffo
+ Subject : messaggi "nuovi"
+
+c'e' un problema nell'aggioranmento della lista dei messaggi nuovi per gli 
+utenti. vedo sempre gli stessi messaggi vecchi + quelli nuovi davvero.
+cio' avvine in uttte le rooms
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 7 Ago 2000 alle 16:31 - da Furjo
+ Subject : bug estetico
+
+profilatemi, e vedrete che e' poco elegante l'attuale modo di "mostrare" il 
+sesso se l'utente decide di mostrare solo quello senza nome e cognome... 
+particolarmente brutto e' non andare a capo, ed avere l'e-mail (o qualunque 
+altro campo, suppongo) sulla stessa linea...
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 7 Ago 2000 alle 16:54 - da Furjo
+ Subject : <p>rofile
+
+E' idle da 1 ore 6 min e 55 sec.
+               ^
+ 
+Se l'ora e' una sola, andrebbe il singolare...
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 8 Ago 2000 alle 13:37 - da LightKnight
+ Subject : Messaggi nuovi in Lobby
+
+Stanotte Ralph ha scritto un nuovo messaggio in Lobby, ma quando stamani
+sono entrato, mica me l'ha segnalato, ho dovuto dare una controllata io a
+mano... e non e' la prima volta, e' un po' che i messaggi nuovi in Lobby
+non vengono segnalati!
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 8 Ago 2000 alle 16:09 - da LightKnight
+ Subject : Delete
+
+Se cerco di cancellare un messaggio non mio, mi chiede se effettivamente 
+voglio cancellarlo, e se rispondo si', mi riporta al prompt della stanza 
+senza dir nulla... ovviamente il post non viene cancellato, ma ti lascia 
+nel dubbio, meglio sarebbe non far vedere manco la domanda :)
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 8 Ago 2000 alle 17:25 - da LightKnight
+ Subject : Auto-reply agli x-messages
+
+Se faccio solo auto-replies agli x-messages e poi cerco di mandarne uno 
+"autonomo", non mi visualizza di default l'ultima persona a cui ho 
+mandato l'x-message. Cosi' come, se mando un x-message autonomo e poi una 
+risposta, quando rimando un altro x il campo destinatario di default e' 
+vuoto. O non e' stato ancora implementato?
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 10 Ago 2000 alle 11:53 - da Sir Action
+ Subject : cosmetico
+
+se faccio "V" senza avere mai spedito messaggi mi manda un messaggio 
+
+Lobby) Rispondi all'ultimo X ricevuto.
+*** Follow-up: EXpress message per
+
+L'utente  non e' collegato in questo momento.
+
+
+che non e' logicissimo...
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 15 Ago 2000 alle 08:33 - da Ric
+ Subject : .Skip to:
+
+Non e' previsto che lo si possa annullare con backspace.
+
+
+                                    o---O---o
+
+                                    o---O---o
+
+ Bugs Cittadella, 3 Apr 2001 alle 11:30 - da Furjo ][
+ Subject : Stanze anonime e X-message
+
+Se sono in una stanza anonima, non appare il + accanto al mio nome quando
+scrivo un messaggio. Pero' se qualcuno mi X-a gli viene detto che sono
+occupato... facile dedurne che sto scrivendo...
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 3 Apr 2001 alle 17:18 - da Ping
+ Reply : Stanze anonime e X-message, msg #365 da Furjo ][
+
+Roba da ispettor travinskij... :)
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 5 Apr 2001 alle 21:27 - da Ric
+ Subject : Ping
+
+fantastico..
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 6 Apr 2001 alle 12:55 - da Ping
+ Reply : Ping, msg #367 da Ric
+
+'toh, e' tornato...
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 14 Apr 2001 alle 01:04 - da Sir Action
+ Subject : strane cose...
+
+allora, io ero collegato e c'era leppie collegato, ci siamo scambiato un 
+po' di messaggi, poi mi s
+e' caduta la connessione internet....
+
+dopo un po' sono tornato e nel ricollegarmi diceva che ero gia' collegato...
+ho sconnesso la sessione e sono rientrato, da solo...
+
+bene, in chiacchiere c'erano 3 messaggi di top che mi salutava, ma prima 
+di quelli di leppie e miei!
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 24 Apr 2001 alle 15:31 - da LightKnight
+ Subject : Dot Commands
+
+Lobby) .(Opzioni)
+Scegli:
+ <a>ide commands
+ <c>hat commands
+ <e>nter commands
+ <f>riend commands
+ <h>elp
+ <k>nown rooms commands
+ <s>kip to specific room  <---
+ <t>oggle commands
+ <u>rna commands
+ <s>ysop commands         <---
+
+Ma non confliggono?
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 24 Apr 2001 alle 15:32 - da LightKnight
+ Subject : RiveLAzioni>
+
+A qualcun altro succede quello che denuncia Leppie? Ho rivisto le
+impostazioni della stanza, ma non ci ho trovato nulla di particolare. Al
+limite, provo ad "invitarlo" a mano, ma preferirei capire cosa c'e' sotto.
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 24 Apr 2001 alle 15:35 - da Sir Action
+ Reply : RiveLAzioni>, msg #371 da LightKnight
+
+boh, a me succede come le stanze nuove, che a forza di spazio non ci entro...
+ma facendo jump riesco ad entrare benissimo...
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 24 Apr 2001 alle 15:37 - da LePetit
+ Reply : RiveLAzioni>, msg #372 da Sir Action
+
+Bugs Cittadella> Jump to : 77
+Non sei autorizzato ad accedere alla room '77'.
+ 
+Non e` che sono stato calciato fuori?
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 24 Apr 2001 alle 15:46 - da LightKnight
+ Reply : RiveLAzioni>, msg #373 da LePetit
+
+Non e' una room a invito... se un sysop puo' controllare la lista degli
+utenti espolsi da una certa stanza, lo faccia prima che io provi a
+riammetterlo :-)
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 24 Apr 2001 alle 16:15 - da LightKnight
+ Reply : RiveLAzioni>, msg #372 da Sir Action
+
+> boh, a me succede come le stanze nuove, che a forza di spazio non ci entro...
+
+> ma facendo jump riesco ad entrare benissimo...
+
+Molto strano... intendi dire che se qualcuno scrive un messaggio in una
+stanza nuova (e quanto"nuova"?), lo spazio non ti ci manda?
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 24 Apr 2001 alle 16:20 - da Sir Action
+ Reply : RiveLAzioni>, msg #375 da LightKnight
+
+esatto, era capitato appunto con rivelazioni ma anche con altre stanze...
+
+se pero' la visito con il jump allora da quel momento in poi la vede...
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 24 Apr 2001 alle 17:38 - da Furjo
+ Reply : RiveLAzioni>, msg #376 da Sir Action
+
+Questo e' successo anche a me, con tutte le stanze nuove create ultimamente
+(prima non succedeva, ma non saprei dire esattamente da quando ha iniziato a
+fare cosi')
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 2 Mag 2001 alle 15:08 - da LePetit
+ Subject : Ricollegandomi
+
+Sempre io... 
+ Sono entrato, c'era una mail 'X', ho riposto, m'hanno risposto.
+
+Poi si e` piantato il collegamento, sono rientrato uccidento il Leppie
+ancora presente e le due mail sono scomparse, ovvero l'ultima mail
+nella mia mailbox e` la 'X'.
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 2 Mag 2001 alle 21:07 - da Furjo
+ Reply : Ricollegandomi, msg #378 da LePetit
+
+E' un baco noto...
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 4 Giu 2001 alle 14:42 - da Furjo
+ Subject : <.><h><enter>
+
+CLient remoto. La sequenza <.><h><enter> fa un po' casino (mostra la lista
+delle opzioni in formato "raw")
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 4 Giu 2001 alle 14:44 - da Furjo
+ Reply : <.><h><enter>, msg #380 da Furjo
+
+Stessa cosa <.><h><zero>
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 4 Giu 2001 alle 14:46 - da Furjo
+ Reply : <.><h><enter>, msg #381 da Furjo
+
+E <.><h><15> invece di dire che il file non esiste, ripropone il file 14.
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 8 Giu 2001 alle 21:51 - da Ralph
+ Subject : Prompt sul Client Win
+
+Quando sto immettendo un dot command e arriva un messaggio al client (come
+"Tizio si e` appena collegato" oppure un X-message), viene presentato il
+normale prompt con il nome della room attuale, ma senza che venga annullata
+la sequenza precedente. Questo ovviamente puo` indurre in confusione se uno
+non ricorda i tasti battuti in precedenza
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 3 Lug 2001 alle 10:24 - da Sir Action
+ Subject : prompt a ogni sgnermata? si grazie
+
+nonostante che io abbia da tempo immemore settata quest'opzione, il post 
+di Baol in Programmazione mi fa molti casini!
+
+:(
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 3 Lug 2001 alle 10:27 - da Sir Action
+ Reply : prompt a ogni sgnermata? si grazie, msg #384 da Sir Action
+
+metto li una nuova infomrazione...
+
+ora tutto va bene (dopo avere scritto un altro post)
+
+il comportamento anomalo si e' verificato dopo che, al prompt della 
+schermata, ho ricevuto il messaggio
+
+*** e' arrivato un nuovo mail
+
+sara' quello che lo ha incasinato?
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 3 Lug 2001 alle 10:43 - da Ping
+ Reply : prompt a ogni sgnermata? si grazie, msg #385 da Sir Action
+
+ma che comportamento anomalo si e' verificato?
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 3 Lug 2001 alle 10:44 - da Sir Action
+ Reply : prompt a ogni sgnermata? si grazie, msg #386 da Ping
+
+praticamente non presentava il prompt di "prossima schermata" ma andava 
+avanti per tot righe (non sono sicuro che arrivasse alla fine del post, 
+ma sicuramente piu' di 24 righe) e mi presentava subito il prompt della 
+room, come se avessi finisto di leggere il messaggio...
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 3 Lug 2001 alle 10:47 - da Ping
+ Reply : prompt a ogni sgnermata? si grazie, msg #387 da Sir Action
+
+Uhm... mi faceva qualcosa di simile tempo fa a causa del buffer...
+Avevi killato la tua spacebar in precedenza? Come ti stai collegando, 
+telnet da mac?
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 3 Lug 2001 alle 10:48 - da Sir Action
+ Reply : prompt a ogni sgnermata? si grazie, msg #388 da Ping
+
+putty da windows
+non ho fatto niente alla spacebar, giuro!
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 3 Lug 2001 alle 10:49 - da Ping
+ Reply : prompt a ogni sgnermata? si grazie, msg #389 da Sir Action
+
+Mah, ci pensero'... fammi sapere se ti capita di nuovo, daro' un'occhiata 
+alla ntifica dei mail, ma non so se portera' a qualcosa...
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 6 Lug 2001 alle 14:23 - da Furjo
+ Subject : <spazio> non va in tutte le stanze con messaggi nuovi!
+
+Mi sa che e' gia' stato segnalato, ma premere <spazio> non ti porta in tutte
+le stanze con messaggi nuovi! Non se i messaggi sono in quella stanza perche'
+spostati da un'altra, dove pero' non li avevi ancora letti. Ti porta invece
+in quella originaria, dove pero' appare (giustamente) la scritta "0 nuovi".
+Credo di capire che il comando <m>ove non aggiorna correttametne i flag di
+messaggi nuovi...
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 6 Lug 2001 alle 15:20 - da Fuffo
+ Reply : <spazio> non va in tutte le stanze con messaggi nuovi!, msg #391 da Furjo
+
+ecco, se si potesse eliminare del tutto st'opzione spazio + CR, mi fareste un
+gran piacere ;)
+sapete com'e' le zampe rendono difficoltosa l'interazione con la tastiera
+umana che ho in uffizio .. ;)
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 7 Lug 2001 alle 00:39 - da Ping
+ Reply : <spazio> non va in tutte le stanze con messaggi nuovi!, msg #391 da Furjo
+
+si e' qualcosa di simile...
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 7 Lug 2001 alle 20:52 - da Sir Action
+ Reply : prompt a ogni sgnermata? si grazie, msg #390 da Ping
+
+allora, col messaggio 177 di baol in Spirito di patata> mi si e' 
+ripresentato unerrore simile, ovvero non si ferma alla fine della 
+schermata...
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 9 Lug 2001 alle 19:45 - da Ping
+ Reply : prompt a ogni sgnermata? si grazie, msg #394 da Sir Action
+
+Il punto e': se ora vai in Spirito di Patata!> e leggi il messaggio #177, 
+il problema si ripresenta? secondo me no. Da quello che ho capito il 
+problema e' che a volte il buffer non si svuota a dovere e i caratteri 
+vengono fagocitati dal pager che li usa per andare avanti nella lettura 
+del post. E' un problema di cui sono coscente, ma di difficile soluzione, 
+anche perche' non ne comprendo pienamente il motivo...
+Se invece il problema si presenta OGNI volta che leggi quel post, allora 
+la faccenda e' diversa...
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 10 Lug 2001 alle 10:20 - da Sir Action
+ Reply : prompt a ogni sgnermata? si grazie, msg #395 da Ping
+
+hai ragione, come mi avevi gia' detto...
+
+ora il problema non si ripresenta piu' :(
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 16 Lug 2001 alle 03:04 - da LightKnight
+ Subject : Primo bachetto!
+
+Allora, anche Ping se ne sara' gia' accorto, ma lo segnalo ufficialmente: il
+client (e' il pager?) fa casino coi fondopagina dei post, nel senso che:
+ 
+Se usate un client vecchio, i messaggi scritti dopo l'aggiornamento al nuovo
+server si vedono "appiccicati" al prompt di fine messaggio, mentre quelli
+piu' vecchi si vedono bene;
+ 
+Viceversa, col nuovo client, i messaggi vecchi si vedono con una riga bianca
+in piu' a fondo post.
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 16 Lug 2001 alle 03:05 - da LightKnight
+ Subject : Who
+
+Un'altra cosa che non mi torna e' che prima nel <w>ho vedevo il reverse DNS
+del mio IP, ed ora col nuovo client vedo direttamente l'IP (ed e' lo stesso
+di prima)...
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 16 Lug 2001 alle 03:10 - da LightKnight
+ Subject : Config!
+
+Questo invece mi sembra un po' piu' grave:
+ 
+Lobby) .Enter Configurazione.
+ 
+Scegli:
+ 1. Variabili generiche
+ 2. Apparenza
+ 3. Comunicazione (Xmsg e Notifiche)
+ 4. Scansione room e lettura messaggi
+ 5. Mail.
+ 6. Dati personali visibili a tutti
+ 0. Tutto
+Cosa vuoi editare? 5
+ 
+Mail:
+ Carbon copy dei mail inviati          : (s/n) [No] : Si
+ 
+Vuoi mantenere le modifiche (s/n)? No
+ 
+Ok, la tua configurazione e' stata aggiornata.
+ 
+E, rifacendo il comando, si vede che aggiorna. Mi sembra un attimino
+deleterio...
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 16 Lug 2001 alle 03:10 - da LightKnight
+ Subject : Config!
+
+Questo invece mi sembra un po' piu' grave:
+ 
+Lobby) .Enter Configurazione.
+ 
+Scegli:
+ 1. Variabili generiche
+ 2. Apparenza
+ 3. Comunicazione (Xmsg e Notifiche)
+ 4. Scansione room e lettura messaggi
+ 5. Mail.
+ 6. Dati personali visibili a tutti
+ 0. Tutto
+Cosa vuoi editare? 5
+ 
+Mail:
+ Carbon copy dei mail inviati          : (s/n) [No] : Si
+ 
+Vuoi mantenere le modifiche (s/n)? No
+ 
+Ok, la tua configurazione e' stata aggiornata.
+ 
+E, rifacendo il comando, si vede che aggiorna. Mi sembra un attimino
+deleterio...
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 16 Lug 2001 alle 08:59 - da Audrey II
+ Reply : Primo bachetto!, msg #397 da LightKnight
+
+beh, i messaggi vecchi sono bacati e allora? si buttano via assieme al 
+client vecchio.. 
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 16 Lug 2001 alle 10:36 - da Ping
+ Reply : Primo bachetto!, msg #397 da LightKnight
+
+Si, e' cambiato pesantemente il modo di gestire i testi...
+Usate solo il client nuovo d'ora in poi, e vedrete che una volta che i
+messaggi vecchi sono scrollati non ci sono piu' problemi.
+ 
+(Beh, in realta' immettete un post con l'editor esterno e non premete enter
+in fondo all'ultima riga, il post viene appiccicato al prompt... lo mettero'
+a posto con un controllo).
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 16 Lug 2001 alle 10:41 - da Ping
+ Reply : Who, msg #398 da LightKnight
+
+Non capisco bene cosa intendi dire...
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 16 Lug 2001 alle 10:42 - da Ping
+ Reply : Config!, msg #399 da LightKnight
+
+In effetti, la risposta l'ha sempre data sbagliata, ma almeno il vecchio
+client quando si rispondeva 'No' non aggiornava la configurazione.
+Va messo a post.
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 16 Lug 2001 alle 10:47 - da Ping
+ Subject : Space Bar
+
+Quando lascio un post, poi devo premere due volte la barra di spazio per
+andare nella room successiva... lo fa anche a voi?
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 16 Lug 2001 alle 13:46 - da Furjo
+ Reply : Who, msg #402 da Ping
+
+Intende dire che quando ora fai <w>ho vedi solo numeri nel campo "Da Host",
+invece che i nomi. A parte localhost. Perche'?!?!
+ 
+Ah, io uso un client vecchio ma non vedo il problema della riga in meno nei
+post vecchi. Semmai in quelli nuovi.
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 16 Lug 2001 alle 13:48 - da Furjo
+ Reply : Space Bar, msg #404 da Ping
+
+Si' anche a me se ho scritto un post nuovo premendo <spazio> mi lascia nella
+stessa stanza dicendo "0 nuovi".
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 16 Lug 2001 alle 13:49 - da Ping
+ Reply : Who, msg #405 da Furjo
+
+Ovvio che col vecchio client vedi bene i vecchi post. E' stato cambiata la
+gestione dei post da parte del server, e ora li salva diversamente. Per
+vederli bene serve il nuovo client...
+ 
+BTW, potresti ricompilare il winfurjoclient (e dirmi precisamente le
+modifiche che devi fare) cosi' le inglobo nella distribuzione standard del
+client con delle direttive di compilazione, e il lavoro non andra' rifatto
+ad ogni nuova release...
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 16 Lug 2001 alle 13:53 - da Ping
+ Reply : Space Bar, msg #406 da Furjo
+
+Sembra essere un problema del server e non del client, visto che il problema
+si pone anche usando il client vecchio. Ora do un'occhiata...
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 17 Lug 2001 alle 11:04 - da Sir Action
+ Reply : Space Bar, msg #404 da Ping
+
+si, anche a me, mi da "0 messaggi rimasti" e poi va nella room dopo
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 19 Lug 2001 alle 12:13 - da Sir Action
+ Subject : post multipagina
+
+attualmente quando si vede la prima pagina del post multipagina, viene 
+"tagliata" la riga dell'intestazione che contiene il mittente del post...
+ 
+(collegamente via telnet)
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 19 Lug 2001 alle 12:19 - da Ping
+ Reply : post multipagina, msg #410 da Sir Action
+
+Ancora una volta a me non lo fa... potresti darmi un esempio di post?
+Comunque probabilmente succede la cosa seguente: il client e' configurato
+per uno schermo di 25 righe (come tutti i terminali decenti) e probabilmente
+tu ne hai 24.... forse ti perdi la prima riga perche' ho cambiato la
+formattazione dei post... puo' essere?
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 19 Lug 2001 alle 12:20 - da Sir Action
+ Reply : post multipagina, msg #411 da Ping
+
+che siano le 25 righe :)
+ 
+(putty di default ne usa 24...)
+ 
+ora provo a vedere se lo fa ancora con le 25 righe...
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 19 Lug 2001 alle 12:23 - da Sir Action
+ Reply : post multipagina, msg #411 da Ping
+
+il post #643 in politica e societa'>
+ 
+con 24 righe, tronca la prima, con 25 righe la lascia intatta
+ 
+(ci sono due ospiti che ne rappresentano la prova vivente :)
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 19 Lug 2001 alle 12:24 - da Ping
+ Reply : post multipagina, msg #412 da Sir Action
+
+Con 25 e' tutto a posto...
+Cerchero' di trovare un modo di configurare al volo il numero di righe del
+terminale...
+
+
+                                    o---O---o
+
+ Bugs Cittadella, 19 Lug 2001 alle 12:24 - da Sir Action
+ Reply : post multipagina, msg #414 da Ping
+
+ok, nel frattempo ho salvato la sessione "Cittadella" su putty con 25 
+righe :)
+
+
+
+
+ BBS Bugs, 8 Mar 2005 alle 10:42 - da Gabrillo
+ Subject: votando
+
+Lobby) .Urna Vota per una consultazione.
+ 
+(#169)y  Qual'e' il vostro senso piu' sviluppato? in Chiacchiere puoi ancora
+votarlo
+C'è solo il sondaggio #169 da votare
+Va bene? (s/n) [Sí] : Sí
+ 
+scelgo 'b' e poi 'e', quindi arrivo qui:
+ 
+!: (a) Gusto     
+ (b) Olfatto   scelto
+ (c) Tatto     
+ (d) Udito     
+ (e) Vista     scelto
+ 
+Con ! finisci. qui stiaccio '!'
+ 
+ 
+Premi 'a' per abbandonare, 'r' per rifare o 's' per spedire: qui premo 's'
+i voti sono in formato sbagliato
+                                                                              
+e mi ritorna al prompt.
+sono ragionevolmente sicuro di averlo già votato l'altro giorno, questo
+sondaggio.
+
+
+                                                                               
+ BBS Bugs, 16 Mar 2005 alle 10:56 - da Gabrillo
+ Reply: votando, msg #1446 da Gabrillo
+
+mi sono collegato con telnet e sono riuscito a votare. evidentemente ho il
+client sbagliato.
+
+
+                                                                               
+ BBS Bugs, 16 Mar 2005 alle 10:56 - da LePetit
+ Reply: votando, msg #1447 da Gabrillo
+
+Probabile...
+
+
+                                                                               
+ BBS Bugs, 23 Mar 2005 alle 13:33 - da Fuffo
+ Subject: bug(?) su p
+
+Premessa: questo che sto per segnalare non so se e' davvero da considerasi un
+bug. Casomai non lo fosse, vbi prego di cancellare questo mio indegno post e
+di biasimarmi pubblicamente...
+ 
+Il quasibugforsenonso e' il seguente: il comando p non e' case sensitive
+(probabilemnte la cosa e' fatta appositamente se cosi' fosse etvi pregherei
+di c... etc...):
+"
+Carognate> Profile.
+Informazioni sull'utente [LightKnight]: Ladywolf
+ 
+LadyWolf                                (Utente Normale)
+ 
+Dati personali:
+"
+
+
+                                                                               
+ BBS Bugs, 24 Mar 2005 alle 13:46 - da LadyWolf
+ Subject: Idle
+
+Non so se sia un bug o la mia incapacita' (o magari che l'help della bbs non
+sia molto aggiornato) ma l'help (nella sezione idle, appunto) dice che
+l'utente viene avvisato un paio di volte prima di essere disconnesso, ma io
+fin'ora non ho mai ricevuto nessun aviso prima di essere disconnessa (infatti
+me ne accorgo solo DOPO, ossia quando cerco di fare qualcosa e la finestra
+non risponde ^^)
+
+
+                                                                               
+ BBS Bugs, 24 Mar 2005 alle 13:47 - da Sir Action
+ Reply: Idle, msg #1450 da LadyWolf
+
+Perché in quel caso non è la BBS a disconnetterti ma Fastweb.
+Infatti tu qui risulti connessa...
+
+
+                                                                               
+ BBS Bugs, 24 Mar 2005 alle 13:48 - da LadyWolf
+ Reply: Idle, msg #1451 da Sir Action
+
+ah, ok, allora era proprio la mia incapacita' ;p
+
+
+                                                                               
+ BBS Bugs, 24 Mar 2005 alle 13:50 - da Sir Action
+ Reply: Idle, msg #1452 da LadyWolf
+
+No, è la tingosità di Fastweb che stacca le connessioni idle per più di X
+secondi.
+Devi semplicemente scrivere molto spesso ;-)
+
+
+                                                                               
+ BBS Bugs, 24 Mar 2005 alle 13:52 - da LadyWolf
+ Reply: Idle, msg #1453 da Sir Action
+
+Ah, tutto qui? solo scrivere spesso...uhm... non ci avevo pensato, meno male
+che me l'hai detto tu ;p
+Adesso dillo anche al mio capo... ;D
+
+
+                                                                               
+ BBS Bugs, 24 Mar 2005 alle 13:53 - da Sir Action
+ Reply: Idle, msg #1454 da LadyWolf
+
+anche Leggere spesso.
+Ah, non preoccuparti se tra un po' ricevi molte Mail>, è Ping che si incacchia
+per il babbling e cancella tutto... ;-)
+
+
+                                                                               
+ BBS Bugs, 25 Mar 2005 alle 13:54 - da Ric
+ Subject: ?
+
+>  Mail, 25 Mar 2005 alle 13:51 - da Cittadella BBS per Ric
+>  Subject: Cancellazione messaggio.
+> 
+> Il tuo post #1314 in Girovagando e` stato cancellato.
+> 
+ 
+non era mio credo il messaggio cancellato, ma la mail e` arrivata a me..
+
+
+                                                                               
+ BBS Bugs, 25 Mar 2005 alle 13:55 - da Sir Action
+ Reply: ?, msg #1456 da Ric
+
+Era tuo, era un messaggio vuoto.
+
+
+                                                                               
+ BBS Bugs, 25 Mar 2005 alle 13:58 - da Ric
+ Reply: ?, msg #1457 da Sir Action
+
+curioso, non mi risulta di averlo inserito..
+ 
+vedi cut'n'paste:
+ Girovagando, 25 Mar 2005 alle 13:50 - da Sir Action
+ Reply: Capo Verde, msg #1312 da Ric
+ 
+e cosa sono?
+ 
+                                                                              
+ 
+ Reply: Capo Verde, msg #1313 da Sir Action
+                                                 
+*** E` arrivato un nuovo mail.
+                                                                              
+ 
+--- Editor: Inserisci il testo (Help: F1)           -- [ Insert      3/  3,20
+]
+>Qui e` un po' off-topic, andrebbe in Mostricciatoli>.. comunque sono insetti
+>voracissimi, divorano tipicamente coppie sposate e apprezzano in particolare
+>gli sposi novelli..
+Entry cmd (? lista opzioni) -> Save.                                          
+Post inviato.
+                                                                              
+ 
+ 
+
+
+                                                                               
+ BBS Bugs, 25 Mar 2005 alle 13:59 - da Sir Action
+ Reply: ?, msg #1458 da Ric
+
+>  Girovagando, 25 Mar 2005 alle 13:50 - da Ric
+> 
+>  
+ 
+questo è quello recuperato dal cestino.
+ 
+Se vuoi lo "uncancello".
+
+
+                                                                               
+ BBS Bugs, 25 Mar 2005 alle 14:01 - da Ric
+ Reply: ?, msg #1459 da Sir Action
+
+no, no, beh, magari si`, uncancellalo e spostalo in Chiacchiere.. non dicevo
+che tu non avessi fatto quel che pensavi di aver fatto, ma che io non avevo
+fatto quel che tu hai creduto avessi fatto..
+
+
+                                                                               
+ BBS Bugs, 30 Mar 2005 alle 21:35 - da BigMouth
+ Subject: Ban?
+
+Abbiamo appena fatto una prova, magari e' un bug gia' conosciuto, ma vale la
+pena segnalarlo:
+quando un utente viene bannato da una stanza, il ban ha effetto solo a
+partire dal momento in cui l'utente esce dalla stanza. Se l'utente si trova
+nella stanza, passa subito in [ Boh... ], ma puo' continuare a leggere e a
+scrivere, finche' non ne esce.
+Sarebbe forse piu' sensato un ban a effetto immediato...
+
+
+                                                                               
+ BBS Bugs, 31 Mar 2005 alle 20:18 - da BigMouth
+ Subject: Numero di post
+
+Non e' propriamente un bug, comunque puo' essere fastidioso.
+Quando si sposta un messaggio da una stanza ad un'altra, questo conserva il
+numero che aveva nella stanza originale. Quindi se qualcuno risponde a questo
+post, il numero indicato come "reply" e' quello originale.
+Questo significa che se il post e' gia' passato, e' impossibile capire a cosa
+si riferisce la risposta, e cercarlo per numero.
+
+
+                                                                               
+ BBS Bugs, 31 Mar 2005 alle 20:20 - da BigMouth
+ Reply: Numero di post, msg #1462 da BigMouth
+
+Uhm, invece sembra che sia possibile. Il problema e' un altro: se le stanze
+avessero all'incirca lo stesso numero di messaggi, ne potrebbero esistere 2
+con lo stesso numero contemporaneamente. Questo non crea problemi? Uno dei 2
+viene cancellato?
+
+
+                                                                               
+ BBS Bugs, 1 Apr 2005 alle 09:48 - da Sir Action
+ Reply: Numero di post, msg #1463 da BigMouth
+
+No, non crea problemi, a parte il fatto che la ricerca va sul primo #454 (per
+esempio) che trova.
+quindi potrebbe essere sia lo "spostato" che l'"originale".
+ 
+Mi pare che ci sia il tasto per risalire al messaggio origine, non era tipo
+"&" o "#"?
+
+
+                                                                               
+ BBS Bugs, 1 Apr 2005 alle 09:54 - da Furjo
+ Reply: Numero di post, msg #1464 da Sir Action
+
+Il tasto per risalire al messaggio a cui si è risposto esiste(va) in
+Citadel/UX. Cittadella/UX non lo ha mai avuto (ed è un gran peccato)
+
+
+                                                                               
+ BBS Bugs, 18 Apr 2005 alle 14:18 - da Max
+ Subject: <t>ime
+
+"Lunedí 18 Aprile" non dovrebbe essere "Lunedì 18 Aprile" ?
+
+
+                                                                               
+ BBS Bugs, 18 Apr 2005 alle 14:22 - da LightKnight
+ Reply: <t>ime, msg #1466 da Max
+
+È l'eterna storia degli accenti gravi/acuti, su cui mi pare che non si sia mai
+trovato un accordo chiaro.
+ 
+Aggiungo anche che i nomi dei giorni e dei mesi in italiano si scrivono
+minuscoli. Ora, "Luned[ìí]" è a inizio frase e quindi può andar bene anche
+così, ma "Aprile" va corretto.
+
+
+                                                                               
+ BBS Bugs, 20 Apr 2005 alle 15:40 - da Sir Action
+ Subject: CML e sondaggi
+
+Nell'inserire i sondaggi vengono visualizzate le accentate, quando però uno
+legge il sondaggio c'è il codice CML (che tra l'altro sbarella le linee)
+
+
+                                                                               
+ BBS Bugs, 21 Apr 2005 alle 17:38 - da Sir Action
+ Subject: allineamento
+
+Ci sarebbe da lavorare sull'allineamento dei sondaggi:
+ 
+Lobby) .Urna Lista consultazioni in corso.
+ 
+Sondaggio i (#179) in Politica E Societa'
+                                    Riforma Costituzionale
+    Metodo: Sí/No                     termina il 28 Apr 2005 alle 04:46
+ 
+Sondaggio j (#180) in Sondaggi          Come pulite la caffettiera?
+    Metodo: Scelta                    termina il 1 Mag 2005 alle 13:18
+ 
+Qualcosa tipo:
+ 
+Lobby) .Urna Lista consultazioni in corso.
+ 
+Sondaggio i (#179) in Politica E Societa'                                   
+Riforma Costituzionale                          Metodo: Sì/No                 
+                                        termina il 28 Apr 2005 alle 04:46
+ 
+Sondaggio j (#180) in Sondaggi          
+Come pulite la caffettiera?                     Metodo: Scelta                
+                                        termina il  1 Mag 2005 alle 13:18
+ 
+
+
+                                                                               
+ BBS Bugs, 21 Apr 2005 alle 19:34 - da LePetit
+ Reply: allineamento, msg #1469 da Sir Action
+
+Dovrebbe essere semplice, perché dovrebbe esserci una maschera... Ora vedo
+ 
+
+
+                                                                               
+ BBS Bugs, 29 Apr 2005 alle 15:34 - da Furjo
+ Subject: 2 bachi usando Windows
+
+Pare che usando il telnet di serie in Windows (che versione LW?) premendo F1
+non succeda nulla.
+ 
+E' però anche vero che se si preme F1 non alla prima riga sucedono cose
+alquanto strane (non sono ancora in grado di riprodurlo esattamente)
+
+
+                                                                               
+ BBS Bugs, 29 Apr 2005 alle 16:23 - da LadyWolf
+ Reply: 2 bachi usando Windows, msg #1471 da Furjo
+
+Windows 2000 service pack 4
+

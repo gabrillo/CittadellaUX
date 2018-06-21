@@ -1,0 +1,324 @@
+#include <string.h>
+#include "parm.h"
+#include "memstat.h"
+
+/* 
+ * cerca il primo parametro con id=id successivo a p (compreso)
+ * ==== 0 se l'ha trovato
+ * ==== -1
+ * ==== p punta al parametro trovato se e` stato trovato,
+ * ====altrimenti rimane quello chiamato
+ */
+
+int cercapar(struct parameter *p, char *id)
+{
+   struct parameter *q;
+
+   q = p;
+   while(q) {
+      if(strcmp(q->id, id) == 0)
+         break;
+      q = q->next;
+   };
+
+   if(q == NULL) {
+      return -1;
+   } else {
+      p = q;
+      return 0;
+   }
+}
+
+/*
+ * copia il primo  parametro con id=id  in s (con max_char char)
+ * dopo p (p compreso)
+ * === p punta al val trovato o al valore di partenza. 
+ * === 0 se e` stato trovato 
+ * -1 se non c'e`
+ * length se la lunghezza e` > max
+ */
+
+long int par2str(char *s, struct parameter *p, char *id, int max)
+{
+
+   struct parameter *q;
+
+   q = p;
+   while(q) {
+      if(strcmp(q->id, id) == 0)
+         break;
+      q = q->next;
+   };
+
+   if(q == NULL) {
+      return -1;
+   };
+
+   if(strlen(q->val) > max) {
+      strncpy(s, q->val, max - 1);
+      strcat(s, "");
+      p = q;
+      return strlen(q->val);
+   }
+   strcpy(s, q->val);
+   p = q;
+   return 0;
+}
+
+/*
+ * copia tutti i parametri con id=id successivi a p (compreso) in ss,
+ * che e` vettore di stringhe, fino ad un massimo di
+ * max_par e ad un massimo di char_max ciascuna.
+ * torna 
+ *** -(par_copiati+1) (e l'ultimo non viene copiato) e p==ultimo da
+ *    copiare al primo parametro che supera max_char
+ ***  il numero di par copiati con par=successivo se ce
+ *    ne sono ancora, p=NULL altrimenti,
+ *** 0 se non l'ha trovato( p rimane lo stesso)
+ */
+
+int pars2strs(char **s, struct parameter *p, char *id, int max_char,
+              int max_par)
+{
+
+   struct parameter *q;
+   int par = 0;
+
+   q = p;
+   while(q) {
+      if(strcmp(p->id, id) == 0) {
+         if(strlen(q->val) > max_char) {
+            p = q;
+            return -(par + 1);
+         }
+         strcpy(*(s + par), q->val);
+         par++;
+         if(par > max_par) {
+            p = q;
+            return par;
+         };
+      };
+      q = q->next;
+   };
+
+   if(par != 0) {
+      p = NULL;
+   };
+   return par;
+};
+
+/*
+ * copia tutti i parametri con id=id successivi a p (compreso)
+ * in s, che e` un'unica stringa, separati da sep
+ * fino ad un massimo di max_par e ad un massimo di char_max
+ * se max_char viene raggiunto
+ * torna -(par_copiati+1) (l'ultimo non viene copiato)
+ * e p==ultimo da copiare
+ *
+ * torna il numero di par copiati
+ * con par=successivo se ce ne sono ancora
+ * p=NULL altrimenti
+ * 0 se NON l'ha trovato (!!!!!!)
+ * p rimane lo stesso
+ */
+
+int pars2str(void *s, struct parameter *p, char *id, int max_par,
+             int max_len, char *sep)
+{
+
+   struct parameter *q;
+   int len = 0;
+   int tot_len = 0;
+   int par = 0;
+   int len_sep = 0;
+
+   q = p;
+   len_sep = strlen(sep);
+
+   while(q) {
+      if(strcmp(q->id, id) == 0) {
+         len = strlen(p->val);
+         if(tot_len + len + len_sep > max_len) {
+            return -(par + 1);
+         }
+         strcat(s, sep);
+         strcat(s, p->val);
+         tot_len += len + len_sep;
+         par++;
+         if(par > max_par) {
+            return par;
+         };
+      }
+      q = q->next;
+   }
+   if(par != 0) {
+      p = NULL;
+   };
+   return par;
+};
+
+/*
+ * stesse funzioni (tranne la prima)
+ * ma cancella tutti i parametri
+ * copiati (non quello che fa sballare il max!)
+ * inoltre bisogna usare sessione *t, 
+ * perche' se e` il primo a dover essere cancellato
+ * serve il "next"
+ */
+
+/*
+ * copia il primo  parametro con id=id  in s (con max_char char)
+ * === 0 se e` stato trovato 
+ * -1 se non c'e`
+ * length se la lunghezza e` > max
+ * se la lunghezza e` giusta cancella il parametro
+ */
+
+long int par2strd(char *s, struct sessione *t, char *id, int max_char)
+{
+
+   struct parameter *q;
+   struct parameter *r;         /*  struct prec */
+
+   q = t->parm;
+   r = NULL;
+   while(q) {
+      if(strcmp(q->id, id) == 0)
+         break;
+      r = q;
+      q = q->next;
+   };
+
+   if(q == NULL) {
+      return -1;
+   };
+
+   if(strlen(q->val) > max_char) {
+      strncpy(s, q->val, max_char - 1);
+      strcat(s, "");
+      return strlen(q->val);
+   }
+   strcpy(s, q->val);
+   if(r == NULL) {
+      t->parm = q->next;
+   } else {
+      r->next = q->next;
+   };
+   Free(q->val);
+   Free(q);
+   return 0;
+}
+
+/*
+ * copia tutti i parametri con id=id  in ss,
+ * che e` vettore di stringhe, fino ad un massimo di
+ * max_par e ad un massimo di char_max ciascuna.
+ * torna 
+ *** -(par_copiati+1) (e l'ultimo non viene copiato) 
+ *   se c'e` un parametro che supera max_char
+ ***  il numero di par copiati  ne sono ancora,
+ *** 0 se non l'ha trovato
+ * cancella tutti i parametri che sono stati copiati correttamente
+ */
+
+int pars2strsd(char **s, struct sessione *t, char *id, int max_char,
+               int max_par)
+{
+
+   struct parameter *q;
+   struct parameter *r;
+   int par = 0;
+
+   q = t->parm;
+   r = NULL;
+   while(q) {
+      if(par >= max_par)
+         return par;
+
+      if(strcmp(q->id, id) == 0) {
+         if(strlen(q->val) > max_char) {
+            return -(par + 1);
+         }
+         strcpy(*(s + par), q->val);
+         par++;
+         if(r == NULL) {
+            t->parm = q->next;
+			Free(q->val);
+			Free(q);
+			q=t->parm;
+			continue;
+         } else {
+            r->next = q->next;
+			Free(q->val);
+			Free(q);
+			q=r->next;
+         };
+      };
+      r = q;
+      q = q->next;
+   };
+
+   return par;
+};
+
+/*
+ * copia tutti i parametri con id=id successivi a p (compreso)
+ * in s, che e` un'unica stringa, separati da sep
+ * fino ad un massimo di max_par e ad un massimo di char_max
+ * se max_char viene raggiunto
+ * torna -(par_copiati+1) (l'ultimo non viene copiato)
+ * e p==ultimo da copiare
+ *
+ * torna il numero di par copiati
+ * con par=successivo se ce ne sono ancora
+ * p=NULL altrimenti
+ * 0 se NON l'ha trovato (!!!!!!)
+ * p rimane lo stesso
+ * stesso discorso per del
+ */
+
+int pars2strd(void *s, struct sessione *t, char *id, int max_par,
+              int max_len, char *sep)
+{
+
+   struct parameter *q;
+   struct parameter *r;
+   int len = 0;
+   int tot_len = 0;
+   int par = 0;
+   int len_sep = 0;
+
+   q = t->parm;
+   r = NULL;
+   len_sep = strlen(sep);
+
+   while(q) {
+         if(par >= max_par) {
+            return par;
+         };
+      if(strcmp(q->id, id) == 0) {
+         len = strlen(q->val);
+         if(tot_len + len + len_sep > max_len) {
+            return -(par + 1);
+         }
+         strcat(s, sep);
+         strcat(s, q->val);
+         tot_len += len + len_sep;
+         par++;
+         if(r == NULL) {
+            t->parm = q->next;
+			Free(q->val);
+			Free(q);
+			q=t->parm;
+			continue;
+         } else {
+            r->next = q->next;
+			Free(q->val);
+			Free(q);
+			q=r->next;
+         };
+      }
+      q = q->next;
+   }
+   return par;
+};

@@ -1,0 +1,173 @@
+
+         PROPOSTA PER LO SVILUPPO A MEDIO/LUNGO TERMINE
+      	                DI CITTADELLA/UX
+			
+Mi sono fatto l'idea che la miglior cosa da fare sia per lo sviluppo che
+eventualmente la diffusione di Cittadella/UX e' di registrarla sotto una
+licenza GNU GPL (o qualcosa di simile, non ho studiato bene la cosa) e di
+aprire lo sviluppo a chiunque abbia voglia di contribuire. Questo e'
+essenziale per lo sviluppo del client (da soli non ce la faremo mai a
+sviluppare e mantenere client grafico, per web, winzoz etc.)
+
+Il livello di sviluppo di Cittadella/UX ha ormai raggiunto il primo stadio:
+sono presenti comunicazione client/server, gestione affidabile e facilmente
+espandibile degli utenti e gestione della comunicazione tra utenti mediante
+Xmsg e affini. Alcune parti di codice ridondanti andrebbero migliorate, e
+una serie di opzioni vanno aggiunte alla gestione degli utente ma 
+complessivamente considero che questa parte della BBS puo' essere
+considerata ultimata e affidabile. Gira ormai stabilmente (ma con 
+pochissimo carico e' vero) su ping da piu' di un paio di mesi.
+
+La prima cosa da fare prima di passare all'implementazione di nuove
+possibilita' e' un TEST serio della bbs, proponendola ad esempio come
+surrogato di chat per la Emperor's bbs. Anche un test di sicurezza va fatto:
+al peggio penso che possa piantarsi il server, ma comunque i buffer
+overflow, o comandi di lunghezza superiore a 256 bytes possono generare
+comportamenti imprevisti. Quindi da un lato, bisogna perdere un po' di tempo
+a tentare di far piantare il server mediante telnet alla porta 4000 in
+modalita' testo, da un altro lato rileggersi i sorgenti del server (noioso
+ma si dovrebbe fare abbastanza in fretta) per trovare i punti in cui ci si
+riferisce a un puntatore non allocato o si rischia di scrivere su delle
+stringhe oltre lo spazio allocato.
+
+Completata questa parte, si puo' passare allo sviluppo vero e proprio.
+Ecco i punti che mi sono venuti in mente:
+
+SVILUPPO DELLA BBS:
+^^^^^^^^^^^^^^^^^^^
+Implementare la bbs vera e propria: room e messaggi. La parte delicata e' la
+progettazione di strutture dati ottimizzate e successivamente facilmente
+estendibili, e scrivere delle routines di lettura/scrittura su file
+dei messaggi affidabili. Il resto poi si fa in un attimo: anche se se
+riscriviamo tutto da zero, cosa che comunque farei, ci si puo' basare sulle
+routines di citadel che comunque abbiamo scritto noi.
+
+SVILUPPO DEL CLIENT:
+^^^^^^^^^^^^^^^^^^^^
+1. Iniziare a portare cittaclient su altri sistemi operativi. 
+
+  UNIX: Per i sistemi unix non ci dovrebbero essere grossi problemi (l'ho
+  gia' compilato su un vecchissimo DEC Alpha)
+
+  MSDOS: compilandolo con il djpp (ocomecavolosichiama il gcc per dos) non
+  dovrebbe dare problemi, basta preparare degli eseguibili scaricabili. Per
+  windows non so bene la situazione.
+
+  MAC/OS: non ho idea se potra mai funzionare...
+
+  Questo passo e' il primo da fare, una volta che abbiamo un sorgente
+  multipiattaforma sara' piu' facile continuando lo sviluppo mantenendo la
+  portabilita' che chiedersi tra un annetto come fare...
+
+2. Documentazione
+
+  Ho fatto lo sforzo di tenere una documentazione piu' aggiornata possibile.
+  Secondo me questo e' un punto molto importante se vogliamo fare un sistema
+  serio. La documentazione andrebbe mantenuta sempre aggiornata, altrimenti
+  una volta che il sistema e' completato chi avra' la forza di scriverla?
+
+  Inoltre sarebbe bene tradurla in inglese, magari qualcuno che se ne occupa
+  si trova... Insomma, sarebbe bello trovare uno o piu' "mantainers"...
+
+3. Interfaccia del client
+
+  Passiamo alla programmazione vera e propria, finalmente ;) 
+  La mia idea e' che ci devono essere tre tipi di client (almeno: se poi
+  qualcuno vuole scriversi la propria versione ben venga...)
+
+  a) Versione testo
+     per questo client ci vuole un pager fatto per bene, sara' la parte 
+     piu' importante del client. 
+     Anzitutto bisogna decidere quale e' il compito del pager all'interno
+     della bbs, e su questo punto ho le idee abbastanza poco chiare. Sarebbe
+     ora di pensare a cosa vorremmo che somigli il client dei nostri sogni :)
+     Intanto, ho scritto un pager, che ho chiamato cittapager che funziona
+     solo testo, con i termcap o con i ncurses, a seconda del tipo di
+     compilazione eseguita. Non e' male, ma non mi convince ancora,
+     potrebbe anche aver bisogno di essere riscritto da zero.
+     Una volta il pager a disposizione, bisogna poi inserirlo nel client,
+     per questo dico che bisogna pensare fin da ora al risultato, per non
+     dover riscrivere mezzo client.
+
+  b) Versione grafica
+     nel terzo millennio (abbiamo un anno di tempo ;) il client grafico con
+     gestione da mouse sara' un must, e saremo in pochi nostalgici a voler
+     per forza usare il client testo.
+     Pensavo a un client GTK+ per iniziare, sono librerie potenti, in pieno
+     sviluppo e abbastanza semplici da usare; inoltre ho scoperto da poco il
+     glade, che permette di costruire le varie finestre eccetera in modo
+     grafico e costruisce da solo i sorgenti, all'interno dei quali bastera' 
+     poi inserire il client testo. Non dovrebbe essere troppo difficile.
+     Chi ama il KDE puo' usare le librerie KDE; infine c'e' la possibilita'
+     di interfacciare il client con il Tcl/Tk, che permette di programmare
+     semplici finestre con pochissima fatica anche se esteticamente il
+     risultato puo' sembrare un tantino vecchiotto.
+
+  c) Versione web
+     boh non sono un fanatico, ma se qualcuno ha voglia di scriverla ben
+     venga. (io non saprei da dove iniziare) Anche perche' ormai per la gente
+     comune internet=web... *sigh*
+
+4. Configurazione del client
+
+  un file cittaclient.rc con tutte le variabili di configurazione del client,
+  che deve essere facilmente modificabile, direttamente dal client.
+
+5. Logging facilities
+
+  Tutti vari comandini-sega per salvare un messaggio, o avere un dump di
+  tutta la sessione, o degli X scambiati, etc. etc.
+
+6. Interazione con il mondo (a piu' lungo termine)
+
+  Perche' non poter vedere un file html chiamando lynx per esempio (ma ormai
+  nelle nuove librerie GTK e KDE esistono comandi appositi), delle 
+  immagini, ascoltare musica (perche' no la possibilita' di un telefono...)
+  Tutto questo e' fantascienza forse, ma e' indipendente dalla bbs. Se
+  qualcuno implementa un qualche modulo per il client, chi vuole puo'
+  inserirlo. (Ad esempio, la trasmissione dei files e' prevista per cittadella
+  quindi se scarico una jpg dalla bbs, invece di poterla semplicemente
+  salvare puo' essere possibile mandarla direttamente a xv o ee, e questa
+  e' una cosa davvero facile da fare)
+
+SVILUPPO DEL SERVER:
+^^^^^^^^^^^^^^^^^^^^
+Lo sviluppo del server e' piu' delicato, ma c'e' meno roba da fare, ed e'
+sicuramente la parte piu' divertente...
+
+1. Implementazione della BBS
+
+  a) Progettare strutture dati per file_messaggi, room, fullrm, etc...
+
+  b) Routines di gestione dei file_messaggi (questo e' in stadio avanzato
+     di sviluppo).
+     
+  c) Gestione dei messaggi.
+
+  Questa parte dovrebbe essere abbastanza veloce da scrivere visto che 
+  possiamo basarci sulla buona vecchia Emperor's. Direi che il completamento
+  di questo punto segnera' la nascita di Cittadella/UX 1.0 (wow!) 
+
+2. Implementare le directory rooms (da usare tipo ftp con client)
+
+3. Progettare un semplice protocollo di comunicazione server/server, con
+   i comandi base per vedere chi c'e' su un altra bbs e trasferire un utente
+   connesso da una bbs all'altra. Poi, in un remoto futuro, chissa'...
+
+4. Programmini di gestione seria della BBS, per avere il controllo globale
+   su tutta la BBS in ogni momento senza doversi loggare.
+
+Le funzioni per la gestione dei file messaggi sono finite e parzialmente
+testate (rimane da finire le funzioni di resize, check e mantain). Si
+trovano nel file file_messaggi.c . Inoltre e' stato scritto un programmino,
+fm_admin, per amministrare i file messaggi. Questo programma e' molto utile
+anche per testare il funzionamento delle funzioni in file_messaggi.c . 
+
+
+Voila'... queste sono le cose che mi frullano nella mente, sicuramente
+mancano cose importanti, e forse ho dato troppo risalto ad altre. Pero'
+credo sia un buon punto di partenza per iniziare a discure il futuro di
+Cittadella...
+
+-----------------------------------------------------------------------------
+Trento, 28/11/99

@@ -1,0 +1,12 @@
+Descrizione dei files testo in citta/
+
+BUGS       Bugs nel sorgente
+CHANGES    Log delle modifiche al sorgente
+COMANDI    Comandi del client implementati
+INSTALL    Istruzioni di installazione
+LOCK       Files del sorgente in via di modificazione (se si lavora in due)
+README     Leggimi!
+SCRIPTS    Breve descrizione degli scripts
+SERVER     Comandi del server con breve descrizione e in che file sono
+TODO       Modifiche da fare
+

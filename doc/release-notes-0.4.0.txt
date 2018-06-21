@@ -1,0 +1,139 @@
+Scoprite la BBS piu' avanzata del mondo: Cittadella/UX 0.4.0 !
+
+ 
+- ALLEGATI NEI POST:
+
+Dall'editor interno, premendo Meta-i (o Alt-i, Option-i, ESC-i...) potete
+inserire degli "allegati" nei post. Nella barra di stato vi viene chiesto
+cosa volete inserire. Le possibilita' sono le seguenti:
+
+  File Upload: fornite il path di un file, e questo verra' caricato dal server
+               al momento del salvataggio del post. (solo client locale)
+
+  Link: semplicemente il link a una pagina web, che i lettori del post potranno
+        cosi' comodamente aprire nel browser
+
+  Post: Il riferimento a un post in una room (o blog). Si fornisce il nome della
+        room e il numero locale del post. Cosi' come con il quote, dal prompt
+        dei messaggi con la pressione di <P> e' possibile memorizzare il
+        riferimento al post corrente, che viene usato come riferimento di
+        default
+
+  Room: Il riferimento a una room o a un blog.
+
+  Text file: per inserire nel messaggio il testo preso da un file.
+             Viene chiesto il path del file, e il testo puo' essere semplice
+             testo ascii oppure un file CML (che inizia con <cml>)
+
+  User: il riferimento a un utente.
+
+Alla lettura di un post che contiene allegati, il prompt dei messaggi si
+modifica per avvertire l'utente, e con la pressione del tasto
+<A>llegati, si accede alla lista degli allegati, dalla quale si puo'
+sceglierne uno e decidere l'azione da eseguire. Per esempio, si puo'
+leggere il post al quale ci si riferisce o andare direttamente li',
+aprire il link nel browser, scaricare un file allegato ed eventualmente 
+aprirlo (vedere un'immagine o ascoltare un mp3 per esempio), etc...
+Per poter aprire link nel browser o aprire file nelle applicazioni
+corrispondenti, dovete definire le variabili
+BROWSER PICTUREAPP MOVIEAPP AUDIOAPP PDFAPP
+PSAPP   DVIAPP     RTFAPP   DOCAPP
+nel file cittaclient.rc
+Inoltre, potete specificare con DOWNLOAD_DIR la directory in
+cui finiscono i file scaricati.
+
+
+ALTRI COMANDI NUOVI PER L'EDITOR INTERNO:
+                                                                              
+Ctrl-T : Save Text: salva in CML il testo corrente nel file specificato.      
+         Unito con il Meta-i <t>ext, questo apre interessanti possibilita'.
+
+Ctrl-G : Incolla (<g>lue, la <y> non me la prendeva..) il testo tagliato con
+         Ctrl-K. Attenzione, e' ancora un po' bacato questo...
+
+
+Le altre novita' da testare sono invece:
+ 
+
+- RICERCA NEI POST  
+ 
+con il comando '/' potete ricercare delle parole nel corpo dei post.
+</> parola   per la ricerca di "parola",                                      
+</> paro#    per la ricerca di tutte le parole che iniziano con "paro".       
+La ricerca e' case unsensitive. Le room devono venire settate                 
+"cercabili" da configurazione room .aer                                       
+Si ringrazia Abel per avere scritto la libreria che si occupa della
+ricerca e tutti gli utenti che ora non ricordo che hanno partecipato
+alla discussione sull'implementazione.
+
+
+- BLOG                                                                        
+                                                                              
+Ogni utente ora puo' "aprire casa propria" ovvero ha una room privata con la  
+quale puo' fare quello che vuole. L'idea e' che diventi una specie di blog, o 
+un laboratorio dove l'utente puo' sperimentare una nuova idea di room senza   
+dover per forza chiederne la creazione prima.
+
+Per attivarla, va editata la configurazione, e si puo' decidere chi puo'      
+postare e chi no attraverso friend/enemy list.                                
+                                                                              
+I comandi sono:                                                               
+  <.bc> per configurare e attivare il proprio blog.                           
+  <.bl> oppure <b> per vedere la lista dei blog attivi.                       
+  <.bg> nomeutente (con tab completion)  per andare nel blog di qualcuno      
+                                                                              
+Oltre a ".Blog Goto", per muoversi tra i blog si possono usare:
+  <:> abbandona la room e vai a casa tua(il tuo blog)
+  <J>ump, <.S>kip : L'argomento e' il nome della room, oppure, se il primo
+                    carattere e' ":", il nome di un blog, nel modo seguente:
+
+                     'roomname'  --> room
+                     ':username' --> blog di username
+ 
+                    funziona la tab completion, sia con blog che con room.
+
+Inoltre, i blog possono venire pubblicati su web utillizzando il cittaweb,
+e si trovano all'url:
+
+http://bbs.cittadellabbs.it:4040/blog/nickname
+
+dove "nickname" e' il nome dell'utente, con gli eventuali spazi ' ' sostituiti
+con dei sottolineati '_'.
+Il blog deve essere esportato su cittaweb tramite configurazione .bc o .ec
+dall'utente.
+                                                                              
+Per aide e sysop: Attenzione, ora il comando per i broadcast e'  <B>.
+
+
+ALTRE NOVITA'
+
+- SPOILERS: e' possibile immettere post con spoiler nelle room configurate
+            per riceverli.
+- NICKNAMES ANONIMI: quando si posta nelle room con anonimato facoltatico si
+                     puo' scegliere un nickname anonimo che appare come autore
+- CAMBIAMENTO NICKNAME: gli utenti possono, richiedendolo esplicitamente ai
+                        sysop o aide, cambiare nome. (comando <.aeu>)
+- CHAT:     Si possono usare i tasti di cursore per editare il messaggio.
+- CITTAWEB: E' stato rinnovato un pochino, e ora generea delle pagine conformi
+            alle specifiche grazie all'eliminazione di un bachetto.
+            Dateci un'occhiata.
+- NON ESPERTI: migliorato i prompt.
+- WHO:      Appare '>' accanto al nome degli utenti che stanno
+            effettuando un upload.
+
+BUGFIXES:                                                                     
+                                                                              
+- CHAT: Sistemato il controllo M/F quando si "scivola" dalla chat.
+        Un messaggio dopo il timeout non arriva piu' a tutti.
+        Quando cambio canale chat avverte dell'uscita.
+- Le risposte si/no si possono dare solo con 's' e 'n' minuscole.             
+- Niente notifiche post nuovi nelle room anonime.                             
+- sistemato .arr                                                              
+- Non appare piu' l'autore dei post anonimi nei post di                       
+  notifica di cancellazione/riesumazione/spostamento in Aide.                 
+
+
+I dettagli sono nel file CHANGES.
+Colgo l'occasione per ringraziare ancora una volta tutti coloro
+che hanno testate le prime versioni della 0.4.0
+Buon divertimento!!
