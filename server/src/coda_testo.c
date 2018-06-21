@@ -109,13 +109,13 @@ int prendi_da_coda_o(struct coda_testo *coda, struct iobuf *buf)
                 if (tmp->len > n) {
                         tmplen = n;
                 }
-                //clogf("PRENDO DA CODA %ld/%ld bytes in bin (MS %ld, olen %ld)", tmplen, tmp->len, MAX_STRINGA, buf->olen);
+                //citta_logf("PRENDO DA CODA %ld/%ld bytes in bin (MS %ld, olen %ld)", tmplen, tmp->len, MAX_STRINGA, buf->olen);
                 memcpy(buf->out + buf->olen, tmp->testo, tmplen);
                 buf->olen += tmplen;
                 tmp->len -= tmplen;
 
                 if (tmp->len < 0) {
-                        clog("SYSERR prendi_da_coda_0!!!");
+                        citta_log("SYSERR prendi_da_coda_0!!!");
                         /* non dovrebbe capitare mai */
                 } else if (tmp->len > 0) { /* Rimane roba da trattare */
                         memmove(tmp->testo, tmp->testo+tmplen, tmp->len);
@@ -124,13 +124,13 @@ int prendi_da_coda_o(struct coda_testo *coda, struct iobuf *buf)
         } else { /* Invia del testo */
                 if (tmplen >= n)
                         tmplen = n-1;
-                //clogf("PRENDO DA CODA %ld/%ld bytes in ascii", tmplen, tmp->len);
+                //citta_logf("PRENDO DA CODA %ld/%ld bytes in ascii", tmplen, tmp->len);
                 memcpy(buf->out + buf->olen, tmp->testo, tmplen);
                 buf->olen += tmplen;
                 tmp->len -= tmplen;
                 buf->out[buf->olen] = '\0';
                 if (tmp->len < 0) {
-                        clog("SYSERR prendi_da_coda_0!!!");
+                        citta_log("SYSERR prendi_da_coda_0!!!");
                         /* non dovrebbe capitare mai */
                 } else if (tmp->len > 0) { /* Rimane roba da trattare */
                         memmove(tmp->testo, tmp->testo+tmplen, tmp->len);
@@ -209,7 +209,7 @@ size_t iobuf_olen(struct iobuf *buf)
 {
         if (buf)
                 return buf->olen;
-        clog("ERROR: iobuf_olen called with null pointer");
+        citta_log("ERROR: iobuf_olen called with null pointer");
         return 0;
 }
 

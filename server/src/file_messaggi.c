@@ -95,7 +95,7 @@ void fm_load_data(void)
 
         fp = fopen(FILE_MSG_DATA, "r");
         if (!fp) {
-        	clog("No fmdata: Creo File Messaggi di base.");
+        	citta_log("No fmdata: Creo File Messaggi di base.");
 		fm_default();
         	return;
         }
@@ -109,13 +109,13 @@ void fm_load_data(void)
                 lista_fm = fm;
                 punto = NULL;
         } else {
-        	clog("fmdata vuoto: Creo File Messaggi di base.");
+        	citta_log("fmdata vuoto: Creo File Messaggi di base.");
 		fm_default();
 	}
 	
         while (hh == 1) {
 		/* le prossime due righe sono proprio sospette! non servono */
-               clogf("Aperto FM #%ld [%s] con %ld msg, flags: %ld", fm->fm.num, fm->fm.desc, fm->fm.nmsg, fm->fm.flags);
+               citta_logf("Aperto FM #%ld [%s] con %ld msg, flags: %ld", fm->fm.num, fm->fm.desc, fm->fm.nmsg, fm->fm.flags);
                if (punto != NULL)
                         punto->next = fm;
                 punto = fm;
@@ -145,7 +145,7 @@ void fm_save_data(void)
 
 	fp = fopen(FILE_MSG_DATA, "w");
 	if (!fp) {
-		clog("SYSERR: Non posso aprire in scrittura fmdata.");
+		citta_log("SYSERR: Non posso aprire in scrittura fmdata.");
 		return;
 	}
 	/* Ciclo di scrittura dati */
@@ -154,7 +154,7 @@ void fm_save_data(void)
 		hh = fwrite((struct file_msg *) &(punto->fm),
 			    sizeof(struct file_msg), 1, fp);
 		if (hh == 0)
-			clog("SYSERR: Problemi scrittura struct file_msg.");
+			citta_log("SYSERR: Problemi scrittura struct file_msg.");
 	}
 
 	fclose(fp);
@@ -204,7 +204,7 @@ long fm_create(long fm_size, char *desc)
 	else
 		ultimo_fm->next = newfm;
 	ultimo_fm = newfm;
-	clogf("SYSTEM: creato file messaggi #%ld, '%s'.", newfm->fm.num, desc);
+	citta_logf("SYSTEM: creato file messaggi #%ld, '%s'.", newfm->fm.num, desc);
         return newfm->fm.num;
 }
 
@@ -247,7 +247,7 @@ char fm_delete(long fmnum)
         rename(filename, buf);
 
         (dati_server.fm_curr)--;
-        clogf("SYSTEM: File message [%ld] '%s' deleted.", fmnum, fm->fm.desc);
+        citta_logf("SYSTEM: File message [%ld] '%s' deleted.", fmnum, fm->fm.desc);
         Free(fm);
         return 1;
 }
@@ -275,7 +275,7 @@ char fm_resize(long fmnum, long newsize)
         fm_name(filename, fmnum);
         fp = fopen(filename, "r");
         if (fm == NULL) {
-                clogf("SYSERR: Can't open message file #%ld", fmnum);
+                citta_logf("SYSERR: Can't open message file #%ld", fmnum);
                 return FMERR_OPEN;
         }
         fseek(fp, fm->posizione, SEEK_SET);
@@ -385,7 +385,7 @@ char fm_expand(long fmnum, long newsize)
         fm_name(filename, fmnum);
         fp = fopen(filename, "r+");
         if (fp == NULL) {
-                clogf("SYSERR: Can't open message file #%ld", fmnum);
+                citta_logf("SYSERR: Can't open message file #%ld", fmnum);
                 return 4;
         }
         fseek(fp, 0, SEEK_END);
@@ -470,7 +470,7 @@ static char fm_seek(long fmnum, long msgnum, long msgpos, FILE **fp,
         fm_name(filename, fmnum);
         *fp = fopen(filename, "r+");
         if (*fp == NULL) {
-                clogf("SYSERR: Can't open message file #%ld", fmnum);
+                citta_logf("SYSERR: Can't open message file #%ld", fmnum);
                 return FMERR_OPEN;
         }
 
@@ -607,7 +607,7 @@ long fm_put(long fmnum, struct text *txt, char *header, long *msgpos)
 
         fm = fm_find(fmnum);
         if (!fm) {
-		clogf("FM: non esiste il file messaggi #%ld", fmnum);
+		citta_logf("FM: non esiste il file messaggi #%ld", fmnum);
 		return 0;
 	}
 	
@@ -615,7 +615,7 @@ long fm_put(long fmnum, struct text *txt, char *header, long *msgpos)
         msgnum = ++(fm->highest);
         hlen = sprintf(h, "%ld|", msgnum);
         if (strlen(header)+hlen > (LBUF-1)) {
-                clog("SYSERR Header too long!!");
+                citta_log("SYSERR Header too long!!");
                 return -1; /* header too long */
         }
         hlen += sprintf(h+hlen, "%s", header);
@@ -776,7 +776,7 @@ char fm_headers(long fmnum, struct text *txt)
         fm_name(filename, fmnum);
         fp = fopen(filename, "r");
         if (fm == NULL) {
-                clogf("SYSERR: Can't open message file #%ld", fmnum);
+                citta_logf("SYSERR: Can't open message file #%ld", fmnum);
                 return FMERR_OPEN;
         }
 

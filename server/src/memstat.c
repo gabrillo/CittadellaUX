@@ -213,7 +213,7 @@ void mem_init(void)
         memstats.n = (size_t *) malloc(MEMSTATS_STEP * sizeof(size_t));
 #endif
 
-        //        clogf("MEMSTAT addr=%x tipo=%x n=%x", memstats.addr, memstats.tipo, memstats.n);
+        //        citta_logf("MEMSTAT addr=%x tipo=%x n=%x", memstats.addr, memstats.tipo, memstats.n);
 
 	for (i = 0; i < TYPE_NUM; i++)
 		mem_stats[i] = 0UL;
@@ -224,14 +224,14 @@ void mem_log(void)
 #ifdef MEMSTAT_ON
 	int i;
 	
-	clogf("MEM Currently allocated %ld bytes, Max %ld.", memstats.mem_tot,
+	citta_logf("MEM Currently allocated %ld bytes, Max %ld.", memstats.mem_tot,
               memstats.mem_max);
 	for (i = 0; i < TYPE_NUM; i++) {
 		if (mem_stats[i])
-			clogf("MEM STRUCT %-15s : %ld -- %ld bytes",
+			citta_logf("MEM STRUCT %-15s : %ld -- %ld bytes",
                               type_table[i].type, mem_stats[i],
                               mem_stats[i] * type_table[i].size);
-                clogf("MEMSTAT addr=%x tipo=%ld n=%d", memstats.addr[i], memstats.tipo[i], memstats.n[i]);
+                citta_logf("MEMSTAT addr=%x tipo=%ld n=%d", memstats.addr[i], memstats.tipo[i], memstats.n[i]);
         }
 #endif
 }
@@ -281,7 +281,7 @@ void Free(void *ptr)
                 free(ptr);
                 memstats.n_free++;
         } else
-                clogf("SYSERR Free: trying to free non allocated mem.");
+                citta_logf("SYSERR Free: trying to free non allocated mem.");
 #else
         free(ptr);
 #endif
@@ -300,7 +300,7 @@ void * Realloc(void *ptr, size_t size)
         tipo = mem_tipo(ptr);
 
         if (!mem_del(ptr)) {
-                clogf("SYSERR Realloc: trying to realloc non allocated mem.");
+                citta_logf("SYSERR Realloc: trying to realloc non allocated mem.");
                 return NULL;
         }
 #endif	
@@ -344,7 +344,7 @@ static void mem_ins(void *addr, unsigned int tipo, size_t n)
         int tmp, start, end;
 
         if (memstats.num == memstats.alloc) {
-                clogf("MEMSTAT addr=%x tipo=%x n=%x BEFORE", (int)memstats.addr,
+                citta_logf("MEMSTAT addr=%x tipo=%x n=%x BEFORE", (int)memstats.addr,
                       (int)memstats.tipo, (int)memstats.n);
                 memstats.alloc += MEMSTATS_STEP;
                 memstats.tipo = (unsigned int *) realloc(memstats.tipo,
@@ -353,7 +353,7 @@ static void mem_ins(void *addr, unsigned int tipo, size_t n)
                                 memstats.alloc * sizeof(size_t));
                 memstats.addr = (void **) realloc(memstats.addr,
                                   memstats.alloc * sizeof(void *));
-                clogf("MEMSTAT addr=%x tipo=%x n=%x AFTER", (int)memstats.addr,
+                citta_logf("MEMSTAT addr=%x tipo=%x n=%x AFTER", (int)memstats.addr,
                       (int)memstats.tipo, (int)memstats.n);
         }
 

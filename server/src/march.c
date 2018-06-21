@@ -175,7 +175,7 @@ void cmd_goto(struct sessione *t, char *cmd)
 
 	PUT_USERMAIL(t); /* TODO risistemare e eliminare il PUT_USERMAIL */
         if (t->room->msg == NULL) {
-                clogf("SYSERR 3: No msg data, [goto %s] for %s.", cmd,
+                citta_logf("SYSERR 3: No msg data, [goto %s] for %s.", cmd,
                       t->utente->nome);
                 cprintf(t, "%d SYSERR 3\n", ERROR);
                 return;

@@ -174,7 +174,7 @@ int http_nuovo_descr(int s)
 
 	/* Se e' previsto uno shutdown avverte e chiude la connessione */
 
-	clogf("HTTP: Nuova connessione da [%s]", nuova_ses->host);
+	citta_logf("HTTP: Nuova connessione da [%s]", nuova_ses->host);
   
 	/* Inizializziamo la struttura coi dati della nuova sessione */
 
@@ -262,7 +262,7 @@ int http_elabora_input(struct http_sess *t)
 			return(-1);
 		}
 	} else {
-		clog("SYSERR: Incontrato EOF in lettura su socket.");
+		citta_log("SYSERR: Incontrato EOF in lettura su socket.");
 		return(-1);
 	}
         
@@ -328,7 +328,7 @@ void http_interprete_comandi(struct http_sess *p, char *command)
 	else {
 		/* e' stato richiesto qualcosa che non inizia col metodo GET */
 		strncpy(req, command, LBUF < 128 ? LBUF : 128);
-		clogf("HTTP: metodo non implementato '%s'", req);
+		citta_logf("HTTP: metodo non implementato '%s'", req);
 		return;
 	}
 
@@ -347,7 +347,7 @@ void http_interprete_comandi(struct http_sess *p, char *command)
 
 	/* A questo punto spediamo e chiudiamo la connessione. */
 #ifdef DEBUG_CITTAWEB
-	clog("HTTP: impacchettato e spedito");
+	citta_log("HTTP: impacchettato e spedito");
 #endif
 	p->finished = 1;
 	dati_server.http_conn_ok++;
@@ -373,10 +373,10 @@ static void http_get(struct http_sess *p, char *code, char *command)
         *index(command,' ') = 0;
         strncpy(req, command+i, LBUF);
 
-        clogf("command [%s] - req [%s]", command, req);
+        citta_logf("command [%s] - req [%s]", command, req);
 
 #ifdef DEBUG_CITTAWEB
-	clogf("HTTP: richiesta [%s]", req);
+	citta_logf("HTTP: richiesta [%s]", req);
 #endif
 	if (!strncmp(req, "index", 5) || strlen(req) == 0)
 		/* Index: invia la lista delle room.                     */
@@ -468,7 +468,7 @@ static void http_send_index(struct http_sess *p, char *code, int lang)
         char roomlink[LBUF];
 
 #ifdef DEBUG_CITTAWEB
-	clog("HTTP invio index");
+	citta_log("HTTP invio index");
 #endif
 
 	/* build the header of the reply */
@@ -632,7 +632,7 @@ static void http_send_profile(struct http_sess *p, char *req, char *code,
 	char buf[LBUF];
 
 #ifdef DEBUG_CITTAWEB
-	clogf("HTTP: richiesta profile %s", req);
+	citta_logf("HTTP: richiesta profile %s", req);
 #endif
         utente = trova_utente(req);
         if (utente == NULL) {
@@ -665,7 +665,7 @@ static void http_send_room(struct http_sess *p, char *req, char *code,
 	struct room *room;
 
 #ifdef DEBUG_CITTAWEB
-	clogf("HTTP: richiesta room %s", req);
+	citta_logf("HTTP: richiesta room %s", req);
 #endif
 	/* CHECK THE ROOM AND SEND */
 	room = room_find(req);
@@ -712,7 +712,7 @@ static void http_send_blog(struct http_sess *p, char *req, char *code, int lang)
         blog_t *blog;
 
 #ifdef DEBUG_CITTAWEB
-	clogf("HTTP: richiesta blog %s", req);
+	citta_logf("HTTP: richiesta blog %s", req);
 #endif
 
         blog = blog_find(trova_utente(req));
@@ -769,7 +769,7 @@ static void http_send_image(struct http_sess *p, char *req, char *code)
         size_t len;
 
 #ifdef DEBUG_CITTAWEB
-	clogf("HTTP: richiesta immagine %s", req);
+	citta_logf("HTTP: richiesta immagine %s", req);
 #endif
 
         snprintf(filename, 64, "%s/%s", IMAGES_DIR, req);
@@ -784,7 +784,7 @@ static void http_send_image(struct http_sess *p, char *req, char *code)
         fstat(fileno(fp), &filestat);
 
         len = filestat.st_size;
-        clogf("Image Size = %d", (int)len);
+        citta_logf("Image Size = %d", (int)len);
 
         CREATE(image, char, len, TYPE_CHAR);
 
@@ -806,7 +806,7 @@ static void http_send_file(struct http_sess *p, char *req, char *code)
         char *ptr, *data;
 
 #ifdef DEBUG_CITTAWEB
-	clogf("HTTP: richiesta file %s", req);
+	citta_logf("HTTP: richiesta file %s", req);
 #endif
         ptr = index(req, '/');
         if (ptr == NULL) {
@@ -818,7 +818,7 @@ static void http_send_file(struct http_sess *p, char *req, char *code)
         *ptr = 0;
         ptr++;
 
-        clogf("filenum %ld, filename %s", strtol(req, NULL, 10), ptr);
+        citta_logf("filenum %ld, filename %s", strtol(req, NULL, 10), ptr);
 
         len  = fs_download(strtol(req, NULL, 10), ptr, &data);
         if (len == 0) {

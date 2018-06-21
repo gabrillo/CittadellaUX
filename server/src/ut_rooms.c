@@ -75,7 +75,7 @@ void utr_load(struct sessione *t)
 
 	fp = utr_fopen(t->utente->matricola, "r");
 	if (!fp) {
-		clogf("UTR_DATA assente per utente %ld.", t->utente->matricola);
+		citta_logf("UTR_DATA assente per utente %ld.", t->utente->matricola);
 		utr_default(t);
 		return;
 	}
@@ -103,7 +103,7 @@ void utr_load1(struct dati_ut *utente, long *fullroom, long *room_flags,
 
 	fp = utr_fopen(utente->matricola, "r");
 	if (!fp) {
-		clogf("UTR_DATA assente per utente %ld.", utente->matricola);
+		citta_logf("UTR_DATA assente per utente %ld.", utente->matricola);
 		utr_default1(fullroom, room_flags, room_gen);
 		return;
 	}
@@ -124,14 +124,14 @@ void utr_check(void)
 	struct room *r;
 	long nslot, *rf, *zero_vec;
 
-	clog("UTR Check data");
+	citta_log("UTR Check data");
 	/* Genero UTR_Data di default */
 	nslot = dati_server.utr_nslot;
 	/*
 	{
 		int i = 0;
 		for (r = lista_room.first; r; r = r->next) i++;
-		clogf("nslots %d, i %d", nslot, i);
+		citta_logf("nslots %d, i %d", nslot, i);
 	}
 	*/
 	CREATE(zero_vec, long, nslot, TYPE_LONG);
@@ -176,7 +176,7 @@ void utr_save(struct sessione *t)
 	
 	fp = fopen(filename, "w");
 	if (!fp) {
-		clogf("UTR_DATA errore in scrittura utente #%ld.",
+		citta_logf("UTR_DATA errore in scrittura utente #%ld.",
 		     t->utente->matricola);
 		rename(bak, filename);
 		return;
@@ -186,7 +186,7 @@ void utr_save(struct sessione *t)
 	err+=(fwrite(t->room_gen, sizeof(long), nslot, fp)!=nslot);
 	fclose(fp);
 	if(err){
-		  clogf("UTR_DATA errore in scrittura del file utente #%ld.",
+		  citta_logf("UTR_DATA errore in scrittura del file utente #%ld.",
 				                       t->utente->matricola);
 		  rename(bak, filename);
 		  return;
@@ -463,7 +463,7 @@ void utr_rmslot_all(long slot)
 		for (ut = lista_utenti; ut; ut = ut->prossimo)
 			utr_rmslot(ut->dati->matricola, slot);
 	} else
-		clog("Tentativo di eliminare slot inesistente.");
+		citta_log("Tentativo di eliminare slot inesistente.");
 }
 
 /*

@@ -387,7 +387,7 @@ int chiedi_scelte(char *risposte[], int min_scelte, int maxlen,
           */
 
          cml_printf(_(" (%c) [%s]: "), c, default_resp);
-         risposta = getline(default_resp, maxlen, 0, 0);
+         risposta = c_getline(default_resp, maxlen, 0, 0);
 
          if(default_resp != '\0') {
             strncpy(risposte[pos], default_resp, maxlen);
@@ -471,7 +471,7 @@ int new_str_m_abo(char *prompt, char *str, int max)
 {
    strcpy(str, "");
    cml_printf("%s", prompt);
-   return getline(str, max, 0, 0);
+   return c_getline(str, max, 0, 0);
 }
 
 void free_elenco_ref(struct elenco_ref *elenco[])

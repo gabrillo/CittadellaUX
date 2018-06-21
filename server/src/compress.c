@@ -55,7 +55,7 @@ void compress_check(struct sessione *t, const char *tipo)
 
 static int sync_sessione(struct sessione *t)
 {
-        clog("Sync sessione");
+        citta_log("Sync sessione");
         while ( (t->output.partenza != NULL) &&
                 (MAX_STRINGA-1 > iobuf_olen(&t->iobuf))) {
                 t->bytes_out += prendi_da_coda_o(&t->output, &t->iobuf);
@@ -125,7 +125,7 @@ int compress_scrivi_a_client(struct sessione *t, char * testo, unsigned int len)
 
         /* spedisci i dati compressi */
         if (z->avail_out == 0) {
-                //clog("MY ADDITION...");
+                //citta_log("MY ADDITION...");
                 q->end = q->size - z->avail_out;
                 if ( (wlen = write(t->socket_descr, q->data + q->start,
                                   q->end - q->start)) > 0) {
@@ -155,10 +155,10 @@ int compress_scrivi_a_client(struct sessione *t, char * testo, unsigned int len)
                                 return -1;
                 }
 	} else {
-                //clogf("Deflate returns %d, avail-out %d", ret, z->avail_out);
+                //citta_logf("Deflate returns %d, avail-out %d", ret, z->avail_out);
                 return 0;
         }
-        //clogf("Scritto %d bytes - Inviato %d bytes", wlen, len);
+        //citta_logf("Scritto %d bytes - Inviato %d bytes", wlen, len);
 
         return len-z->avail_in;
 }

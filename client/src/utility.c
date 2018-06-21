@@ -117,20 +117,20 @@ int new_str_M(char *prompt, char *str, int max)
 {
         strcpy(str, "");
         cml_printf("%s", prompt);
-        return getline(str, max, 1, 0);
+        return c_getline(str, max, 1, 0);
 }
 
 int new_str_m(char *prompt, char *str, int max)
 {
         strcpy(str, "");
         cml_printf("%s", prompt);
-        return getline(str, max, 0, 0);
+        return c_getline(str, max, 0, 0);
 }
 
 int new_str_def_M(char *prompt, char *def, char *str, int max)
 {
         cml_printf("%s [%s]: ", prompt, def);
-        getline(str, max, 1, 0);
+        c_getline(str, max, 1, 0);
         if (str[0] == '\0') {
                 strncpy(str, def, ((max > 0) ? max : -max) + 1);
 		return 0;
@@ -141,7 +141,7 @@ int new_str_def_M(char *prompt, char *def, char *str, int max)
 int new_str_def_m(char *prompt, char *def, char *str, int max)
 {
         cml_printf("%s [%s]: ", prompt, def);
-        getline(str, max, 0, 0);
+        c_getline(str, max, 0, 0);
         if (str[0] == '\0') {
                 strncpy(str, def, ((max > 0) ? max : -max) + 1);
 		return 0;
@@ -348,6 +348,21 @@ void hit_any_key(void)
         while (c == 0)
                 c = getchar();
         printf("\r                 \r");
+}
+
+int hit_but_char(char but)
+{
+        char c;
+
+	push_color();
+	setcolor(C_HAK);
+        cml_printf(_("\r\\<<b>Premi un tasto per continuare, %c per smettere</b>\\>"),but);
+	pull_color();
+        c = 0;
+        while (c == 0)
+                c = getchar();
+        printf("\r                                                           \r");
+	return (c == but ? 1 : 0);
 }
 
 void Beep(void)

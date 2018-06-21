@@ -71,7 +71,7 @@ int old_load_file(const char *file, const int est, FILE ** fpp)
     lnomefile += 6;		/*  per '/-est0'   */
 
     if (abs(est) >= 1000) {
-	clog("SYSERR: estensione troppo lunga.");
+	citta_log("SYSERR: estensione troppo lunga.");
 	return -1;
     }
 
@@ -87,7 +87,7 @@ int old_load_file(const char *file, const int est, FILE ** fpp)
 
     *fpp = fopen(nomefile, "r");
     if (!*fpp) {
-	clogf("SYSLOG: errore in apertura:%d,%s", errno, strerror(errno));
+	citta_logf("SYSLOG: errore in apertura:%d,%s", errno, strerror(errno));
 	if (errno == ENOENT) {
 	    *fpp = fopen(nomefile, "w");
 	    fclose(*fpp);
@@ -143,7 +143,7 @@ void old_rs_load_data()
     modif_stat = 0;
 
     if (old_load_stat()) {
-	clog("SYSERROR: non si possono usare i referendum!");
+	citta_log("SYSERROR: non si possono usare i referendum!");
 	return;
     }
 
@@ -207,26 +207,26 @@ int old_load_dati(struct old_urna_data **udp, long num_quesito)
     int num_old_urna;
 
     if (old_load_file(FILE_DATA, num_quesito, &fp)) {
-	clogf("SYSLOG: problemi con %s", FILE_DATA);
+	citta_logf("SYSLOG: problemi con %s", FILE_DATA);
 	return (-1);
     }
     /*   */
 
     if (!old_check_magic_number(fp, MAGIC_DATA)) {
-	clogf("SYSLOG: old_urna-data %s %ld non corretto", FILE_DATA,
+	citta_logf("SYSLOG: old_urna-data %s %ld non corretto", FILE_DATA,
 	     num_quesito);
 	fclose(fp);
 	return (-1);
     }
 
     if (fread(&num_old_urna, sizeof(long), 1, fp) != 1) {
-	clogf("SYSLOG: non riesco a leggere il numero del quesito");
+	citta_logf("SYSLOG: non riesco a leggere il numero del quesito");
 	fclose(fp);
 	return (-1);
     }
 
     if (num_old_urna != num_quesito) {
-	clogf("SYSERR: non tornano i numeri: %d!=%ld!", num_old_urna,
+	citta_logf("SYSERR: non tornano i numeri: %d!=%ld!", num_old_urna,
 	     num_quesito);
 	fclose(fp);
 	return (-1);
@@ -242,7 +242,7 @@ int old_load_dati(struct old_urna_data **udp, long num_quesito)
     ud = *udp;
 
     if (fread(ud, sizeof(struct old_urna_data), 1, fp) != 1) {
-	clogf("SYSLOG: non riesco a leggere i dati");
+	citta_logf("SYSLOG: non riesco a leggere i dati");
 	Free(*udp);
 	fclose(fp);
 	return (-1);
@@ -252,7 +252,7 @@ int old_load_dati(struct old_urna_data **udp, long num_quesito)
        problema, ma ovvio che non sono una soluzione a lungo
        termine...                                              */
     if (ud->voti_nslots > 100) {
-	clogf("SYSERR: old_urna_data->voti_nslots %ld sospetto", num_quesito);
+	citta_logf("SYSERR: old_urna_data->voti_nslots %ld sospetto", num_quesito);
 	Free(*udp);
 	fclose(fp);
 	return (-1);
@@ -263,7 +263,7 @@ int old_load_dati(struct old_urna_data **udp, long num_quesito)
     if (fread(ud->uvot, sizeof(long),
 	     (ud->voti_nslots) * LEN_SLOTS, fp) !=
 	(ud->voti_nslots) * LEN_SLOTS) {
-	clogf("SYSLOG: non riesco a leggere i voti");
+	citta_logf("SYSLOG: non riesco a leggere i voti");
 	Free(ud->uvot);
 	Free(*udp);
 	fclose(fp);
@@ -275,7 +275,7 @@ int old_load_dati(struct old_urna_data **udp, long num_quesito)
 	    /*   */
 	    Free(ud->uvot);
 	    Free(*udp);
-	    clogf("SYSLOG: non riesco a leggere il testo");
+	    citta_logf("SYSLOG: non riesco a leggere il testo");
 	    fclose(fp);
 	    return (-1);
 	}
@@ -285,7 +285,7 @@ int old_load_dati(struct old_urna_data **udp, long num_quesito)
 	for (j = 0; j < MAXLEN_QUESITO; j++)
 	    Free(ud->uvot);
 	Free(*udp);
-	clogf("SYSLOG: non riesco a leggere le voci");
+	citta_logf("SYSLOG: non riesco a leggere le voci");
 	fclose(fp);
 	return (-1);
     }
@@ -306,7 +306,7 @@ old_load_voci(struct old_voce **testap, long int num_voci, long int num_quesito)
 /*   */
 
     if (!old_check_magic_number(fp, MAGIC_VOCI)) {
-	clogf("SYSLOG: old_urna-voci %s %ldnon corretto", FILE_VOCI,
+	citta_logf("SYSLOG: old_urna-voci %s %ldnon corretto", FILE_VOCI,
 	     num_quesito);
 	fclose(fp);
 	return (-1);
@@ -330,7 +330,7 @@ old_load_voci(struct old_voce **testap, long int num_voci, long int num_quesito)
 	if (fread(questa->giudizi, sizeof(long), NUM_GIUDIZI, fp)
 	    != NUM_GIUDIZI) {
 	    Free(questa->giudizi);
-	    clog("non posso creare i posti per i voti!");
+	    citta_log("non posso creare i posti per i voti!");
 	    fclose(fp);
 	    return (-1);
 	}
@@ -351,7 +351,7 @@ int old_ripulisci_quesito(long *testa, int max)
 /*   */
 #ifdef DEBUG
 	else {
-	    clogf("DEB::eliminata pos %d", j);
+	    citta_logf("DEB::eliminata pos %d", j);
 	}
 #endif
     }
@@ -367,14 +367,14 @@ int old_load_stat()
     letto = old_load_file(FILE_STAT, -1, &fp);
 
     if (letto == -1) {
-	clogf("SYSLOG: non posso aprire %s", FILE_STAT);
+	citta_logf("SYSLOG: non posso aprire %s", FILE_STAT);
 	return (-1);
     }
 
     /* se il file è vuoto */
 
     if (letto == 1) {
-	clogf("SYSLOG: file %s vuoto", FILE_STAT);
+	citta_logf("SYSLOG: file %s vuoto", FILE_STAT);
 	old_ustat.voti = 0;
 	old_ustat.num = 0;
 	old_ustat.complete = 0;
@@ -385,13 +385,13 @@ int old_load_stat()
     }
 
     if (!(old_check_magic_number(fp, MAGIC_STAT))) {
-	clogf("SYSLOG: versione %s non corretta", FILE_STAT);
+	citta_logf("SYSLOG: versione %s non corretta", FILE_STAT);
 	fclose(fp);
 	return (-1);
     }
 
     if (fread(&old_ustat, sizeof(struct old_urna_stat), 1, fp) != 1) {
-	clogf("SYSLOG: dati su %s corrotti", FILE_STAT);
+	citta_logf("SYSLOG: dati su %s corrotti", FILE_STAT);
 	fclose(fp);
 	return (-1);
     }
@@ -401,12 +401,12 @@ int old_load_stat()
 
     if (old_ustat.q_nslots < 1) {
 	old_ustat.q_nslots = 1;
-	clogf("SYSLOG:URNA letto q_nslots<1(%ld):riportato a 1",
+	citta_logf("SYSLOG:URNA letto q_nslots<1(%ld):riportato a 1",
 	     old_ustat.q_nslots);
     }
 
     if (old_ustat.q_nslots > MAX_SLOT) {
-	clog("SYSLOG:URNA errori nella lettura, troppi slots per" "old_ustat");
+	citta_log("SYSLOG:URNA errori nella lettura, troppi slots per" "old_ustat");
 	fclose(fp);
 	return (-1);
     }
@@ -415,7 +415,7 @@ int old_load_stat()
     if (fread(old_ustat.quesito_testa, sizeof(long),
 	      old_ustat.q_nslots * LEN_SLOTS, fp)
 	!= old_ustat.q_nslots * LEN_SLOTS) {
-	clogf("SYSLOG: dati sui numeri urna in %s corrotti", FILE_STAT);
+	citta_logf("SYSLOG: dati sui numeri urna in %s corrotti", FILE_STAT);
 	fclose(fp);
 	return (-1);
     }
@@ -436,15 +436,15 @@ void debugga_server(struct old_urna_data *ud, int level)
     struct old_voce *pvoce;
     char *str_copia, *str_tmp;
 
-    clogf("\n\n\n-------------------------------------------------------------\n");
-    clogf("DEB:proponente:%ld,room:%ld,tipo:%d,modo:%d\n,"
+    citta_logf("\n\n\n-------------------------------------------------------------\n");
+    citta_logf("DEB:proponente:%ld,room:%ld,tipo:%d,modo:%d\n,"
 	 " bianca:%d, scelta %d, start %ld, stop %ld", ud->proponente,
 	 ud->room_num, ud->tipo, ud->modo, ud->bianca,
 	 ud->astensione_scelta, ud->start, ud->stop);
 
-    clogf("DEB:titolo:%s", ud->titolo);
-    clogf("DEB:num_voci:%d,max_voci:%d criterio:%d,val_crit%ld,anzianità:%ld", ud->num_voci, ud->max_voci, ud->criterio, ud->val_crit, ud->anzianita);
-    clogf("nvoti:%ld", ud->nvoti);
+    citta_logf("DEB:titolo:%s", ud->titolo);
+    citta_logf("DEB:num_voci:%d,max_voci:%d criterio:%d,val_crit%ld,anzianità:%ld", ud->num_voci, ud->max_voci, ud->criterio, ud->val_crit, ud->anzianita);
+    citta_logf("nvoti:%ld", ud->nvoti);
     if (level == 1)
 	return;
     /*
@@ -454,32 +454,32 @@ void debugga_server(struct old_urna_data *ud, int level)
     str_copia=(char*)calloc(( ud->nvoti * LEN_SLOTS + 10 * 10 * 4),sizeof(char));
     str_tmp=(char*)calloc( LEN_SLOTS + 10 * 4, sizeof(char));
 
-    clog("DEB:quesito");
+    citta_log("DEB:quesito");
     for (i = 0; i < MAXLEN_QUESITO; i++) {
-	clogf("%s", ud->testo[i]);
+	citta_logf("%s", ud->testo[i]);
     }
     sprintf(str_copia, " ");
     for (i = 0; i < ud->nvoti; i++) {
 	sprintf(str_tmp, "%ld", (ud->uvot)[i]);
 	strcat(str_copia, str_tmp);
     }
-    clogf("\nDEB:votanti:%s", str_copia);
+    citta_logf("\nDEB:votanti:%s", str_copia);
 
-    clogf("\nDEB:bianche:%ld", ud->bianche);
-    clogf("\nDEB::%d", ud->posticipo);
+    citta_logf("\nDEB:bianche:%ld", ud->bianche);
+    citta_logf("\nDEB::%d", ud->posticipo);
     pvoce = ud->testa_voci;
-    clog("\n\nDEB:voci:");
+    citta_log("\n\nDEB:voci:");
     for (i = 0; i < ud->num_voci; i++) {
 	pvoce = ud->testa_voci + i;
-	clogf("\nvoce (%c):%s", 'a' + i, pvoce->scelta);
-	clogf("num_voti:%ld, tot_voti %ld, astensioni %ld",
+	citta_logf("\nvoce (%c):%s", 'a' + i, pvoce->scelta);
+	citta_logf("num_voti:%ld, tot_voti %ld, astensioni %ld",
 	     pvoce->num_voti, pvoce->tot_voti, pvoce->astensioni);
 	sprintf(str_copia, " ");
 	for (j = 0; j < 10; j++) {
 	    sprintf(str_tmp, "%d:%ld, ", j, (pvoce->giudizi)[j]);
 	    strcat(str_copia, str_tmp);
 	}
-	clogf("voto %s", str_copia);
+	citta_logf("voto %s", str_copia);
     }
     Free(str_copia);
     Free(str_tmp);

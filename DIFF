@@ -1,0 +1,6 @@
+
+cambiate le funzioni
+getline -> c_getline
+clog -> citta_log
+clogf -> citta_logf
+per questioni di compatibilita.

@@ -115,7 +115,7 @@ void cmd_slst(struct sessione *t, char *arg)
  */
 
       if(rm == NULL) {
-         clogf("room %ld cancellata, uso Lobby??", ucf->room_num);
+         citta_logf("room %ld cancellata, uso Lobby??", ucf->room_num);
          rm = room_find(lobby);
       }
 
@@ -239,7 +239,7 @@ void cmd_sinf(struct sessione *t, char *buf)
    rm = room_findn(ucf->room_num);
 
    if(rm == NULL) {
-      clogf("room %ld cancellata, uso Lobby??", ucf->room_num);
+      citta_logf("room %ld cancellata, uso Lobby??", ucf->room_num);
       rm = room_find(lobby);
    }
 
@@ -290,7 +290,7 @@ int crea_stringa_per_client(char *string, struct urna *u)
    rm = room_findn(ucf->room_num);
 
    if(rm == NULL) {
-      clogf("room %ld clancellata, uso Lobby??", ucf->room_num);
+      citta_logf("room %ld clancellata, uso Lobby??", ucf->room_num);
       rm = room_find(lobby);
    }
 
@@ -318,13 +318,13 @@ int crea_stringa_per_client(char *string, struct urna *u)
 
    strcpy(string, client[0]);
    Free((client[0]));
-   clogf("stringa: %s", string);
+   citta_logf("stringa: %s", string);
    for(i = 1; i < MAX_POS; i++) {
       strcat(string, sep);
       strcat(string, client[i]);
       Free((client[i]));
    }
-   clogf("stringa: %s", string);
+   citta_logf("stringa: %s", string);
    return (0);
 }
 

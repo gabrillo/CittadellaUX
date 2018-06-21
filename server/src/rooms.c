@@ -83,7 +83,7 @@ void room_load_data(void)
 
         fp = fopen(ROOMS_DATA,"r");
         if (!fp) {
-                clog("SYSERR: no rdata: verra' creato successivamente.");
+                citta_log("SYSERR: no rdata: verra' creato successivamente.");
 		room_create_basic();
 		return;
         }
@@ -101,7 +101,7 @@ void room_load_data(void)
                 rl->prev = NULL;
                 rl->next = NULL;
         } else {
-                clog("SYSTEM: rdata vuoto.");
+                citta_log("SYSTEM: rdata vuoto.");
 		room_create_basic();
 		fclose(fp);
 		Free(rl->data);
@@ -179,13 +179,13 @@ void room_save_data(void)
 	char buf[LBUF];
 	int hh;
 	
-	clog("Salvataggio dati room.");
+	citta_log("Salvataggio dati room.");
 	sprintf(buf, "%s.bak", ROOMS_DATA);
 	rename(ROOMS_DATA, buf);
 	
 	fp = fopen(ROOMS_DATA, "w");
         if (!fp) {
-                clog("SYSERR: Non posso aprire in scrittura roomdata.");
+                citta_log("SYSERR: Non posso aprire in scrittura roomdata.");
                 return;
         }
 	for (punto = lista_room.first; punto; punto = punto->next) {
@@ -193,7 +193,7 @@ void room_save_data(void)
 		hh = fwrite((struct room_data *) (punto->data),
 			    sizeof(struct room_data), 1, fp);
 		if (hh == 0)
-			clog("SYSERR: problemi scrittura struct room_data");
+			citta_log("SYSERR: problemi scrittura struct room_data");
 	}
 	fclose(fp);
 }
@@ -634,7 +634,7 @@ void msg_load_data(struct msg_list *msg, char *filename, long maxmsg)
 	/* Legge da file i vettori */
 	fp = fopen(filename, "r");
 	if (!fp) {
-	        clogf("SYSERR: non trovo msglist %s", filename);
+	        citta_logf("SYSERR: non trovo msglist %s", filename);
 		return; /* Da mettere a posto */
 	}
 	fread(msg->pos, sizeof(long), maxmsg, fp);
@@ -666,7 +666,7 @@ void msg_save_data(struct msg_list *msg, char *filename, long maxmsg)
 
 	fp = fopen(filename, "w");
         if (!fp) {
-		clogf("SYSERR: Cannot write msglist %s", filename);
+		citta_logf("SYSERR: Cannot write msglist %s", filename);
 		rename(bak, filename);
 		return;
         }
@@ -697,7 +697,7 @@ void msg_free(struct msg_list *msg)
 	if (!msg)
 		return;
 	if (msg->dirty) /* Questo non dovrebbe MAI succedere! */
-	        clog("ERROR: freeing dirty msg_list!");
+	        citta_log("ERROR: freeing dirty msg_list!");
 	Free(msg->num);
 	Free(msg->pos);
 	Free(msg->local);

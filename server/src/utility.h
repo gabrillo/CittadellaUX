@@ -21,8 +21,8 @@
 #include <sys/time.h>
 
 /* Prototipi funzioni in utility.c */
-void clog(char *str);
-void clogf(const char *format, ...) CHK_FORMAT_1;
+void citta_log(char *str);
+void citta_logf(const char *format, ...) CHK_FORMAT_1;
 void Perror(const char *str);
 int timeval_subtract(struct timeval *result, struct timeval *x,
 		     struct timeval *y);

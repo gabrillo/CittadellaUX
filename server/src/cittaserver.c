@@ -200,7 +200,7 @@ int main(int argc, char **argv)
 		switch (*(argv[pos] + 1)) {
 		case 'a':
 			solo_aide = 1;
-			clog("SYSTEM: Accesso Limitato -- solo aide.");
+			citta_log("SYSTEM: Accesso Limitato -- solo aide.");
 			break;
 		case 'b':
 			fprintf(stderr, "Invia un broadcast al server Cittadella/UX.\n");
@@ -235,7 +235,7 @@ int main(int argc, char **argv)
  			break;
 		case 'd':
 			daemon_server = 0;
-			clog("SYSTEM: Debug, log in stderr.");
+			citta_log("SYSTEM: Debug, log in stderr.");
 			break;
 		case 'f':
 			fprintf(stderr, "Forza l'esecuzione degli script backup e logrotate al prossimo reboot/shutdown.\nOk.\n");
@@ -296,7 +296,7 @@ int main(int argc, char **argv)
 			exit(0);
 		case 'n':
 			no_nuovi_utenti = 1;
-			clog("SYSTEM: Accesso Limitato -- niente nuovi utenti.");
+			citta_log("SYSTEM: Accesso Limitato -- niente nuovi utenti.");
 			break;
 		case 's':
 			fprintf(stderr, "Esegui shutdown del server Cittadella/UX adesso.\n");
@@ -309,7 +309,7 @@ int main(int argc, char **argv)
 			kill(pid, SIGHUP);
 			exit(0);
 		default:
-			clogf("SYSERR: Opzione sconosciuta nella "
+			citta_logf("SYSERR: Opzione sconosciuta nella "
 			     "linea di comando -%c.", *(argv[pos] +1));
 			break;
 		}
@@ -374,7 +374,7 @@ int main(int argc, char **argv)
 
 	serverlock_create();
 
-	clogf("SYSTEM: Avvio del server alla porta %d.", porta);
+	citta_logf("SYSTEM: Avvio del server alla porta %d.", porta);
 
 	avvio_server(porta);
 
@@ -410,7 +410,7 @@ void avvio_server(int porta)
 
 	lista_sessioni = NULL;  
 
-	clog("Cattura segnali.");
+	citta_log("Cattura segnali.");
 	setup_segnali();
 
 	/* Inizializzazione per il prossimo reboot */
@@ -422,16 +422,16 @@ void avvio_server(int porta)
 
 	/* Inizializza l'allocatore di memoria. */
 #ifdef USE_MEM_STAT
-	clog("Inizializzazione Allocatore Memoria.");
+	citta_log("Inizializzazione Allocatore Memoria.");
 	mem_init();
 #endif
 
 	/* Legge la configurazione del sistema dal file sysconfig.rc */
-	clog("Legge configurazione di sistema.");
+	citta_log("Legge configurazione di sistema.");
 	legge_configurazione(); 
 
 	/* Legge i dati degli utenti e fa qualche check */
-	clog("Lettura dati del server, utenti, file message e room.");
+	citta_log("Lettura dati del server, utenti, file message e room.");
 	carica_dati_server();
 	fm_load_data();
 	room_load_data();
@@ -450,7 +450,7 @@ void avvio_server(int porta)
 
 	/* Inizializza la cache */
 #ifdef USE_CACHE_POST
-	clog("Inizializzazione cache per i post.");
+	citta_log("Inizializzazione cache per i post.");
 	cp_init();
 #endif
 
@@ -465,7 +465,7 @@ void avvio_server(int porta)
 
         /* Inizializza albero dei prefissi per la ricerca nei messaggi */
 #ifdef USE_FIND
-	clog("Inizializzazione albero di ricerca nei messaggi.");
+	citta_log("Inizializzazione albero di ricerca nei messaggi.");
 	find_init();
 #endif
 
@@ -474,45 +474,45 @@ void avvio_server(int porta)
 	banner_load_hash();
 
         /* TODO togliere: solo per debug */
-        clogf("dati_server.fm_num:    %ld", dati_server.fm_num);
-        clogf("dati_server.fm_curr:   %ld", dati_server.fm_curr);
-        clogf("dati_server.fm_basic:  %ld", dati_server.fm_basic);
-        clogf("dati_server.fm_mail:   %ld", dati_server.fm_mail);
-        clogf("dati_server.fm_normal: %ld", dati_server.fm_normal);
-        clogf("dati_server.fm_blog:   %ld", dati_server.fm_blog);
-        clogf("dati_server.blog_nslot:%ld", dati_server.blog_nslot);
+        citta_logf("dati_server.fm_num:    %ld", dati_server.fm_num);
+        citta_logf("dati_server.fm_curr:   %ld", dati_server.fm_curr);
+        citta_logf("dati_server.fm_basic:  %ld", dati_server.fm_basic);
+        citta_logf("dati_server.fm_mail:   %ld", dati_server.fm_mail);
+        citta_logf("dati_server.fm_normal: %ld", dati_server.fm_normal);
+        citta_logf("dati_server.fm_blog:   %ld", dati_server.fm_blog);
+        citta_logf("dati_server.blog_nslot:%ld", dati_server.blog_nslot);
 
 
         /* Inizializza il server BBS */
-	clog("Apertura connessione madre.");
+	citta_log("Apertura connessione madre.");
 	conn_madre = iniz_socket(porta);
 
 #ifdef USE_CLIENT_PORT
 	/* Apre la info_port */
-	clog("DAEMON Apertura porta client.");
+	citta_log("DAEMON Apertura porta client.");
 	client_daemon();
 #endif
 
 #ifdef USE_CITTAWEB
 	/* Inizializza il Cittaweb */
 	webstr_init();
-	clogf("Apro porta %d per connessioni HTTP.", HTTP_PORT);
+	citta_logf("Apro porta %d per connessioni HTTP.", HTTP_PORT);
 	http_socket = iniz_socket(HTTP_PORT);
 #endif
 
 #ifdef USE_POP3
 	/* Inizializza il server POP3 */
-	clogf("Apro porta %d per connessioni POP3.", POP3_PORT);
+	citta_logf("Apro porta %d per connessioni POP3.", POP3_PORT);
 	pop3_socket = iniz_socket(POP3_PORT);
 #endif
 
 #ifdef USE_IMAP4
 	/* Inizializza il server IMAP4 */
-	clogf("Apro porta %d per connessioni IMAP4.", IMAP4_PORT);
+	citta_logf("Apro porta %d per connessioni IMAP4.", IMAP4_PORT);
 	imap4_socket = iniz_socket(IMAP4_PORT);
 #endif
 
-	clog("Avvio ciclo principale del server.");
+	citta_log("Avvio ciclo principale del server.");
 	dati_server.server_runs++;
 
 	ciclo_server(conn_madre);
@@ -528,9 +528,9 @@ void restart_server(void)
 	int scripts = FALSE;
 
 	if (!citta_reboot)
-		clog("SYSTEM: Reboot del server.");
+		citta_log("SYSTEM: Reboot del server.");
 	else
-		clog("SYSTEM: Normale chiusura del server.");
+		citta_log("SYSTEM: Normale chiusura del server.");
 	fclose(logfile);
 
 	if (force_script_check()) {
@@ -661,7 +661,7 @@ void ciclo_server(int s)
 		/*
 		contatore++;
 		if (contatore == FREQUENZA) {
-			clogf("t_prec    %lds. %ldus, timeout %lds. %ldus",
+			citta_logf("t_prec    %lds. %ldus, timeout %lds. %ldus",
 			     t_prec.tv_sec, t_prec.tv_usec,
 			     timeout.tv_sec, timeout.tv_usec);
 		}
@@ -671,17 +671,17 @@ void ciclo_server(int s)
 		/* timeout   = tictac - trascorso = tictac + t_prec - ora */
 		/* t_prec = ora + timeout = t_prec + tictac               */
 		if (timeval_subtract(&trascorso, &ora, &t_prec)) {
-			/* clog("TIME: trascorso negativo!"); */
+			/* citta_log("TIME: trascorso negativo!"); */
 			trascorso.tv_sec = 0;
 			trascorso.tv_usec = 0;
 		}
 		if (timeval_subtract(&timeout, &tictac, &trascorso)) {
-			/* clog("TIME: timeout negativo!"); */
+			/* citta_log("TIME: timeout negativo!"); */
 			timeout.tv_sec = 0; 
 			timeout.tv_usec = 0;
 		}
 		if (timeval_add(&t_prec, &ora, &timeout)) {
-			/* clog("TIME: t_prec negativo!"); */
+			/* citta_log("TIME: t_prec negativo!"); */
                         /* TODO aggiungere tictac finche diventa positivo */
 			t_prec.tv_sec = 0;
 			t_prec.tv_usec = 0;
@@ -697,7 +697,7 @@ void ciclo_server(int s)
 
                 /*
 		if (contatore == FREQUENZA) {
-			clogf("trascorso %lds. %ldus, timeout %lds. %ldus",
+			citta_logf("trascorso %lds. %ldus, timeout %lds. %ldus",
 			     trascorso.tv_sec, trascorso.tv_usec,
 			     timeout.tv_sec, timeout.tv_usec);
 			contatore = 0;
@@ -749,7 +749,7 @@ void ciclo_server(int s)
 				Perror ("Nuova connessione");
 			else if (desc == 0) {
 				dati_server.connessioni++;
-				clog("Connessione rifiutata: troppe conn.");
+				citta_log("Connessione rifiutata: troppe conn.");
 			} else {
 				dati_server.connessioni++;
 				session_create(desc, host);
@@ -886,7 +886,7 @@ void ciclo_server(int s)
 			prossimo = punto->prossima;
 			if ((punto->stato == CON_LIC) 
 			    && (punto->idle.min >= login_timeout_min)) { 
-				clogf("Login timeout da [%s].", punto->host);
+				citta_logf("Login timeout da [%s].", punto->host);
 				punto->stato = CON_CHIUSA;
 				if (scrivi_a_client(punto, comm) < 0)
 					chiudi_sessione(punto);
@@ -919,7 +919,7 @@ void ciclo_server(int s)
 
 		if (select(http_maxdesc + 1, &http_input_set, &http_output_set,
 			   &http_exc_set, &t_nullo) < 0) {
-			clog("HTTP select");
+			citta_log("HTTP select");
 			if (errno != EINTR) {
 				Perror("HTTP: Select poll");
 				return;
@@ -932,7 +932,7 @@ void ciclo_server(int s)
 
 		/* gestione richiesta http */
 		if (FD_ISSET(http_socket, &http_input_set)) {
-			clog("Nuova connessione http in arrivo.");
+			citta_log("Nuova connessione http in arrivo.");
 			if (http_nuovo_descr(http_socket) < 0) 
 				Perror ("HTTP: Errore su nuova connessione");
 			dati_server.http_conn++;
@@ -942,7 +942,7 @@ void ciclo_server(int s)
 		for (http_p = sessioni_http; http_p; http_p = http_next) {
 			http_next = http_p->next;
 			if (FD_ISSET(http_p->desc, &http_exc_set)) {
-				clog("Eccezione HTTP");
+				citta_log("Eccezione HTTP");
 				FD_CLR(http_p->desc, &http_input_set);
 				FD_CLR(http_p->desc, &http_output_set);
 				http_chiudi_socket(http_p);
@@ -1031,7 +1031,7 @@ void ciclo_server(int s)
 
 		if (select(pop3_maxdesc + 1, &pop3_input_set, &pop3_output_set,
 			   &pop3_exc_set, &t_nullo) < 0) {
-			clog("POP3 select");
+			citta_log("POP3 select");
 			if (errno != EINTR) {
 				Perror("POP3: Select poll");
 				return;
@@ -1044,11 +1044,11 @@ void ciclo_server(int s)
 
 		/* gestione richiesta pop3 */
 		if (FD_ISSET(pop3_socket, &pop3_input_set)) {
-			clog("Nuova connessione POP3 in arrivo.");
+			citta_log("Nuova connessione POP3 in arrivo.");
 			if (pop3_nuovo_descr(pop3_socket) <0) 
 				Perror ("POP3: Errore su nuova connessione");
 			else 
-				clogf("POP3: Connessione avvenuta.");
+				citta_logf("POP3: Connessione avvenuta.");
 			/* dati_server.pop3_conn++; */
 		}
 
@@ -1056,7 +1056,7 @@ void ciclo_server(int s)
 		for (pop3_p = sessioni_pop3; pop3_p; pop3_p = pop3_next) {
 			pop3_next = pop3_p->next;
 			if (FD_ISSET(pop3_p->desc, &pop3_exc_set)) {
-				clog("Eccezione POP3");
+				citta_log("Eccezione POP3");
 				FD_CLR(pop3_p->desc, &pop3_input_set);
 				FD_CLR(pop3_p->desc, &pop3_output_set);
 				pop3_chiudi_socket(pop3_p);
@@ -1149,7 +1149,7 @@ void ciclo_server(int s)
 
 		if (select(imap4_maxdesc + 1, &imap4_input_set,
 			   &imap4_output_set, &imap4_exc_set, &t_nullo) < 0) {
-			clog("IMAP4 select");
+			citta_log("IMAP4 select");
 			if (errno != EINTR) {
 				Perror("IMAP4: Select poll");
 				return;
@@ -1162,11 +1162,11 @@ void ciclo_server(int s)
 
 		/* gestione richiesta imap4 */
 		if (FD_ISSET(imap4_socket, &imap4_input_set)) {
-			clog("Nuova connessione IMAP4 in arrivo.");
+			citta_log("Nuova connessione IMAP4 in arrivo.");
 			if (imap4_nuovo_descr(imap4_socket) <0) 
 				Perror ("IMAP4: Errore su nuova connessione");
 			else 
-				clogf("IMAP4: Connessione avvenuta.");
+				citta_logf("IMAP4: Connessione avvenuta.");
 			/* dati_server.imap4_conn++; */
 		}
 
@@ -1174,7 +1174,7 @@ void ciclo_server(int s)
 		for (imap4_p = sessioni_imap4; imap4_p; imap4_p = imap4_next) {
 			imap4_next = imap4_p->next;
 			if (FD_ISSET(imap4_p->desc, &imap4_exc_set)) {
-				clog("Eccezione IMAP4");
+				citta_log("Eccezione IMAP4");
 				FD_CLR(imap4_p->desc, &imap4_input_set);
 				FD_CLR(imap4_p->desc, &imap4_output_set);
 				imap4_chiudi_socket(imap4_p);
@@ -1270,10 +1270,10 @@ void ciclo_server(int s)
 					socket_attivi++;
 			}
 #ifdef USE_MEM_STAT
-			clogf("carico: sock. %d conn. %d attivi. Mem %ld bytes.",
+			citta_logf("carico: sock. %d conn. %d attivi. Mem %ld bytes.",
                               socket_connessi, socket_attivi, mem_tot());
 #else
-			clogf("carico: sock. %d conn. %d attivi",
+			citta_logf("carico: sock. %d conn. %d attivi",
 			     socket_connessi, socket_attivi);
 #endif
 
@@ -1287,7 +1287,7 @@ void ciclo_server(int s)
 				
 				if (getrusage(RUSAGE_SELF, &rusagedata) == 0)
 #ifdef MACOSX
-					clogf("carico: User time: %lds %dms  Sys time: %lds %dms %ld %ld %ld",
+					citta_logf("carico: User time: %lds %dms  Sys time: %lds %dms %ld %ld %ld",
 						rusagedata.ru_utime.tv_sec,
 						rusagedata.ru_utime.tv_usec/1000,
 						rusagedata.ru_stime.tv_sec,
@@ -1296,7 +1296,7 @@ void ciclo_server(int s)
 						rusagedata.ru_majflt,
 						rusagedata.ru_nswap);
 #else
-					clogf("carico: User time: %lds %ldms  Sys time: %lds %ldms %ld %ld %ld",
+					citta_logf("carico: User time: %lds %ldms  Sys time: %lds %ldms %ld %ld %ld",
 						rusagedata.ru_utime.tv_sec,
 						rusagedata.ru_utime.tv_usec/1000,
 						rusagedata.ru_stime.tv_sec,
@@ -1306,7 +1306,7 @@ void ciclo_server(int s)
 						rusagedata.ru_nswap);
 #endif
 				else
-					clog("rusage error");
+					citta_log("rusage error");
 			}
 #endif
 		}
@@ -1348,7 +1348,7 @@ void ciclo_server(int s)
 				if ((tmst->tm_hour == DAILY_REBOOT_HOUR)
 				    && (tmst->tm_mday == reboot_day)
 				    && !citta_shutdown) {
-					clog("Daily reboot in 15 minutes.");
+					citta_log("Daily reboot in 15 minutes.");
 					citta_reboot = 1;
 					citta_shutdown = 2;
 					citta_sdwntimer = 15*60*FREQUENZA+1;
@@ -1369,7 +1369,7 @@ void chiusura_server(int s)
 {
 	chiusura_sessioni(s);
 
-	clog("Salva le strutture dati.");
+	citta_log("Salva le strutture dati.");
 #ifdef USE_BLOG
 	blog_close();
 #endif
@@ -1439,7 +1439,7 @@ void cprintf(struct sessione *t, char *format, ...)
 	va_end(ap);
         metti_in_coda(&t->output, tmp, size);
 
-        //clogf("OUT [%s]", tmp);
+        //citta_logf("OUT [%s]", tmp);
 
 #ifdef USE_MEM_STAT
         free(tmp);
@@ -1479,7 +1479,7 @@ void carica_dati_server(void)
 
 	fp = fopen(FILE_DATI_SERVER, "r");
 	if (!fp)
-		clog("SYSERR: Non posso aprire in lettura il file dati_server.");
+		citta_log("SYSERR: Non posso aprire in lettura il file dati_server.");
 	else {
 		fseek(fp,0L,0);
 		hh=fread((struct dati_server *) &dati_server,
@@ -1487,7 +1487,7 @@ void carica_dati_server(void)
 		fclose(fp);
 	}
 	if (hh != 1) {
-		clog("SYSTEM: dati_server vuoto, creato al primo salvataggio.");
+		citta_log("SYSTEM: dati_server vuoto, creato al primo salvataggio.");
 		dati_server.server_runs = 0;
 		dati_server.matricola = 0;
 		dati_server.connessioni = 0;
@@ -1563,7 +1563,7 @@ void salva_dati_server(void)
 
 	fp = fopen(FILE_DATI_SERVER, "w");
 	if (!fp) {
-		clog("SYSERR: Non posso aprire in scrittura il file dati_server.");
+		citta_log("SYSERR: Non posso aprire in scrittura il file dati_server.");
 		return;
 	}
   
@@ -1575,7 +1575,7 @@ void salva_dati_server(void)
 
 void chiusura_sessioni(int s)
 {
-	clog("Chiusura di tutti i sockets.");
+	citta_log("Chiusura di tutti i sockets.");
 
 	while (lista_sessioni)
 		chiudi_sessione(lista_sessioni);
@@ -1590,9 +1590,9 @@ void chiudi_sessione(struct sessione *d)
 	/* Se e` in una room virtuale, prima la elimino */
 	kill_virtual_room(d);
 
-        clogf("chiudi_sessione");//
+        citta_logf("chiudi_sessione");//
 	if (d->utente) {
-                clogf("Chiudo sessione di %s.", d->utente->nome);
+                citta_logf("Chiudo sessione di %s.", d->utente->nome);
 		/* Aggiorna ultima chiamata, ultimo host e tempo online */
 		strcpy(d->utente->lasthost, d->host);
 		d->utente->time_online += (time(0) - d->ora_login);
@@ -1751,7 +1751,7 @@ void timestamp_write(char * filename)
 	time(&ora);
 	fp = fopen(filename, "w");
 	if (fp == NULL) {
-		clogf("Non riesco a creare il timestamp %s.\n", filename);
+		citta_logf("Non riesco a creare il timestamp %s.\n", filename);
 		return;
 	}
 	fprintf(fp, "%lu\n", ora);
@@ -1767,7 +1767,7 @@ time_t timestamp_read(char * filename)
 	time(&ora);
 	fp = fopen(filename, "r");
 	if (fp == NULL) {
-		clogf("Non riesco ad aprire il timestamp %s.\n", filename);
+		citta_logf("Non riesco ad aprire il timestamp %s.\n", filename);
 		return 0;
 	}
 	fscanf(fp, "%lu\n", &ora);
@@ -1784,7 +1784,7 @@ void force_script(void)
 
 	fp = fopen(FORCE_SCRIPTS, "w");
 	if (fp == NULL) {
-		clogf("Non riesco a creare il file %s.\n", FORCE_SCRIPTS);
+		citta_logf("Non riesco a creare il file %s.\n", FORCE_SCRIPTS);
 		return;
 	}
 	fclose(fp);
@@ -1826,7 +1826,7 @@ void crea_messaggio(char *cmd, char *arg)
 
 	fp = fopen(EXT_MESSAGE, "w");
 	if (fp == NULL) {
-		clogf("Non riesco a creare il file %s.\n", EXT_MESSAGE);
+		citta_logf("Non riesco a creare il file %s.\n", EXT_MESSAGE);
 		return;
 	}
 	fprintf(fp, "%s\n", cmd);
@@ -1852,11 +1852,11 @@ void esegue_messaggio(void)
 
 	fp = fopen(EXT_MESSAGE, "r");
 	if (fp == NULL) {
-		clogf("Non riesco ad aprire il messaggio %s.\n", EXT_MESSAGE);
+		citta_logf("Non riesco ad aprire il messaggio %s.\n", EXT_MESSAGE);
 		return;
 	}
 	fscanf(fp, "%c\n", &cmd);
-        clogf("ADMIN Arrivato messaggio con comando %c.", cmd);
+        citta_logf("ADMIN Arrivato messaggio con comando %c.", cmd);
 	switch (cmd) {
 	case 'B': /* invia un broadcast */
 		if (fgets(buf, 79, fp))
@@ -1866,22 +1866,22 @@ void esegue_messaggio(void)
 		if (fgets(buf, 79, fp)) {
 			if (send_email(NULL,buf,"Messaggio di amministrazione",
 				       NULL, EMAIL_NEWSLETTER))
-                                clog("Email di amministrazione inviato.");
+                                citta_log("Email di amministrazione inviato.");
 			else
-				clogf("Errore apertura file [%s].", buf);
+				citta_logf("Errore apertura file [%s].", buf);
 		}
                 break;
 	case 'M': /* invia un email a tutti gli utenti */
 		if (fgets(buf, 79, fp)) {
 			if (send_email(NULL,buf,"Messaggio di amministrazione",
 				       NULL, EMAIL_VALID))
-                                clog("Email di amministrazione inviato.");
+                                citta_log("Email di amministrazione inviato.");
 			else
-				clogf("Errore apertura file [%s].", buf);
+				citta_logf("Errore apertura file [%s].", buf);
 		}
                 break;
 	default:
-		clogf("Messaggio con comando [%c] non riconosciuto.", cmd);
+		citta_logf("Messaggio con comando [%c] non riconosciuto.", cmd);
 	}
 	fclose(fp);
 }

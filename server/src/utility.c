@@ -29,8 +29,8 @@
 #include "memstat.h"
 
 /* Prototipi funzioni in questo file */
-void clog(char *str);
-void clogf(const char *format, ...) CHK_FORMAT_1;
+void citta_log(char *str);
+void citta_logf(const char *format, ...) CHK_FORMAT_1;
 void Perror(const char *str);
 struct timeval diff_tempo(struct timeval *a, struct timeval *b);
 void gen_rand_string(char *vk, int lung);
@@ -60,7 +60,7 @@ const char *mese_esteso[] = { "Gennaio", "Febbraio", "Marzo", "Aprile",
 /*
  * Invia la striga str nel file syslog, preceduta dalla data e ora.
  */
-void clog(char *str)
+void citta_log(char *str)
 {
         long ct;
         char *tmstr;
@@ -75,14 +75,14 @@ void clog(char *str)
 /*
  * Invia una stringa formattata nel file syslog.
  */
-void clogf(const char *format, ...)
+void citta_logf(const char *format, ...)
 {
 	char str[LBUF];
 	va_list ap;
 
 	va_start(ap, format);
 	(void) vsnprintf(str, LBUF, format, ap);
-	clog(str);
+	citta_log(str);
 	va_end(ap);
 }
 

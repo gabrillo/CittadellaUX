@@ -59,9 +59,9 @@ void blog_init(void)
 
 	/* Se non esiste il file messaggi associato ai blog, lo crea */
 	if (fm_find(dati_server.fm_blog) == NULL)
-                clog("Blog: file messaggi non trovato. Problema serio: NOTIFICALO.");
+                citta_log("Blog: file messaggi non trovato. Problema serio: NOTIFICALO.");
 
-        clog("Blog: Caricamento dati.");
+        citta_log("Blog: Caricamento dati.");
         for (ut = lista_utenti; ut; ut = ut->prossimo) {
                 ut->blog = blog_load(ut->dati);
                 if (ut->blog)
@@ -74,10 +74,10 @@ void blog_close(void)
 	blog_t *blog, *next;
 	char * nome;
 
-	clog("Salvataggio dati blog");
+	citta_log("Salvataggio dati blog");
 	blog_save();
 
-	clog("Libero strutture dati blog");
+	citta_log("Libero strutture dati blog");
 	blog = blog_first;
 	while (blog) {
                 nome = blog->user->nome;
@@ -85,7 +85,7 @@ void blog_close(void)
                 blog_free(blog);
                 blog = next;
         }
-        clog("Fine liberazione blog");
+        citta_log("Fine liberazione blog");
 }
 
 /* Salva i dati di tutti i blog */
@@ -250,7 +250,7 @@ static blog_t * blog_cr8(struct dati_ut *ut)
         if (ut == NULL)
                 return NULL;
 
-        clogf("Blog: Creo struttura dati blog per [%s]", ut->nome);
+        citta_logf("Blog: Creo struttura dati blog per [%s]", ut->nome);
 
 	CREATE(blog, blog_t, 1, TYPE_BLOG);
 	blog->msg = msg_create(dati_server.blog_nslot);
@@ -300,14 +300,14 @@ static void blog_save_data(blog_t *blog)
 
         fp = fopen(filename, "w");
         if (!fp) {
-                clogf("SYSERR: Non posso aprire in scrittura %s", filename);
+                citta_logf("SYSERR: Non posso aprire in scrittura %s", filename);
                 rename(backup, filename);
                 return;
         }
         hh = fwrite((struct room_data *)(blog->room_data),
                     sizeof(struct room_data), 1, fp);
         if (hh == 0)
-                clogf("SYSERR: Problemi di scrittura %s", filename);
+                citta_logf("SYSERR: Problemi di scrittura %s", filename);
         fclose(fp);
         unlink(backup);
 
@@ -501,7 +501,7 @@ static dfr_t * dfr_create(void)
 static void dfr_free(dfr_t *dfr)
 {
         if (dfr->dirty) /* Non dovrebbe accadere mai!! */
-                clog("SYSERR: Freeing dirty DFR!");
+                citta_log("SYSERR: Freeing dirty DFR!");
         Free(dfr->user);
         Free(dfr->fr);
         Free(dfr->flags);
@@ -519,7 +519,7 @@ static void dfr_load(dfr_t *dfr, long user)
 	/* Legge da file i vettori */
 	fp = fopen(filename, "r");
 	if (!fp) {
-	        clogf("SYSERR: non trovo dfr %s, verra' creato.", filename);
+	        citta_logf("SYSERR: non trovo dfr %s, verra' creato.", filename);
                 dfr_init(dfr);
 		return;
 	}
@@ -566,7 +566,7 @@ static void dfr_save(dfr_t *dfr, long user)
 
 	fp = fopen(filename, "w");
         if (!fp) {
-		clogf("SYSERR: Cannot write dfr %s", filename);
+		citta_logf("SYSERR: Cannot write dfr %s", filename);
 		rename(bak, filename);
 		return;
         }

@@ -8,7 +8,7 @@
 #############################################################################
 
 # Remove the hash mark below if compiling under Linux
-#OSFLAGS = -DLINUX
+OSFLAGS = -DLINUX
 
 # Remove the hash mark below if compiling under Mac OS X
 #OSFLAGS = -DMACOSX

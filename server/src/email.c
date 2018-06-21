@@ -115,7 +115,7 @@ int send_email(struct text *txt, char * filename, char *subj, char *rcpt,
 		sprintf(buf, "mail -n -s '[Cittadella BBS] %s' '%s' < %s\n", subj,
 			rcpt, tmpf);
 	if (system(buf) == -1) {
-		clogf("SYSERR: Email [%s] to [%s] not sent.", subj, rcpt);
+		citta_logf("SYSERR: Email [%s] to [%s] not sent.", subj, rcpt);
 		ret = FALSE;
 	} else
 		ret = TRUE;

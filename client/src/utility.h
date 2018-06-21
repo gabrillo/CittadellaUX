@@ -45,6 +45,7 @@ int new_sint_def(char *prompt, int def);
 int new_date(struct tm *data, int pos);
 long new_long_def(char *prompt, long def);
 void hit_any_key(void);
+int hit_but_char(char but);
 void print_ok(void);
 void print_on_off(int a);
 char * print_si_no(int a);

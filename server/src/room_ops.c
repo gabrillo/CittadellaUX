@@ -210,7 +210,7 @@ void cmd_rnew(struct sessione *t, char *cmd)
 #ifdef USE_FLOORS
 			floor_add_room(t->floor, room_findn(num));
 #endif
-			clogf("ROOM [%s] creata da [%s].",nome,t->utente->nome);
+			citta_logf("ROOM [%s] creata da [%s].",nome,t->utente->nome);
 			if ((room = room_find(aide_room))) {
 				txt = txt_create();
 				txt_putf(txt, "Room [%s] creata da %s.\n",
@@ -272,7 +272,7 @@ void cmd_redt(struct sessione *t, char *cmd)
                                 utr_setf_all(t->room->pos, UTR_KNOWN);
                                 rd->def_utr |= UTR_KNOWN;
                         }
-			clogf("ROOM #%ld edited by [%s].", t->room->data->num,
+			citta_logf("ROOM #%ld edited by [%s].", t->room->data->num,
 			     t->utente->nome);
 			cprintf(t, "%d\n", OK);
 			REMOVE_USERMAIL(t);
@@ -309,7 +309,7 @@ void cmd_rdel(struct sessione *t, char *cmd)
 		return;
 	}
 	t->room = lista_room.first;
-	clogf("ROOM [%s] cancellata da [%s].", r->data->name,
+	citta_logf("ROOM [%s] cancellata da [%s].", r->data->name,
 	     t->utente->nome);
 	if ((room = room_find(aide_room))) {
 		txt = txt_create();
@@ -455,7 +455,7 @@ void cmd_raid(struct sessione *t, char *arg)
 		/* La prossima forse fa troppo lavoro... */
 		utr_resetf_all(t->room->pos, UTR_ROOMAIDE);
 		utr_setf(ut->matricola, t->room->pos, UTR_ROOMAIDE);
-		clogf("ROOM: [%s] nuovo RA di [%s]", ut->nome,
+		citta_logf("ROOM: [%s] nuovo RA di [%s]", ut->nome,
 		     t->room->data->name);
 		if ((room = room_find(ra_room))) {
 			txt = txt_create();
@@ -730,7 +730,7 @@ void cmd_rswp(struct sessione *t, char *cmd)
 		return;
 	}
 	room_swap(r1->data->num, r2->data->num);
-	clogf("ROOM Swap [%s] e [%s] da %s.", r1->data->name,
+	citta_logf("ROOM Swap [%s] e [%s] da %s.", r1->data->name,
 	     r2->data->name, t->utente->nome);
 	cprintf(t, "%d\n", OK);
 }
@@ -758,7 +758,7 @@ void cmd_rlen(struct sessione *t, char *cmd)
 			return;
 		}
 		msg_resize(t->room, len);
-		clogf("ROOM Resize: Maxmsg = %ld per [%s] da %s.",
+		citta_logf("ROOM Resize: Maxmsg = %ld per [%s] da %s.",
 		     len, t->room->data->name, t->utente->nome);
 		cprintf(t, "%d\n", OK);
 	} else

@@ -61,7 +61,7 @@ void legge_configurazione(void)
   
         fp = fopen(FILE_SYSCONFIG, "r");
         if (fp == NULL) {
-                clog("SYSTEM: file_sysconfig inesiste: creazione al prossimo shutdown.");
+                citta_log("SYSTEM: file_sysconfig inesiste: creazione al prossimo shutdown.");
                 return;
         }
 
@@ -160,7 +160,7 @@ void legge_configurazione(void)
                                 } else {
                                         strcpy(buf1,"SYSERR: linea non riconosciuta in sysconfig: ");
                                         strcat(buf1, buf);
-                                        clog(buf1);
+                                        citta_log(buf1);
                                 }
                         }
                 }
@@ -188,12 +188,12 @@ void sysconfig(char cmd[][256], char val[][256], int n_cmd)
 
         fp = fopen(FILE_SYSCONFIG,"w");
         if (fp==NULL) {
-                clog("SYSERR: Non posso aprire in scrittura sysconfig.rc");
+                citta_log("SYSERR: Non posso aprire in scrittura sysconfig.rc");
                 return;
         }
         fp1 = fopen(bak,"r");
         if (fp1 == NULL)
-                clog("SYSERR: Non posso aprire in lettura sysconfig.rc.bak");
+                citta_log("SYSERR: Non posso aprire in lettura sysconfig.rc.bak");
 
         for(n = 0; n < n_cmd; n++)
                 fatto[n] = 0;

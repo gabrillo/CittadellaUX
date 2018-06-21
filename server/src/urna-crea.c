@@ -126,7 +126,7 @@ int init_urna(struct sessione *t)
       return (0);
    };
 
-   clogf("questo non puo` succedere (fine di init_urna)");
+   citta_logf("questo non puo` succedere (fine di init_urna)");
    return (-1);
 #endif
 
@@ -164,7 +164,7 @@ int rs_new(struct sessione *t, char *buf, char *lettera)
 
 #ifdef USA_DEFINENDE
    if(ut_definende <= 0) {
-      clogf("ustat.ut_definende<0!!!");
+      citta_logf("ustat.ut_definende<0!!!");
       u_err(t,NON_INIT_DEF);
       return (-1);
    };
@@ -564,7 +564,7 @@ struct urna_conf *rs_new_ucf(char *buf, struct sessione *t)
 		let++;
   
    if(let<3){
-      clog("titolo corto");
+      citta_log("titolo corto");
       u_err(t,URNA_TITOLO_CORTO);
 	return NULL;
 	}
@@ -587,13 +587,13 @@ int rs_ucf_parm(struct urna_conf *ucf, struct sessione *t)
    int l=0;
 
    if((l=par2strd(ucf->titolo, t, "titolo", LEN_TITOLO)) > 1) {
-      clogf("titolo troncato, %d-%d",l,LEN_TITOLO);
+      citta_logf("titolo troncato, %d-%d",l,LEN_TITOLO);
    };
 
 
    for(i = MAXLEN_QUESITO - 1; i >= 0; i--)
       if((l=(par2strd((ucf->testo)[i], t, "testo", LEN_TESTO)))>1)
-         clogf("testo troncato %d-%d",l,LEN_TESTO);
+         citta_logf("testo troncato %d-%d",l,LEN_TESTO);
 
    /* 
     * * * rinormalizza
@@ -751,7 +751,7 @@ unsigned char lettera_successiva()
          return lettera;
       }
 
-   clog("finite le lettere!!!");
+   citta_log("finite le lettere!!!");
    return 255;
 };
 
@@ -776,7 +776,7 @@ int check_init(struct sessione *t)
    if(p == NULL) {
       err(t, NONINIT);
 #if U_DEBUG
-      clogf("SYSLOG: in rs_new, Non inizializzata");
+      citta_logf("SYSLOG: in rs_new, Non inizializzata");
 #endif
       return (-1);
    };
@@ -822,7 +822,7 @@ struct urna **add_urne_slot()
 
    if(pos == slots) {
       if(ustat.urne_slots == MAX_SLOT) {
-         clogf("troppe urne");
+         citta_logf("troppe urne");
          return (NULL);
       };
 
@@ -834,7 +834,7 @@ struct urna **add_urne_slot()
    };
 
    if(*testa != NULL) {
-      clog("questo non puo` succedere (urna-crea.c)");
+      citta_log("questo non puo` succedere (urna-crea.c)");
       return NULL;
    };
    return testa;

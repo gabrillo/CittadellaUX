@@ -75,10 +75,10 @@ static void setsig_checkpoint(void)
 void checkpointing()
 {
         if (!tics) {
-                clog("CHECKPOINT shutdown: I tics non vengono aggiornati.");
+                citta_log("CHECKPOINT shutdown: I tics non vengono aggiornati.");
                 /* abort(); TODO VEDERE semmai vai di shutdown */
         } else {
-                clogf("CHECKPOINT tics = %ld/%d", tics,
+                citta_logf("CHECKPOINT tics = %ld/%d", tics,
                       FREQUENZA*CHECKPOINT_SEC);
                 tics = 0;
         }
@@ -87,14 +87,14 @@ void checkpointing()
 void elimina_soloaide()
 {
         signal(SIGUSR1, elimina_soloaide);
-        clog("SIGUSR1 - Eliminata restrizione a soli Aide");
+        citta_log("SIGUSR1 - Eliminata restrizione a soli Aide");
         solo_aide = 0;
 }
 
 void elimina_no_nuovi()
 {
         signal(SIGUSR2, elimina_no_nuovi);
-        clog("SIGUSR2 - Eliminata restrizione a soli utenti gia' esistenti.");
+        citta_log("SIGUSR2 - Eliminata restrizione a soli utenti gia' esistenti.");
         no_nuovi_utenti = 0;
 }
 
@@ -103,10 +103,10 @@ void elimina_no_nuovi()
 
 void hupsig(void)
 {
-        clog("SYSTEM: Ricevuto SIGHUP, SIGINT, o SIGTERM.  Shut down...");
+        citta_log("SYSTEM: Ricevuto SIGHUP, SIGINT, o SIGTERM.  Shut down...");
 
 	shutdown_server();
-	clog("Dati Cittadella salvati correttamente.");
+	citta_log("Dati Cittadella salvati correttamente.");
 
 	citta_reboot = FALSE;
 	restart_server();
@@ -116,7 +116,7 @@ void hupsig(void)
 
 void logsig(void)
 {
-        clog("SYSTEM: Segnale ricevuto e ignorato.");
+        citta_log("SYSTEM: Segnale ricevuto e ignorato.");
 }
 
 void handler_messaggio(int sig)

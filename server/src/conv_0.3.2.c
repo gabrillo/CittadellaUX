@@ -47,7 +47,7 @@ int main()
                 "Cittadella/UX dalla versione precedente.\nVado?\n");
 
         logfile=fopen("./urnaconv","a+");
-        clogf("----\n\n");
+        citta_logf("----\n\n");
         getchar(); 
         sprintf(new, "%s/...", URNA_DIR);
         printf("from %s to:%s\n", URNA_DIR, new);

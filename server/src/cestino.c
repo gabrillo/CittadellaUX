@@ -53,7 +53,7 @@ void msg_load_dump(void)
 
 	room = room_find(dump_room);
 	if (room == NULL) { /* IN FUTURO CREARE LA DUMPROOM IN QUESTO CASO */
-		clog("SYSERR: Non trovo la DUMP ROOM!!");
+		citta_log("SYSERR: Non trovo la DUMP ROOM!!");
 		return;
 	}
 	CREATE(dump_undelete, long, room->data->maxmsg, TYPE_LONG);
@@ -61,7 +61,7 @@ void msg_load_dump(void)
 	/* Legge da file i vettori */
 	fp = fopen(FILE_DUMP_DATA, "r");
 	if (!fp) {
-		clog("SYSERR: no dump data per Cestino.");
+		citta_log("SYSERR: no dump data per Cestino.");
 		/* Inizializza dump data */
 		for (i = 0; i < room->data->maxmsg; i++)
 			dump_undelete[i] = 0;
@@ -80,7 +80,7 @@ void msg_save_dump(void)
 
 	room = room_find(dump_room);
 	if (room == NULL) { /* IN FUTURO CREARE LA DUMPROOM IN QUESTO CASO */
-		clog("SYSERR: Non trovo la DUMP ROOM!!");
+		citta_log("SYSERR: Non trovo la DUMP ROOM!!");
 		return;
 	}
 	sprintf(bak, "%s.bak", FILE_DUMP_DATA);
@@ -88,7 +88,7 @@ void msg_save_dump(void)
 
 	fp = fopen(FILE_DUMP_DATA, "w");
         if (!fp) {
-		clogf("SYSERR: Cannot write msg dump data");
+		citta_logf("SYSERR: Cannot write msg dump data");
 		rename(bak, FILE_DUMP_DATA);
 		return;
         }
@@ -131,13 +131,13 @@ void msg_dump(struct room *room, long msgnum)
 
 			/* inserisci il post nel cestino */
 			if (dump_undelete == NULL) {
-				clog("SYSERR: dump_undelete NULL!");
+				citta_log("SYSERR: dump_undelete NULL!");
 				return;
 			}
 
 			dest = room_find(dump_room);
 			if (dest == NULL) {
-				clog("SYSERR: Non trovo il Cestino!");
+				citta_log("SYSERR: Non trovo il Cestino!");
 				return;
 			}
 			i = 1;

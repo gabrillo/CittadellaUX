@@ -71,7 +71,7 @@ int esiste(const char *dir, const char *file, int progressivo)
          Free(nomefile);
          return -1;
       };
-      clogf("SYSLOG: file %s, %s", nomefile, strerror(errno));
+      citta_logf("SYSLOG: file %s, %s", nomefile, strerror(errno));
       Free(nomefile);
       return -2;
    };
@@ -79,7 +79,7 @@ int esiste(const char *dir, const char *file, int progressivo)
    Free(nomefile);
 
    if(!(stato.st_mode & S_IFREG)) {
-      clogf("SYSLOG: file %s non e` un file regolare", nomefile);
+      citta_logf("SYSLOG: file %s non e` un file regolare", nomefile);
       return -2;
    }
 
@@ -101,23 +101,23 @@ int backup(const char *file)
    struct stat stato;
 
    if(strcmp(file, ".") == 0 || strcmp(file, "..") == 0) {
-      clogf("SYSERR: nome file non corretto %s", file);
+      citta_logf("SYSERR: nome file non corretto %s", file);
       return (-1);
    }
 
    if(stat(file, &stato)) {
       if(errno == ENOENT) {
-         clogf("SYSLOG: file %s non esiste (non faccio bk)", file);
+         citta_logf("SYSLOG: file %s non esiste (non faccio bk)", file);
          return 0;
       }
     else {
-      clogf("SYSLOG: file ->%s<- ha problemi:%s", file, strerror(errno));
+      citta_logf("SYSLOG: file ->%s<- ha problemi:%s", file, strerror(errno));
       return 0;
 	}
    }
 
    if(!(stato.st_mode & S_IFREG)) {
-      clogf("SYSLOG: file %s non e` un file regolare", file);
+      citta_logf("SYSLOG: file %s non e` un file regolare", file);
       return -1;
    }
 
@@ -126,7 +126,7 @@ int backup(const char *file)
    strncat(bk, ".bak", 4);
 
    if(rename(file, bk)) {
-      clogf("SYSERR: errore nella creazione di bk!,%s", strerror(errno));
+      citta_logf("SYSERR: errore nella creazione di bk!,%s", strerror(errno));
       Free(bk);
       return (-1);
    };
@@ -156,11 +156,11 @@ int append_file(const char *dir, const char *file, const int est, FILE ** fpp)
 
    *fpp = fopen(nomefile, "a");
    if(!*fpp) {
-      clogf("SYSERR: Non posso aprire %s in scrittura", nomefile);
+      citta_logf("SYSERR: Non posso aprire %s in scrittura", nomefile);
       Free(nomefile);
       return (1);
    }
-   clogf("SYSTEM:creato file %s", nomefile);
+   citta_logf("SYSTEM:creato file %s", nomefile);
    Free(nomefile);
 
    return 0;
@@ -185,14 +185,14 @@ int save_file(const char *dir, const char *file, const int est, FILE ** fpp)
    };
 
    if(backup(nomefile)){
-           clogf("non posso fare il backup di %s",file);   
+           citta_logf("non posso fare il backup di %s",file);   
            Free(nomefile);
            return(1);
    }
 
    *fpp = fopen(nomefile, "w");
    if(!(*fpp)) {
-           clogf("SYSERR: Non posso aprire %s in scrittura", nomefile);
+           citta_logf("SYSERR: Non posso aprire %s in scrittura", nomefile);
            Free(nomefile);
            return (1);
    }
@@ -223,12 +223,12 @@ int load_file(const char *dir, const char *file, const int est, FILE ** fpp)
    *fpp = fopen(nomefile, "r");
 
    if(!*fpp) {
-      clogf("SYSLOG: errore in apertura:%d,%s", errno, strerror(errno));
+      citta_logf("SYSLOG: errore in apertura:%d,%s", errno, strerror(errno));
       if(errno == ENOENT) {
-         clogf("SYSERR: file %s non esiste, lo creo", nomefile);
+         citta_logf("SYSERR: file %s non esiste, lo creo", nomefile);
          *fpp = fopen(nomefile, "w");
          if(*fpp == NULL) {
-            clogf("SYSERR: non posso creare %s", nomefile);
+            citta_logf("SYSERR: non posso creare %s", nomefile);
             Free(nomefile);
             return -1;
          }
@@ -236,7 +236,7 @@ int load_file(const char *dir, const char *file, const int est, FILE ** fpp)
          Free(nomefile);
          return (1);
       } else {
-         clogf("SYSERR: Non posso aprire %s in lettura", nomefile);
+         citta_logf("SYSERR: Non posso aprire %s in lettura", nomefile);
          Free(nomefile);
          return (-1);
       }
@@ -249,7 +249,7 @@ int load_file(const char *dir, const char *file, const int est, FILE ** fpp)
    }
 
    if(status.st_size == 0) {
-      clogf("SYSERR: file %s vuoto: lo chiudo", nomefile);
+      citta_logf("SYSERR: file %s vuoto: lo chiudo", nomefile);
       fclose(*fpp);
       Free(nomefile);
       return (1);
@@ -272,10 +272,10 @@ int canc_file(const char *dir, const char *file, const int est)
       return -1;
    };
 
-   clogf("SYSLOG:cancello il file %s del sondaggio/ref %d", nomefile, est);
+   citta_logf("SYSLOG:cancello il file %s del sondaggio/ref %d", nomefile, est);
 
    if(unlink(nomefile)) {
-      clogf("SYSERR: errore cancellando %s", nomefile);
+      citta_logf("SYSERR: errore cancellando %s", nomefile);
       Free(nomefile);
       return -1;
    }
@@ -294,7 +294,7 @@ int write_magic_number(FILE * fp, char code, char *nome_file)
    mnumb[4] = 0;
 
    if(fwrite(mnumb, sizeof(char), 5, fp) != 5) {
-      clogf("errore scrivendo il mnumb su %s", nome_file);
+      citta_logf("errore scrivendo il mnumb su %s", nome_file);
       return (-1);
    }
    /*   */
@@ -310,7 +310,7 @@ int check_magic_number(FILE * fp, char code, char *nome_file)
    sprintf(mcheck, "%2s%1c%1c", MAGIC_CODE, code, VERSIONE);
    mcheck[4] = 0;
    if(fread(mnumb, sizeof(char), 5, fp) != 5) {
-      clogf("errore leggendo il mnumb in %s errato!", nome_file);
+      citta_logf("errore leggendo il mnumb in %s errato!", nome_file);
       return (-1);
    }
    /*   */
@@ -339,11 +339,11 @@ char *crea_nome(const char *dir, const char *file, int est)
    lnomefile += 8;
 
    if(strcmp(file, ".") == 0 || strcmp(file, "..") == 0) {
-      clogf("%s ha caratteri non validi!", file);
+      citta_logf("%s ha caratteri non validi!", file);
       return NULL;
    }
    if(index(file, '/') != NULL) {
-      clogf("%s ha caratteri non validi!", file);
+      citta_logf("%s ha caratteri non validi!", file);
       return NULL;
    };
 

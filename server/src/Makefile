@@ -55,7 +55,8 @@ LZ = -lz
 CFLAGS = $(MYFLAGS) $(CRYPT) $(PROFILE) $(OSFLAGS)
 # -lutil per le libutil necessarie al cittademone.
 # LFLAGS = -L$(libdir) -lm -lcitta -lutil $(LCRYPT) $(LIBS)
-LFLAGS = -L$(libdir) -lm -lcitta $(LCRYPT) $(LIBS)
+# attenzone, prima -lcitta e poi -lm...
+LFLAGS = -L$(libdir)  -lcitta -lm $(LCRYPT) $(LIBS)
 override CFLAGS += $(patsubst %,-I%,$(subst :, ,$(VPATH)))
 
 OBJFILES = banner.o blog.o cache_post.o cestino.o cittaserver.o cittaweb.o \

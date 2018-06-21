@@ -122,7 +122,7 @@ void mail_check(void)
 	struct lista_ut *ut;
 	long nslot, *zero_vec, zero = 0;
 
-	clog("Controlla i dati mail utenti.");
+	citta_log("Controlla i dati mail utenti.");
 	nslot = dati_server.mail_nslot;
 	CREATE(zero_vec, long, nslot, TYPE_LONG);
 

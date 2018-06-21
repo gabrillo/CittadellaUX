@@ -150,7 +150,7 @@ int nuovo_descr(int s, char *host)
 
 	/* Se e' previsto uno shutdown avverte e chiude la connessione */
 
-	clogf("Nuova connessione da [%s]", host);
+	citta_logf("Nuova connessione da [%s]", host);
 
 	return desc;
 }
@@ -209,7 +209,7 @@ int scrivi_a_desc_len(int desc, char *txt, size_t totale)
 
 	if (questo_giro < totale) {
 		memmove(txt, txt+questo_giro, totale-questo_giro);
-                //clogf("SADL scritto %ld/%ld", questo_giro, totale);
+                //citta_logf("SADL scritto %ld/%ld", questo_giro, totale);
         }
 
 	return questo_giro;
@@ -249,7 +249,7 @@ size_t scrivi_a_client_iobuf(struct sessione *t, struct iobuf *buf)
 #endif
                 sent = scrivi_a_desc_len(t->socket_descr, buf->out, buf->olen);
                 //sent = scrivi_a_desc(t->socket_descr, buf->out);
-        //clogf("SENT %ld", sent);
+        //citta_logf("SENT %ld", sent);
         if (sent > 0)
                 buf->olen -= sent;
 
@@ -290,7 +290,7 @@ int elabora_input(struct sessione *t)
 			return(-1);
 		}
 	} else {
-		clog("SYSERR: Incontrato EOF in lettura su socket.");
+		citta_log("SYSERR: Incontrato EOF in lettura su socket.");
 		return -1;
 	}
 

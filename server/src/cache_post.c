@@ -60,7 +60,7 @@ int cp_init(void)
 void cp_destroy(void)
 {
 	if (post_cache->requests)
-		clogf("CACHE post: %ld elmts, %ld requests, %ld hits (%d%%).",
+		citta_logf("CACHE post: %ld elmts, %ld requests, %ld hits (%d%%).",
 		     post_cache->num, post_cache->requests, post_cache->hits,
 		     (int)(100.0*post_cache->hits/post_cache->requests));
 	cache_free(&post_cache);

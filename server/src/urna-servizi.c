@@ -374,20 +374,20 @@ int rs_del_prop(struct urna_prop *upr)
 #if U_DEBUG
 void dump_stat(){
       int i;
-      clogf("SYSLOG: stat: attive %d, totali %d, modificata %d,\n"
+      citta_logf("SYSLOG: stat: attive %d, totali %d, modificata %d,\n"
 	   "                  voti %d, complete %d, ultima urna %d,\n"
 	   "                  ultima lettera %d, urne_slots %d, testa %p",
       ustat.attive , ustat.totali, ustat.modificata, 
       ustat.voti, ustat.complete, ustat.ultima_urna, 
       ustat.ultima_lettera, ustat.urne_slots, ustat.urna_testa);
       for (i=0;i<ustat.urne_slots*LEN_SLOTS;i++){
-            clogf("testa+%d=%p",i,*(ustat.urna_testa+i));
+            citta_logf("testa+%d=%p",i,*(ustat.urna_testa+i));
       }
 }
 
 void dump_urna(struct urna *u){
 
-      clogf("SYSLOG: urna %d",u->progressivo);
+      citta_logf("SYSLOG: urna %d",u->progressivo);
       dump_conf(u->conf);
       dump_dati(u->dati);
       dump_prop(u->prop);
@@ -402,14 +402,14 @@ void dump_prop(struct urna_prop *upr){
 
       testa=upr;
       if(testa==NULL){
-            clogf("SYSLOG: proposte nulle");
+            citta_logf("SYSLOG: proposte nulle");
       };
       while(testa){
             if (testa->proposte!=NULL){
-                  clogf("SYSLOG:\t p %d",testa->matricola);
+                  citta_logf("SYSLOG:\t p %d",testa->matricola);
                for(i=0;i<testa->num;i++){
                 if((*testa->proposte+i))
-                  clogf("SYSLOG:\t\t i:%d,%s",i,(*testa->proposte+i));
+                  citta_logf("SYSLOG:\t\t i:%d,%s",i,(*testa->proposte+i));
                }
             };
             old=testa;
@@ -427,26 +427,26 @@ void dump_dati(struct urna_dati *udt){
             return;
       }
 
-      clog("SYSLOG: data");
-      clogf("SYSLOG: stop %ld, posticipo %d," 
+      citta_log("SYSLOG: data");
+      citta_logf("SYSLOG: stop %ld, posticipo %d," 
                   " bianche %d, nvoti %d, voti_nslot %d,"
                "ncoll %d, udt->coll_nslot %d", udt->stop , udt->posticipo,
                udt->bianche , udt->nvoti, udt->voti_nslots, udt->ncoll, 
             udt->coll_nslots);
 
-      clogf("SYSLOG: Votanti");
+      citta_logf("SYSLOG: Votanti");
       if (udt->uvot!=NULL)
             for(i=0;i<udt->nvoti;i++)
-            clogf("SYSLOG:%d", *((udt->uvot)+i));
+            citta_logf("SYSLOG:%d", *((udt->uvot)+i));
 
-      clogf("SYSLOG: Vedenti");
+      citta_logf("SYSLOG: Vedenti");
       if (udt->ucoll!=NULL)
             for(i=0;i<udt->ncoll;i++)
-            clogf("SYSLOG:%d", *((udt->uvot)+i));
+            citta_logf("SYSLOG:%d", *((udt->uvot)+i));
 
       for(i=0;i<udt->num_voci;i++){
             uvt=udt->voti+i;
-            clogf("SYSLOG: Voti %i: num_voti %d, tot_voti %d, astensioni %d",
+            citta_logf("SYSLOG: Voti %i: num_voti %d, tot_voti %d, astensioni %d",
                         i, uvt->num_voti,uvt->tot_voti,
                         uvt->astensioni);
       }
@@ -461,27 +461,27 @@ void dump_conf(struct urna_conf* ucf){
             return;
       }
 
-      clogf("SYSLOG: progressivo %ld, lettera %d, proponente %ld,\n"
+      citta_logf("SYSLOG: progressivo %ld, lettera %d, proponente %ld,\n"
 	   "		 room_num %ld, start %ld, stop %ld, titolo %s, ",
 	   ucf->progressivo , ucf->lettera , ucf->proponente , 
 	   ucf->room_num , ucf->start, ucf->stop, ucf->titolo);
 
-      clogf("SYSLOG:num_prop %d, num_voci %d, max_voci %d,\n"
+      citta_logf("SYSLOG:num_prop %d, num_voci %d, max_voci %d,\n"
 	   "		  maxlen_prop %d, tipo %d, modo %d, bianca %d, ",
 	   ucf->num_prop, ucf->num_voci , ucf->max_voci, 
 	   ucf->maxlen_prop, ucf->tipo, ucf->modo, ucf->bianca);
 
-      clogf("SYSLOG:astensione %d, crit %d, val_crit %ld",
+      citta_logf("SYSLOG:astensione %d, crit %d, val_crit %ld",
 	   ucf->astensione, ucf->crit, ucf->val_crit.numerico);
 
-      clog("SYSLOG: testo");
+      citta_log("SYSLOG: testo");
       for(i=0;i<MAXLEN_QUESITO;i++){
-      clogf("SYSLOG: testo %s", ucf->testo[i]);
+      citta_logf("SYSLOG: testo %s", ucf->testo[i]);
       };
 
       if (ucf->voci!=NULL)
             for(i=0;i<ucf->num_voci;i++)
-                  clogf("SYSLOG: voce %d %s",i,*(ucf->voci+i));
+                  citta_logf("SYSLOG: voce %d %s",i,*(ucf->voci+i));
 };
 #endif
 

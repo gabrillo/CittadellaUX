@@ -137,7 +137,7 @@ void cmd_buge(struct sessione *t)
                 sprintf(subj, "Bug report da %s (%s)", t->utente->nome,
 			t->utente->email);
 		if (!send_email(t->text, NULL, subj, BBS_EMAIL, EMAIL_SINGLE)){
-                        clogf("SYSERR: Bug Report of %s not sent.",
+                        citta_logf("SYSERR: Bug Report of %s not sent.",
 			     t->utente->nome);
 			cprintf(t, "%d Problemi invio bug report.\n", ERROR);
 		} else
@@ -185,7 +185,7 @@ void cmd_prfe (struct sessione *t)
                         fclose(fp);
                 cprintf(t, "%d Profile aggiornato.\n", OK);
                 } else {
-                        clog("SYSERR: Errore in scrittura del profile.");
+                        citta_log("SYSERR: Errore in scrittura del profile.");
 			cprintf(t, "%d Errore scrittura.\n", ERROR);
 		}
         }
@@ -246,15 +246,15 @@ void cmd_riee (struct sessione *t)
                         else
                                 utr_setf_all(t->room->pos, UTR_NEWGEN);
                         if (t->room->data->flags & RF_BLOG)
-                                clogf("BLOG #%ld: Info edited by [%s].",
+                                citta_logf("BLOG #%ld: Info edited by [%s].",
                                       t->room->data->num, t->utente->nome);
                         else
-                                clogf("ROOM #%ld: Info edited by [%s].",
+                                citta_logf("ROOM #%ld: Info edited by [%s].",
                                       t->room->data->num, t->utente->nome);
 			time(&(t->room->data->mtime));
 			cprintf(t, "%d Room Info aggiornato.\n", OK);
                 } else {
-                        clog("SYSERR: Errore in scrittura delle room info.");
+                        citta_log("SYSERR: Errore in scrittura delle room info.");
 			cprintf(t, "%d Errore scrittura.\n", ERROR);
 		}
         }
@@ -474,12 +474,12 @@ void cmd_nwse(struct sessione *t)
 			txt_rewind(t->text);
 			for (a = 0; a < righe; a++)
 				fprintf(fp, "%s\n", txt_get(t->text));
-			clogf("NEWS edited by [%s].", t->utente->nome);
+			citta_logf("NEWS edited by [%s].", t->utente->nome);
 			/* Segnala nuove news agli utenti */
 			sut_set_all(0, SUT_NEWS);
 			cprintf(t, "%d News aggiornate.\n", OK);
                 } else {
-                        clog("SYSERR: Errore in scrittura delle news.");
+                        citta_log("SYSERR: Errore in scrittura delle news.");
 			cprintf(t, "%d Problemi scrittura.\n", ERROR);
 		}
 		fclose(fp);
@@ -534,12 +534,12 @@ void cmd_fiee (struct sessione *t)
 				fprintf(fp, "%s\n", txt_get(t->text));
                         fclose(fp);
 /*			utr_setf_all((t->room)->pos, UTR_NEWGEN); */
-			clogf("FLOOR #%ld [%s]: Info edited by [%s].",
+			citta_logf("FLOOR #%ld [%s]: Info edited by [%s].",
 			     t->floor->data->num, t->floor->data->name,
 			     t->utente->nome);
 			time(&(t->floor->data->mtime));
                 } else
-                        clog("SYSERR: Errore in scrittura delle floor info.");
+                        citta_log("SYSERR: Errore in scrittura delle floor info.");
         }
 	reset_text(t);
 }

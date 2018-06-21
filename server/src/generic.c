@@ -178,7 +178,7 @@ void cmd_info(struct sessione *t, char *cmd)
                 dati_server.remote_cl++;
                 strcpy(t->host, rhost);
                 /*} else {
-                        clogf("SECURE: finta connessione remota da [%s].",rhost);
+                        citta_logf("SECURE: finta connessione remota da [%s].",rhost);
                         t->stato = CON_CHIUSA;
                         cprintf(t, "%d\n", ERROR);
                         return;
@@ -223,7 +223,7 @@ void legge_file(struct sessione *t,char *nome)
         /* Apre file */
         fp = fopen(nome,"r");
         if (fp == NULL) {
-                clogf("SYSERR: Errore apertura file [%s] da [%s]", nome,
+                citta_logf("SYSERR: Errore apertura file [%s] da [%s]", nome,
 		     t->utente->nome);
                 cprintf(t, "%d Errore in apertura file.\n", ERROR);
                 return;
@@ -255,7 +255,7 @@ static void legge_file_idx(struct sessione *t, char *dir, int num)
 		sprintf(filename, "%s/indice", dir);
 		fp = fopen(filename, "r");
 		if (fp == NULL) {
-			clogf("SYSERR: Errore apertura indice [%s] da [%s]",
+			citta_logf("SYSERR: Errore apertura indice [%s] da [%s]",
 			     filename, t->utente->nome);
 			cprintf(t, "%d Errore in apertura file.\n", ERROR);
 			return;
@@ -272,7 +272,7 @@ static void legge_file_idx(struct sessione *t, char *dir, int num)
         /* Legge file e mette in coda */
         fp = fopen(buf, "r");
         if (fp==NULL) {
-                clogf("SYSERR: Errore apertura file [%s] da [%s]", buf,
+                citta_logf("SYSERR: Errore apertura file [%s] da [%s]", buf,
 		     t->utente->nome);
                 cprintf(t, "%d Errore in apertura file.\n", ERROR);
                 return;
@@ -336,7 +336,7 @@ void cmd_sdwn(struct sessione *t, char *buf)
 			citta_reboot = 1;
                         citta_shutdown = 0;
                         citta_sdwntimer = 0;
-                        clogf("AIDE: Shutdown cancellato da [%s].",
+                        citta_logf("AIDE: Shutdown cancellato da [%s].",
                                 t->utente->nome);
                         sprintf(tmp, "%d\n", SDWC);
                         tmplen = strlen(tmp);
@@ -352,7 +352,7 @@ void cmd_sdwn(struct sessione *t, char *buf)
 			citta_reboot = 0;
                 citta_shutdown = 1;
                 citta_sdwntimer = tempo * (60*FREQUENZA) + 1;
-                clogf("AIDE: Shutdown tra %d min di [%s].", tempo,
+                citta_logf("AIDE: Shutdown tra %d min di [%s].", tempo,
 		     t->utente->nome);
         }
         cprintf(t, "%d\n", OK);
@@ -589,7 +589,7 @@ void cmd_edng(struct sessione *t, char *buf)
 void cmd_upgs(struct sessione *t)
 {
 	sut_set_all(0, SUT_UPGRADE);
-	clogf("SUT_UPDATE set to all by [%s].", t->utente->nome);	
+	citta_logf("SUT_UPDATE set to all by [%s].", t->utente->nome);	
 	cprintf(t, "%d\n", OK);
 }
 

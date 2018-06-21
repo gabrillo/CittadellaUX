@@ -44,7 +44,7 @@
 # include "remote.h"
 #endif
 
-inline int getline(char *str, int max, int maiuscole, int special);
+inline int c_getline(char *str, int max, int maiuscole, int special);
 
 int get_text(struct text *txt, long max_linee, char max_col, char abort);
 int get_textl(struct text *txt, int max, int nlines);
@@ -81,7 +81,7 @@ static void help_line_edit(void);
  * NB: prende max caratteri, la stringa deve aver allocato per lo meno
  *     (max + 1) bytes per contenere anche lo '\0' finale.
  */
-inline int getline(char *str, int max, int maiuscole, int special)
+inline int c_getline(char *str, int max, int maiuscole, int special)
 {
 	return getline_wrap(str, max, maiuscole, special, FALSE, 0);
 }

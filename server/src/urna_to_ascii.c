@@ -404,12 +404,12 @@ int res_proposta(unsigned long progressivo, int nvoti)
    char **testo;
 
    if(load_file(URNA_DIR, FILE_UPROP, progressivo, &pr)) {
-      clogf("SYSLOG: problemi con %s", FILE_UDATA);
+      citta_logf("SYSLOG: problemi con %s", FILE_UDATA);
       return (-1);
    }
 
    if(!check_magic_number(pr, MAGIC_PROP, "prop")) {
-      clogf("SYSLOG: urna-prop %s %ld non corretto", FILE_UPROP, progressivo);
+      citta_logf("SYSLOG: urna-prop %s %ld non corretto", FILE_UPROP, progressivo);
       fclose(pr);
       return (-1);
    }
@@ -520,12 +520,12 @@ int read_prop(unsigned long progressivo, int nvoti, char ***ptesto)
 
 
    if(load_file(URNA_DIR, FILE_UPROP, progressivo, &fp)) {
-      clogf("SYSLOG: non posso aprire file prop");
+      citta_logf("SYSLOG: non posso aprire file prop");
       return (0);
    }
 
    if(!check_magic_number(fp, MAGIC_PROP, "prop")) {
-      clogf("SYSLOG: versione %s non corretta", FILE_UPROP);
+      citta_logf("SYSLOG: versione %s non corretta", FILE_UPROP);
       fclose(fp);
       return (0);
    }
@@ -543,10 +543,10 @@ int read_prop(unsigned long progressivo, int nvoti, char ***ptesto)
        while((c=fgetc(fp))=='\n');
 
   	     if(c!=':')
-			clogf("mancano i duepunti:%d",i);
+			citta_logf("mancano i duepunti:%d",i);
 
 			if(fscanf(fp,":%ld:%d\n",&matricola,&num_proposte)!=2){
-				clogf("qualcosa non va nella lettura delle urne... pos %d",i);
+				citta_logf("qualcosa non va nella lettura delle urne... pos %d",i);
 					continue;
 			}
 
@@ -563,17 +563,17 @@ int read_prop(unsigned long progressivo, int nvoti, char ***ptesto)
 				while(nextc==' ')
 					nextc=fgetc(fp);
 				if(nextc=='\n'){
-					clogf("??, proposta vuota %d, posto %d->%d",i,j,prog);
+					citta_logf("??, proposta vuota %d, posto %d->%d",i,j,prog);
 					continue;
 				}
 				ungetc(nextc,fp);
 				/* fscanf(fp,"%s\n",proposta); */
 				if(fgets(proposta,MAXLEN_PROPOSTA,fp)==NULL){;
-					clogf("??, proposta vuota %d, posto %d->%d",i,j,prog);
+					citta_logf("??, proposta vuota %d, posto %d->%d",i,j,prog);
 					continue;
 				};
 				if (prog!=j){
-					clogf("??, proposta %d, posto %d->%d",i,j,prog);
+					citta_logf("??, proposta %d, posto %d->%d",i,j,prog);
 					continue;
 				}
 				lent=strlen(proposta);

@@ -70,7 +70,7 @@ void carica_utenti(void)
         /* Apre il file 'file_utenti' */
         fp = fopen(FILE_UTENTI, "r");
         if (!fp) {
-                clog("SYSERR: Non posso aprire in lettura il file utenti.");
+                citta_log("SYSERR: Non posso aprire in lettura il file utenti.");
                 return;
         }
         fseek(fp, 0L, 0);
@@ -85,7 +85,7 @@ void carica_utenti(void)
                 lista_utenti = utente;
                 punto = NULL;
         } else
-                clog("SYSTEM: File_utenti vuoto, creato al primo salvataggio.");
+                citta_log("SYSTEM: File_utenti vuoto, creato al primo salvataggio.");
 
         while (hh == 1) {
                 if (punto != NULL)
@@ -123,7 +123,7 @@ void salva_utenti(void)
         /* Apre il file 'file_utenti' */
         fp = fopen(FILE_UTENTI, "w");
         if (!fp) {
-                clog("SYSERR: Non posso aprire in scrittura il file utenti.");
+                citta_log("SYSERR: Non posso aprire in scrittura il file utenti.");
                 return;
         }
 
@@ -132,7 +132,7 @@ void salva_utenti(void)
                 hh = fwrite((struct dati_ut *)punto->dati,
 			    sizeof(struct dati_ut), 1, fp);
                 if (hh == 0)
-                        clog("SYSERR: Problemi scrittura struct dati_ut");
+                        citta_log("SYSERR: Problemi scrittura struct dati_ut");
         }
         fclose(fp);
 }
@@ -256,7 +256,7 @@ void invia_val_key(char *valkey, char *addr)
                 addr, tmpf2);
         if (system(buf) == -1) {
                 sprintf(buf, "SYSERR: Valkey for %s not sent.", addr);
-                clog(buf);
+                citta_log(buf);
         }
         unlink(tmpf);
         unlink(tmpf2);
@@ -286,7 +286,7 @@ void purge_invalid (void)
                 Free(lista_utenti->dati);
                 Free(lista_utenti);
                 lista_utenti = prossimo;
-                clogf("KILL: [%s] eliminato per mancata validazione.", nome);
+                citta_logf("KILL: [%s] eliminato per mancata validazione.", nome);
         }
         /* vede se e' uno dei successivi */
         precedente = lista_utenti;
@@ -308,7 +308,7 @@ void purge_invalid (void)
                         }
 			Free(punto->dati);
 			Free(punto);
-			clogf("KILL: [%s] eliminato per mancata validazione.",
+			citta_logf("KILL: [%s] eliminato per mancata validazione.",
 			     nome);
                 }
                 precedente = precedente->prossimo;

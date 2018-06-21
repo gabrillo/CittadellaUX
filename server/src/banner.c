@@ -255,9 +255,9 @@ void save_banners(struct sessione *t)
 		hash_banners();
 		Free(banner_hash);
 		banner_load_hash();
-		clogf("LOGIN BANNERS: edited by [%s].", t->utente->nome);
+		citta_logf("LOGIN BANNERS: edited by [%s].", t->utente->nome);
 	} else
-		clog("SYSERR: Errore in scrittura delle room info.");
+		citta_log("SYSERR: Errore in scrittura delle room info.");
 }
 
 #if 0

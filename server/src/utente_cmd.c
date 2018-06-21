@@ -161,7 +161,7 @@ void cmd_usr1(struct sessione *t, char *arg)
                 utente = trova_utente(nome);
         
         if (utente == NULL) {
-                clogf("Nuovo utente [%s].", nome);
+                citta_logf("Nuovo utente [%s].", nome);
 		/* Controllo Badnick.                    *DA FARE*        */
                 /* Abbiamo un nuovo utente!
                    Ora gli generiamo una struttura di dati */
@@ -246,7 +246,7 @@ void cmd_usr1(struct sessione *t, char *arg)
 
         if (err_pwd) {
                 cprintf(t, "%d Password errata.\n", ERROR+PASSWORD);
-                clogf("SECURE: Pwd errata per [%s] da [%s]", nome, t->host);
+                citta_logf("SECURE: Pwd errata per [%s] da [%s]", nome, t->host);
                 t->stato = CON_LIC;
         } else { /* Password corretta */
                 /* Linkiamo la struttura dati dell'utente alla sua sessione */
@@ -254,7 +254,7 @@ void cmd_usr1(struct sessione *t, char *arg)
                 utr_load(t);
                 mail_load(t);
                 (utente->chiamate)++;
-                clogf("Login di [%s] da [%s].", utente->nome, t->host);
+                citta_logf("Login di [%s] da [%s].", utente->nome, t->host);
 		if (primo_utente)
 			cprintf(t, "%d Login eseguito.\n", OK + PRIMO_UT);
 		else
@@ -545,7 +545,7 @@ char cmd_cusr(struct sessione *t, char *nome, char notifica)
                 if (notifica) {
                         cprintf(t, "%d\n", ERROR+ACC_PROIBITO);
                         if (t->utente)
-				clogf("SECURE: CUSR non autorizzato di [%s] da [%s].",
+				citta_logf("SECURE: CUSR non autorizzato di [%s] da [%s].",
 				     t->utente->nome, t->host);
                 }
                 return ok;
@@ -566,7 +566,7 @@ char cmd_cusr(struct sessione *t, char *nome, char notifica)
         if (notifica) {
                 cprintf(t, "%d %d\n", OK, ok);
                 if (ok)
-                        clogf("KO: [%s] cacciato da [%s].", nome,
+                        citta_logf("KO: [%s] cacciato da [%s].", nome,
 			     t->utente->nome);
         }
         return(ok);
@@ -619,7 +619,7 @@ void cmd_kusr(struct sessione *t, char *nome)
                 precedente = precedente->prossimo;
         }
         if (ok)
-                clogf("KILL: [%s] e' stato eliminato da [%s].", nome, 
+                citta_logf("KILL: [%s] e' stato eliminato da [%s].", nome, 
 		     t->utente->nome);
 
         /* Notifica il risultato al client */
@@ -668,7 +668,7 @@ void cmd_eusr(struct sessione *t, char *buf)
 				utente->val_key[0] = 0;
 				if (utente->livello <= LIVELLO_INIZIALE)
 					utente->livello = LIVELLO_VALIDATO;
-				clogf("VALIDATE: validazione di [%s].",
+				citta_logf("VALIDATE: validazione di [%s].",
 				     utente->nome);
 				/* Notifica all'utente interessato... */
 				dati_server.validazioni++;
@@ -676,7 +676,7 @@ void cmd_eusr(struct sessione *t, char *buf)
 			extractn(newnick, buf, 13, MAXLEN_UTNAME);
                         if (*newnick && strncmp(nome, newnick, MAXLEN_UTNAME)
                             && (trova_utente(newnick) == NULL)) {
-                                clogf("Cambiamento nick [%s] --> [%s]", nome,
+                                citta_logf("Cambiamento nick [%s] --> [%s]", nome,
                                       newnick);
                                 if ( (room = room_find(lobby))) {
                                         txt = txt_create();
@@ -692,7 +692,7 @@ void cmd_eusr(struct sessione *t, char *buf)
                                 if (!send_email(txt, NULL,
                                          "Il tuo nickname e` stato modificato!",
                                                 utente->email, EMAIL_SINGLE))
-                                        clogf("Email di notifica %s -> %s non inviato.",
+                                        citta_logf("Email di notifica %s -> %s non inviato.",
                                               nome, newnick);
 				txt_free(&txt);
                                 blog_newnick(utente, newnick);
@@ -746,7 +746,7 @@ void cmd_aval(struct sessione *t, char *vk)
                 t->utente->val_key[0] = 0;
                 if (t->utente->livello <= LIVELLO_INIZIALE)
                         t->utente->livello = LIVELLO_VALIDATO;
-                clogf("VALIDATE: Auto-validazione di [%s].", t->utente->nome);
+                citta_logf("VALIDATE: Auto-validazione di [%s].", t->utente->nome);
                 cprintf(t, "%d\n", OK);
                 dati_server.validazioni++;
         } else 
@@ -767,14 +767,14 @@ void cmd_gval(struct sessione *t)
                 gen_rand_string(valkey, VALKEYLEN);
                 strcpy(t->utente->val_key, valkey);
                 /* questa puo' servire se il mail non arriva: */
-                clogf("VALIDATE: Valkey [%s] per [%s].", t->utente->val_key,
+                citta_logf("VALIDATE: Valkey [%s] per [%s].", t->utente->val_key,
 		     t->utente->nome);
                 /* Invia la val_key per posta elettronica */
                 invia_val_key(valkey, t->utente->email);
                 cprintf(t, "%d\n", OK);
         } else { /* Prima l'utente si deve registrare! */
                 cprintf(t, "%d Utente gia' validato.\n", ERROR);
-		clogf("SECURE: Richiesta valkey da [%s] validato.",
+		citta_logf("SECURE: Richiesta valkey da [%s] validato.",
 		     t->utente->nome);
         }
 #else
@@ -795,7 +795,7 @@ void cmd_pwdc(struct sessione *t, char *pwd)
         if (check_password(pwd, t->utente->password))
                 cprintf(t, "%d\n", OK);
         else {
-		clogf("SECURE: PWDC, Pwd errata per [%s] da [%s]",
+		citta_logf("SECURE: PWDC, Pwd errata per [%s] da [%s]",
 		     t->utente->nome, t->host);
                 cprintf(t, "%d\n", ERROR);
         }
@@ -815,7 +815,7 @@ void cmd_pwdn(struct sessione *t, char *buf)
                 strcpy(t->utente->password, newpwd);
                 cprintf(t, "%d\n", OK);
         } else {
-                clogf("SECURE: [%s] PWDN fallito.", t->utente->nome);
+                citta_logf("SECURE: [%s] PWDN fallito.", t->utente->nome);
                 cprintf(t, "%d\n", ERROR+PASSWORD);
         }
 }
@@ -866,13 +866,13 @@ void cmd_pwdu(struct sessione *t, char *buf)
 		system(buf1);
 		sprintf(buf1, "mail -s 'New Cittadella Password for %s' %s < %s\n", nome, utente->email, tmpf2);
 		if (system(buf1) == -1) {
-			clogf("SYSERR: New Password for [%s] not sent.",
+			citta_logf("SYSERR: New Password for [%s] not sent.",
 			     nome);
 			cprintf(t, "%d Could not send mail.\n",	ERROR);
 		} else {
 			cripta(newpwd);
 			strcpy(utente->password, newpwd);
-			clogf("AIDE: New Password for [%s] generated by [%s].",
+			citta_logf("AIDE: New Password for [%s] generated by [%s].",
 			     nome, t->utente->nome);
 			cprintf(t, "%d Pwd changed.\n", OK);
 		}
@@ -881,7 +881,7 @@ void cmd_pwdu(struct sessione *t, char *buf)
 		Free(tmpf);
 		Free(tmpf2);
 	} else {
-		clogf("SECURE: [%s] PWDU fallito.", t->utente->nome);
+		citta_logf("SECURE: [%s] PWDU fallito.", t->utente->nome);
 		cprintf(t, "%d User pwd wrong.\n", ERROR+PASSWORD);
 	}
 }

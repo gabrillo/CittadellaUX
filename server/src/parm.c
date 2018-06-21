@@ -399,7 +399,7 @@ int pars2strsd(char **ss, struct sessione *t, char *id,
 
          strcpy(*(ss + par), q->val);
 #if U_DEBUG
-   clogf("SYSLOG: in parm %d: %s",par,*(ss+par));
+   citta_logf("SYSLOG: in parm %d: %s",par,*(ss+par));
 #endif
          par++;
          if(r == NULL) {
@@ -490,7 +490,7 @@ int printpar(struct sessione *t)
         n=1;	
         p=t->parm;
         while (p){
-                clogf("%d:%s->%s\n",n,p->id,p->val);
+                citta_logf("%d:%s->%s\n",n,p->id,p->val);
                 p=p->next;
                 n++;
         }

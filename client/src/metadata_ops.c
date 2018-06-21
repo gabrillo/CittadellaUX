@@ -35,6 +35,7 @@
 #include "extract.h"
 #include "user_flags.h"
 #include "utility.h"
+#include "edit.h"
 
 /* Prototipi funzioni statiche */
 static int mdop_user(char *user);

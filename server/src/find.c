@@ -48,7 +48,7 @@ void find_init(void)
                         nmsg += find_cr8index(r);
 		}
 	}
-	clogf("FIND: %ld messaggi da %ld room indicizzati.", nmsg, nroom);
+	citta_logf("FIND: %ld messaggi da %ld room indicizzati.", nmsg, nroom);
 }
 
 /* Chiude il motore di ricerca ed libera le risorse associate. */

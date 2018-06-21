@@ -202,11 +202,11 @@ int rs_vota(struct sessione *t, struct urna_conf *ucf){
    ut=t->utente;
 
    if(!(room_posted = room_findn(ucf->room_num))) {
-      clog("room per urna  NON trovata");
+      citta_log("room per urna  NON trovata");
       return ROOM_NOT_FOUND;
    }
    if(ut->livello < room_posted->data->rlvl) {
-      clog("livello non valido");
+      citta_log("livello non valido");
       return BAD_LEVEL;
    }
 
@@ -271,11 +271,11 @@ int rs_vota_ut(struct dati_ut *ut, struct urna_conf *ucf)
    struct room *room_posted;
 
    if(!(room_posted = room_findn(ucf->room_num))) {
-      clog("room per urna  NON trovata");
+      citta_log("room per urna  NON trovata");
       return ROOM_NOT_FOUND;
    }
    if(ut->livello < room_posted->data->rlvl) {
-      clog("livello non valido");
+      citta_log("livello non valido");
       return BAD_LEVEL;
    }
 
@@ -414,7 +414,7 @@ int rs_add_proposta(struct urna *u, struct sessione* t)
  upr->matricola=t->utente->matricola;
  upr->num=num_prop;
  if(pars2strsd(upr->proposte,t,"prop",MAXLEN_PROPOSTA,-num_prop)!=num_prop){
-   clog("SYSLOG: errori nelle proposte");
+   citta_log("SYSLOG: errori nelle proposte");
    return -1;
  };
 

@@ -127,7 +127,7 @@ void posta_nuovo_quesito(struct urna_conf *ucf)
             data_fine);
    room = room_findn(ucf->room_num);
    if(room == NULL) {
-      clogf("Room per urna non trovata, uso Lobby!");
+      citta_logf("Room per urna non trovata, uso Lobby!");
       room = room_find(lobby);
    }
 
@@ -135,7 +135,7 @@ void posta_nuovo_quesito(struct urna_conf *ucf)
 
    txt_free(&avviso);
 #ifdef DEBUG
-   clogf("postato in room %ld, subj %s", ucf->room_num, subject);
+   citta_logf("postato in room %ld, subj %s", ucf->room_num, subject);
 #endif
 };
 

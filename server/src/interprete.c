@@ -249,7 +249,7 @@ void interprete_comandi(struct sessione *t, char *com)
 	int i = 0;
 	int minlvl;
 
-        /* clogf("INTERPRETE %s", com); */
+        /* citta_logf("INTERPRETE %s", com); */
 	while ( *(cmd_list[i].token) != '\0' ) {
 		if (!strncmp(com, cmd_list[i].token, LTOKEN)) {
 			/* Controlla che l'utente e` nello stato giusto */

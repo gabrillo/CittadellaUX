@@ -192,7 +192,7 @@ int pop3_nuovo_descr(int s)
 
 	/* Se e' previsto uno shutdown avverte e chiude la connessione */
 
-	clogf("POP3: Nuova connessione da [%s]", nuova_ses->host);
+	citta_logf("POP3: Nuova connessione da [%s]", nuova_ses->host);
   
 	/* Inizializziamo la struttura coi dati della nuova sessione */
 	nuova_ses->desc = desc;
@@ -287,7 +287,7 @@ int pop3_elabora_input(struct pop3_sess *t)
 			return(-1);
 		}
 	} else {
-		clog("SYSERR: Incontrato EOF in lettura su socket.");
+		citta_log("SYSERR: Incontrato EOF in lettura su socket.");
 		return(-1);
 	}
 
@@ -348,7 +348,7 @@ void pop3_interprete_comandi(struct pop3_sess *p, char *command)
 	int i = 0;
 
 #ifdef POP3_DEBUG
-	clogf("POP3 C: <%s>", command);
+	citta_logf("POP3 C: <%s>", command);
 #endif
 	while ( *(pop3_cmd_list[i].token) != '\0' ) {
 		if (!strncasecmp(command, pop3_cmd_list[i].token,
@@ -486,7 +486,7 @@ static void pop3_pass(struct pop3_sess *p, char *pass)
 
 	if (!check_password(pass, p->utente->password)) {
 		pop3_printf(p, "%s invalid password\r\n", pop3_err);
-                clogf("POP3: Pwd errata per [%s] da [%s]", p->utente->nome,
+                citta_logf("POP3: Pwd errata per [%s] da [%s]", p->utente->nome,
 		     p->host);
 		p->utente = NULL;
 		return;
@@ -496,7 +496,7 @@ static void pop3_pass(struct pop3_sess *p, char *pass)
 	mail_load1(p->utente, p->mail_list);
 
 	/* p->utente->chiamate++;  SOSTITUIRE, TOGLIERE ? */
-	clogf("POP3 login [%s] da [%s].", p->utente->nome, p->host);
+	citta_logf("POP3 login [%s] da [%s].", p->utente->nome, p->host);
 
 	p->stato = TRANSACTION;
 	pop3_maildrop(p);
@@ -868,7 +868,7 @@ static void pop3_printf(struct pop3_sess *p, const char *format, ...)
 		coda->partenza = coda->termine = nuovo;
 	nuovo->prossimo = NULL;
 #ifdef POP3_DEBUG
-	clogf("POP3 S: %s", nuovo->testo);
+	citta_logf("POP3 S: %s", nuovo->testo);
 #endif
 }
 

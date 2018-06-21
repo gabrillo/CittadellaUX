@@ -363,7 +363,7 @@ int inkey_elenco(const char *elenco)
 	i = 0;
 	while(!index(elenco, i) || (i == 0)) {
 		i = inkey_sc(0);
-		tolower(i);
+		//tolower(i);
 	}
         return(i);
 }
@@ -386,7 +386,7 @@ int inkey_elenco_def(const char *elenco, int def)
                         i=tolower(def);
                         break;
 		}
-		tolower(i);
+		//tolower(i);
 		printf("%c",i);
 	}
         return(i);

@@ -103,20 +103,20 @@ int rs_end(struct urna *u)
 
 #ifdef USA_RES_URNA
    if(save_file(URNA_DIR, FILE_URES, progressivo, &fp_res)) {
-      clogf("SYSERR: non posso salvare i risultati %d", progressivo);
+      citta_logf("SYSERR: non posso salvare i risultati %d", progressivo);
       fclose(fp_res);
       return (-1);
    }
 
    if(write_magic_number(fp_res, MAGIC_RES, "risultati")) {
-      clogf("SYSERR: non posso salvare i risultati %d", progressivo);
+      citta_logf("SYSERR: non posso salvare i risultati %d", progressivo);
       fclose(fp_res);
       return (-1);
    }
 #endif
 
    if(save_file(URNA_DIR, FILE_ROOM_LIKE, progressivo, &fp_room_like)) {
-      clogf("SYSERR: non posso salvare i risultati %ld", progressivo);
+      citta_logf("SYSERR: non posso salvare i risultati %ld", progressivo);
       fclose(fp_room_like);
       return (-1);
    }
@@ -161,14 +161,14 @@ int rs_end(struct urna *u)
    txt_put(txt, " ");
    txt_put(txt, "*** Risultati:");
    if(voti_validi == 0) {
-      clogf("SYSLOG: nessun voto valido!");
+      citta_logf("SYSLOG: nessun voto valido!");
       txt_putf(txt, "    <b>Non ha votato nessuno!</b>");
       txt_put(txt, " ");
       txt_putf(txt, "(Il quesito &egrave stato proposto da <b>%s</b>.)",
                nome_utente_n(ucf->proponente));
       room = room_findn(ucf->room_num);
       if(room == NULL) {
-         clog("room non trovata, uso Lobby");
+         citta_log("room non trovata, uso Lobby");
          room = room_find(lobby);
       }
       citta_post(room, subj, txt);
@@ -259,7 +259,7 @@ int rs_end(struct urna *u)
             nome_utente_n(matricola));
    room = room_findn(room_num);
    if(room == NULL) {
-      clog("room non trovata, uso Lobby");
+      citta_log("room non trovata, uso Lobby");
       room = room_find(lobby);
    }
 
@@ -523,12 +523,12 @@ int res_proposta(struct urna *u, int nvoti, struct text *txt)
    u->prop=NULL;
 
    if(load_file(URNA_DIR, FILE_UPROP, progressivo, &pr)) {
-      clogf("SYSLOG: problemi con %s", FILE_UDATA);
+      citta_logf("SYSLOG: problemi con %s", FILE_UDATA);
       return (-1);
    }
 
    if(!check_magic_number(pr, MAGIC_PROP, "prop")) {
-      clogf("SYSLOG: urna-prop %s %d non corretto", FILE_UPROP, progressivo);
+      citta_logf("SYSLOG: urna-prop %s %d non corretto", FILE_UPROP, progressivo);
       fclose(pr);
       return (-1);
    }

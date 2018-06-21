@@ -117,11 +117,11 @@ void fs_init(void)
 
 	fp = fopen(FILE_FILE_INDEX, "r");
 	if (!fp) {
-	        clogf("FILE: non trovo indice: lo creo.");
+	        citta_logf("FILE: non trovo indice: lo creo.");
                 fs_alloc_index(FILE_INDEX_STEP);
 	} else {
                 fscanf(fp, "%d %ld\n", &file_index.magic, &file_index.num);
-                clogf("Loading index entries for %ld files", file_index.num);
+                citta_logf("Loading index entries for %ld files", file_index.num);
 
                 fs_alloc_index(file_index.num + FILE_INDEX_STEP);
                 fscanf(fp, "%lu %lu %lu\n", &file_index.lastnum,
@@ -143,11 +143,11 @@ void fs_init(void)
         file_ustats.dirty = FALSE;
 	fp = fopen(FILE_FILE_USTATS, "r");
 	if (!fp) {
-	        clogf("FILE: non trovo userstats: lo creo.");
+	        citta_logf("FILE: non trovo userstats: lo creo.");
                 fs_alloc_userstats(FILE_USTATS_STEP);
 	} else {
                 fscanf(fp, "%d %ld\n", &file_ustats.magic, &file_ustats.num);
-                clogf("Loading file_ustats entries for %ld users",
+                citta_logf("Loading file_ustats entries for %ld users",
                       file_ustats.num);
                 fs_alloc_userstats(file_ustats.num + FILE_USTATS_STEP);
                 for (i = 0, j = 0; j < file_ustats.num; i++, j++) {
@@ -155,7 +155,7 @@ void fs_init(void)
                         fscanf(fp, "%ld %lu %lu %lu %lu\n", file_ustats.user+i,
                                file_ustats.totbytes+i, file_ustats.numfiles+i,
                                file_ustats.downloads+i, file_ustats.uploads+i);
-                        clogf("%ld %lu %lu %lu %lu", file_ustats.user[i],
+                        citta_logf("%ld %lu %lu %lu %lu", file_ustats.user[i],
                                file_ustats.totbytes[i],file_ustats.numfiles[i],
                              file_ustats.downloads[i],file_ustats.uploads[i]);
                         /* Questi controllo andranno eliminati */
@@ -167,12 +167,12 @@ void fs_init(void)
                                 file_ustats.numfiles[i] = 0;
                                 file_ustats.dirty = TRUE;
                         }
-                        clogf("%ld %lu %lu %lu %lu\n", file_ustats.user[i],
+                        citta_logf("%ld %lu %lu %lu %lu\n", file_ustats.user[i],
                                file_ustats.totbytes[i],file_ustats.numfiles[i],
                              file_ustats.downloads[i],file_ustats.uploads[i]);
                         for (k = 0 ; k < i; k++) {
                                 if (file_ustats.user[k]==file_ustats.user[i]) {
-                                        clogf("FS_USTATS dati per utente %ld duplicati.",
+                                        citta_logf("FS_USTATS dati per utente %ld duplicati.",
                                               file_ustats.user[i]);
                                         file_ustats.dirty = TRUE;
                                         i--;
@@ -182,14 +182,14 @@ void fs_init(void)
                         }
                         if ((!corrupted)
                             && (!trova_utente_n(file_ustats.user[i]))) {
-                                clogf("FS_USTATS Utente %ld non trovato",
+                                citta_logf("FS_USTATS Utente %ld non trovato",
                                       file_ustats.user[i]);
                                 file_ustats.dirty = TRUE;
                                 i--;
                         }
                 }
                 file_ustats.num = i;
-                clogf("FS_USTATS ustats.num = %lu", file_ustats.num);
+                citta_logf("FS_USTATS ustats.num = %lu", file_ustats.num);
                 fclose(fp);
         }
 
@@ -255,7 +255,7 @@ unsigned long fs_download(unsigned long filenum, char *nome, char **data)
                 errno = EFSWRONGNAME;
                 return 0;
         }
-	clogf("FILESERVER: richiesta file %s", nome);
+	citta_logf("FILESERVER: richiesta file %s", nome);
         snprintf(filename, LBUF, "%s/%ld", FILES_DIR, filenum);
         fp = fopen(filename, "r");
         if (fp == NULL) {
@@ -299,10 +299,10 @@ void fs_delete_overwritten(void)
         int i;
 
         lowest = fm_lowest(dati_server.fm_basic);
-        clogf("LOWEST %ld FM %ld", lowest, dati_server.fm_basic);
+        citta_logf("LOWEST %ld FM %ld", lowest, dati_server.fm_basic);
         for (i = file_index.num-1; i >= 0; i--)
                 if (file_index.msgnum[i] < lowest) {
-                        clogf("del msgnum %ld", file_index.msgnum[i]);
+                        citta_logf("del msgnum %ld", file_index.msgnum[i]);
                         fs_delfile(i);
                 }
 }
@@ -480,7 +480,7 @@ void cmd_fupl(struct sessione *t, char *arg)
         file_index.size[index] = size;
         file_index.user[index] = user;
         file_index.msgnum[index] = t->last_msgnum;
-        clogf("Upload file associato a msgnum %ld, index %d", t->last_msgnum,
+        citta_logf("Upload file associato a msgnum %ld, index %d", t->last_msgnum,
               index);
         file_index.flags[index] = extract_ulong(arg, 2);
         file_index.downloads[index] = 0;
@@ -604,7 +604,7 @@ static void fs_save_index(void)
 
         fp = fopen(FILE_FILE_INDEX, "w");
         if (!fp) {
-                clogf("SYSERR: Non posso aprire in scrittura %s",
+                citta_logf("SYSERR: Non posso aprire in scrittura %s",
                       FILE_FILE_INDEX);
                 rename(backup, FILE_FILE_INDEX);
         } else {
@@ -637,7 +637,7 @@ static void fs_save_ustats(void)
 
         fp = fopen(FILE_FILE_USTATS, "w");
         if (!fp) {
-                clogf("SYSERR: Non posso aprire in scrittura %s",
+                citta_logf("SYSERR: Non posso aprire in scrittura %s",
                       FILE_FILE_USTATS);
                 rename(backup, FILE_FILE_USTATS);
         } else {
@@ -789,12 +789,12 @@ static void fs_delfile(int i)
         char filename[LBUF];
         long user;
 
-        clogf("FILE elimino file #%lu [%s]", file_index.filenum[i],
+        citta_logf("FILE elimino file #%lu [%s]", file_index.filenum[i],
               file_index.filename[i]);
 
         sprintf(filename, "%s/%lu", FILES_DIR, file_index.filenum[i]);
         if (unlink(filename) == -1)
-                clogf("SYSERR File deletion failed.");
+                citta_logf("SYSERR File deletion failed.");
 
         file_index.totbytes -= file_index.size[i];
         file_index.dirty = TRUE;
