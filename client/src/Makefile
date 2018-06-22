@@ -91,7 +91,10 @@ OBJALL = $(COMMONOBJ) $(LOCALOBJ) $(REMOTEOBJ) $(DEBUGOBJ)
 all : $(bindir)/cittaclient $(bindir)/remote_cittaclient \
 	$(bindir)/debug_cittaclient
 
-$(bindir)/cittaclient : $(OBJFILES)
+$(bindir) :  
+	mkdir $(bindir)
+
+$(bindir)/cittaclient : $(OBJFILES) $(bindir)
 	$(CC) $(CFLAGS) $(OBJFILES) $(LFLAGS) $(LZ) $(EFENCE) \
 		-o $(bindir)/cittaclient
 
