@@ -71,12 +71,10 @@ void stampa_ora(long ora);
 int min_lungh(char *str , int min);
 char * astrcat(char *str1, char *str2);
 
-/*
 inline void Perror(const char *str);
 inline void * Calloc(size_t num, unsigned long size, int tipo);
 inline void * Realloc(void *ptr, size_t size);
 inline void Free(void *ptr);
-*/
 
 /* Variabili esterne */
 extern int serv_sock;

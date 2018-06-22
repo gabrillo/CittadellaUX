@@ -42,7 +42,7 @@ void txt_puts(struct text *txt, char *str);
 void txt_putf(struct text *txt, const char *format, ...) CHK_FORMAT_2;
 char *txt_get(struct text *txt);
 void txt_jump(struct text *txt, long n);
-inline long txt_rpos(struct text *txt);
+long txt_rpos(struct text *txt);
 struct text *txt_dup(struct text *src);
 struct text * txt_load(char *filename);
 #if 0

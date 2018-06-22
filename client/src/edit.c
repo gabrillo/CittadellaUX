@@ -44,7 +44,7 @@
 # include "remote.h"
 #endif
 
-inline int c_getline(char *str, int max, int maiuscole, int special);
+int c_getline(char *str, int max, int maiuscole, int special);
 
 int get_text(struct text *txt, long max_linee, char max_col, char abort);
 int get_textl(struct text *txt, int max, int nlines);

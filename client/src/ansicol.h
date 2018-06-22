@@ -143,8 +143,8 @@ extern const char *hstop;
 /* Prototipi delle funzioni in ansicol.c */
 void ansi_init(void);
 void color_mode(int mode);
-inline int getcolor(void);
-inline void putcolor(int col);
+int getcolor(void);
+void putcolor(int col);
 void setcolor(int col);
 void color2cml(char *str, int col);
 void push_color(void);

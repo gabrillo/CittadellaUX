@@ -23,7 +23,7 @@
 extern const char * help_8bit;
 extern const char * help_colors;
 
-inline int c_getline(char *str, int max, int maiuscole, int special);
+int c_getline(char *str, int max, int maiuscole, int special);
 int get_text(struct text *txt, long max_linee, char max_col, char abort);
 void edit_file(char *filename);
 int enter_text(struct text *txt, int max_linee, char mode,
