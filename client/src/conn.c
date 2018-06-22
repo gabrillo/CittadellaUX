@@ -325,7 +325,7 @@ void serv_read(char *buf, int bytes)
         while (len < bytes) {
                 rlen = read(serv_sock, &buf[len], bytes-len);
                 if (rlen < 1) {
-                        printf(str_conn_closed);
+                        printf("%s",str_conn_closed);
                         exit(1);
                 }
                 len += rlen;
@@ -354,7 +354,7 @@ void serv_puts(const char *string)
 void serv_putf(char *format, ...)
 {
 	va_list ap;
-	size_t len = 16;
+	size_t len = 64;
 	char *str;
 	int ret, ok = 0;
 	
@@ -410,7 +410,7 @@ void serv_write(const char *buf, int bytes, int progressbar)
                                 //                                if (progressbar) // TODO eliminare
                                         //      printf("Wrote %d/%d bytes\n", total-bytes, total);
                         } else {
-                                printf(str_conn_closed);
+                                printf("%s",str_conn_closed);
                                 exit(1);
                         }
                         if ((progressbar) && ((total-bytes) > prog_step*progress)) {
@@ -431,7 +431,7 @@ void serv_write(const char *buf, int bytes, int progressbar)
                                 buf += ret;
                                 bytes -= ret;
                         } else {
-                                printf(str_conn_closed);
+                                printf("%s",str_conn_closed);
                                 exit(1);
                         }
                 }
@@ -460,7 +460,7 @@ int serv_getc_r(struct serv_buffer * buf)
                 buf->end += got;
                 return buf->data[buf->start++];
         }
-        printf(str_conn_closed);
+        printf("%s",str_conn_closed);
         exit(1);
 }
 

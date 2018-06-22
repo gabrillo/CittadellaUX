@@ -149,7 +149,7 @@ void urna_new(void)
    while(((c < '0') || (c > '4')) && c!=Ctrl('X'))
       c = inkey_sc(0);
 
-      if(c == Ctrl('X')) {
+   if(c == Ctrl('X')) {
          interrompi();
           free_dati(dati);
           myFree(dati);

@@ -100,7 +100,7 @@ int decompress_serv_getc(struct serv_buffer * buf)
 
     } while (ricevuti > 0);
 
-    printf(str_conn_closed);
+    printf("%s",str_conn_closed);
     exit(1);
 }
 

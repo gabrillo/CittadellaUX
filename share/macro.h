@@ -96,11 +96,11 @@ extern void Free(void *ptr);
 
 #else
 
-#  define Malloc(a,b)   malloc(a);
-#  define Calloc(a,b,c)   calloc(a*b);
-#  define Realloc  realloc
-#  define Free     free
-#  define Strdup   strdup
+#define Malloc(a,b)   malloc(a);
+#define Calloc(a,b,c)   calloc(a,b);
+#define Realloc  realloc
+#define Free     free
+#define Strdup   strdup
 
 #  define CREATE(result, type, num, tnum)   do {                      \
       if (!((result) = (type *) calloc((num), sizeof(type)))) \
