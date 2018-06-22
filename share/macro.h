@@ -79,10 +79,10 @@
 #  define TYPE_NUM            52 /* Questo deve stare in fondo */
 
 #ifdef USE_MEM_STAT
-extern inline void * Calloc(size_t num, unsigned long size, int tipo);
-extern inline void * Realloc(void *ptr, size_t size);
-extern inline char * Strdup(const char *str);
-extern inline void Free(void *ptr);
+extern void * Calloc(size_t num, unsigned long size, int tipo);
+extern void * Realloc(void *ptr, size_t size);
+extern char * Strdup(const char *str);
+extern void Free(void *ptr);
 
 
 
