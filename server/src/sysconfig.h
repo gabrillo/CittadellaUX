@@ -21,8 +21,6 @@
 /**********     Variabili salvate in sysconfig      *************/
 /* Configurazione del sistema */
 extern int nameserver_lento;
-extern long TIC_TAC; 
-extern int  FREQUENZA;
 /* Opzioni relative al crashsave */
 extern int auto_save;
 extern int tempo_auto_save;
@@ -30,12 +28,6 @@ extern int tempo_auto_save;
 extern int livello_alla_creazione;
 extern int express_per_tutti;
 extern int min_msgs_per_x;
-/* Info sul server     */
-extern char citta_soft[50];
-extern char citta_ver[10];
-extern char citta_ver_client[10];
-extern char citta_nodo[50];
-extern char citta_dove[50];
 /* Opzioni di timeout */
 extern int butta_fuori_se_idle;
 extern int min_idle_warning;

@@ -173,17 +173,25 @@ void legge_configurazione(void)
 
 void sysconfig(char cmd[][256], char val[][256], int n_cmd)
 {
+
+#define BAK_SIZE 500
+#define BUFFER_SIZE (BAK_SIZE*2)
+
         FILE *fp, *fp1;
-        char buf[LBUF];
-        char bak[LBUF];
+        char buf[BUFFER_SIZE+1];
+        char bak[BAK_SIZE+1];
         char fatto[20], ok;
         int n=0;
+         
+	buf[BUFFER_SIZE]=0;
+	bak[BAK_SIZE]=0;
 
         /* Backup del file di configurazione */
-        sprintf(bak,"%s.bak",FILE_SYSCONFIG);
-        sprintf(buf,"touch %s",FILE_SYSCONFIG);  /* DA SISTEMARE!!! */
+        snprintf(bak, BAK_SIZE, "%s.bak",FILE_SYSCONFIG);
+	snprintf(buf, BUFFER_SIZE, "touch %s",FILE_SYSCONFIG);  /* DA SISTEMARE!!! */
+
         system(buf);
-        sprintf(buf,"mv %s %s",FILE_SYSCONFIG,bak);
+	snprintf(buf, BUFFER_SIZE, "mv %s %s",FILE_SYSCONFIG,bak);
         system(buf);
 
         fp = fopen(FILE_SYSCONFIG,"w");

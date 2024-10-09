@@ -37,11 +37,11 @@ int min_msgs_per_x = 1000;
 
 /* Info sul server     */
 
-/* char citta_soft[50] = "Cittadella/UX";
+char citta_soft[50] = "Cittadella/UX";
 char citta_ver[10] = SERVER_RELEASE;
 char citta_ver_client[10] = CLIENT_RELEASE; 
 char citta_nodo[50] = "sysop@domain.bbs";
-char citta_dove[50] = "City, Country"; */
+char citta_dove[50] = "City, Country"; 
 
 /* Opzioni di timeout */
 

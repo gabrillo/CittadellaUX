@@ -120,11 +120,6 @@ int imap4_socket = 0;          /* file descriptor connessione imap4       */
 int maxdesc;                   /* piu' alto file desc utilizzato          */
 int max_num_desc = 0;          /* numero massimo di file desc disponibili */
 long tics = 0;                 /* contatore cicli per controllo esterno   */
-char citta_soft[50];           /* Info sul server                         */
-char citta_ver[10];
-char citta_nodo[50];
-char citta_dove[50];
-char citta_ver_client[10];     /* Versione del client piu' recente        */
 
 const char empty_string[] = "";
 
