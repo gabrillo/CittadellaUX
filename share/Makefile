@@ -19,7 +19,7 @@ libdir = ../lib
 
 # Compiler flags you want to use (other than profiling, such as -Wall)
 # Flag DEBUG per tenere le parti di codice dedicate al debugging
-MYFLAGS = -g -Wall -DDEBUG
+MYFLAGS = -g -Wall -DDEBUG -m32 -march=i386
 
 # Flags for profiling (see hacker.doc for more information)
 #PROFILE = -pg
@@ -43,7 +43,7 @@ PROFILE =
 #############################################################################
 
 CFLAGS = $(MYFLAGS) $(CRYPT) $(PROFILE) $(OSFLAGS)
-LFLAGS = $(LCRYPT)
+LFLAGS = $(LCRYPT) -m32 -march=i386
 
 OBJFILES = argz.o cache.o cml2html.o cml_entities.o extract.o hash.o histo.o \
 	   metadata.o prefixtree.o terminale.o text.o versione.o

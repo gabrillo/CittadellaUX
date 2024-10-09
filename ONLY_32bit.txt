@@ -1,0 +1,14 @@
+Per poter far girare cittadella su un backup creato con una versione 32 bit è necessario compilare a 32 bit.
+
+La cosa più semplice è fissare 32 bit e un'architettura
+
+Adesso i CFLAGS hanno `-m32 -march=i386` e le LDFLAGS hanno anche `-m32 -march=i386 -L/usr/lib/i386-linux-gnu``
+
+Prima di compilare è necessario installare le librerie per il cross-compiling:
+
+# sudo apt install gcc-multilib
+# sudo dpkg --add-architecture i386
+# sudo apt update
+# sudo apt install zlib1g:i386
+# sudo apt install zlib1g-dev:i386
+# sudo apt install libncurses-dev:i386

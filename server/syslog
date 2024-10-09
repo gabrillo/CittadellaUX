@@ -1,9 +1,0 @@
-Wed Oct  9 19:48:07 :: SYSTEM: Avvio del server alla porta 4000.
-Wed Oct  9 19:48:07 :: Cattura segnali.
-Wed Oct  9 19:48:07 :: Inizializzazione Allocatore Memoria.
-Wed Oct  9 19:48:07 :: Legge configurazione di sistema.
-Wed Oct  9 19:48:07 :: SYSTEM: file_sysconfig inesiste: creazione al prossimo shutdown.
-Wed Oct  9 19:48:07 :: Lettura dati del server, utenti, file message e room.
-Wed Oct  9 19:48:07 :: SYSERR: Non posso aprire in lettura il file dati_server.
-Wed Oct  9 19:48:07 :: SYSTEM: dati_server vuoto, creato al primo salvataggio.
-Wed Oct  9 19:48:07 :: No fmdata: Creo File Messaggi di base.

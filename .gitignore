@@ -1,0 +1,6 @@
+server/syslog
+**/*.o
+**/*.a
+**/bin
+**/*~
+server/lib/

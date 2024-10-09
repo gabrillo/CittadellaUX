@@ -73,7 +73,6 @@ void stampa_data_smb(long ora);
 void stampa_ora(long ora);
 char * astrcat(char *str1, char *str2);
 inline void Perror(const char *str);
-inline void * Calloc(size_t num, unsigned long size, int tipo);
 inline void * Realloc(void *ptr, size_t size);
 inline void Free(void *ptr);
 int min_lungh(char *str , int min);
@@ -778,11 +777,6 @@ int min_lungh(char *str , int min){
 inline void Perror(const char *str)
 {
 	perror(str);
-}
-
-inline void * Calloc(size_t num, unsigned long size, int tipo)
-{
-	return calloc(num, size);
 }
 
 inline void * Realloc(void *ptr, size_t size)

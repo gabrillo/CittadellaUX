@@ -36,7 +36,7 @@ WFLAGS = -ansi -W -Wtraditional -Wshadow -Wpointer-arith \
 #MYFLAGS = -g -Wall -pedantic -Wstrict-prototypes -Wmissing-prototypes \
 #		  -Wconversion
 #MYFLAGS = -Wall -DUTMPLIB -O3 -fomit-frame-pointer
-MYFLAGS = -g -Wall -DUTMPLIB
+MYFLAGS = -g -Wall -DUTMPLIB -m32 -march=i386
 
 #flags for profiling (see hacker.doc for more information)
 #PROFILE = -pg
@@ -57,12 +57,12 @@ PROFILE =
 #LIBS = -lmalloc
 
 #remove the hash mark below if compiling with compression support enabled
-LZ = -lz
+LZ = -lz 
 
 #############################################################################
 CFLAGS = $(MYFLAGS) $(PROFILE) $(OSFLAGS) $(BGCOL)
 override CFLAGS += $(patsubst %,-I%,$(subst :, ,$(VPATH)))
-LFLAGS = -L$(libdir) -lcitta -lncurses $(LIBS)
+LFLAGS = -L/usr/lib/i386-linux-gnu -m32 -march=i386 -L$(libdir) -lcitta -lncurses $(LIBS)
 
 COMMONOBJ = ansicol.o aide.o blog_cmd.o cml.o configurazione.o cterminfo.o \
 	    edit.o editor.o errore.o floor_cmd.o friends.o generic_cmd.o \

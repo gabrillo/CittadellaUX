@@ -24,7 +24,7 @@ VPATH = $(libdir)
 # Flag SANE_STAT to check ustat: remember to create a file sane_stat
 # in server/lib/urna/
 #MYFLAGS = -g -Wall -DDEBUG -D_GNU_SOURCE
-MYFLAGS = -g -Wall -DDEBUG -D_GNU_SOURCE -DSANE_STAT
+MYFLAGS = -g -Wall -DDEBUG -D_GNU_SOURCE -DSANE_STAT -m32 -march=i386
 
 # Flags for profiling (see hacker.doc for more information)
 #PROFILE =
@@ -49,14 +49,14 @@ MYFLAGS = -g -Wall -DDEBUG -D_GNU_SOURCE -DSANE_STAT
 #LCRYPT = -lcrypt
 
 #se le routines di <zlib.h> sono disponibili, togliere il cancelletto
-LZ = -lz
+LZ = -L/usr/lib/i386-linux-gnu -lz
 
 #############################################################################
 CFLAGS = $(MYFLAGS) $(CRYPT) $(PROFILE) $(OSFLAGS)
 # -lutil per le libutil necessarie al cittademone.
 # LFLAGS = -L$(libdir) -lm -lcitta -lutil $(LCRYPT) $(LIBS)
 # attenzone, prima -lcitta e poi -lm...
-LFLAGS = -L$(libdir)  -lcitta -lm $(LCRYPT) $(LIBS)
+LFLAGS = -m32 -march=i386 -L$(libdir)  -lcitta -lm $(LCRYPT) $(LIBS)
 override CFLAGS += $(patsubst %,-I%,$(subst :, ,$(VPATH)))
 
 OBJFILES = banner.o blog.o cache_post.o cestino.o cittaserver.o cittaweb.o \
