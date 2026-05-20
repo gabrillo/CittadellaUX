@@ -15,6 +15,7 @@
 *        messaggi e per scriverci o leggerci i post.                        *
 ****************************************************************************/
 #include "config.h"
+#include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -195,6 +196,14 @@ long fm_create(long fm_size, char *desc)
 
         fm_name(filename, newfm->fm.num);
 	fp = fopen(filename, "wb");
+	if (!fp) {
+		citta_logf("SYSERR: Non posso creare il file messaggi %s: %s.",
+			   filename, strerror(errno));
+		(dati_server.fm_num)--;
+		(dati_server.fm_curr)--;
+		Free(newfm);
+		return 0;
+	}
 	for (i = 0; i < fm_size; i++)
 		putc(0, fp);
 	fclose(fp);

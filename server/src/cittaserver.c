@@ -26,6 +26,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <sys/socket.h>
+#include <sys/stat.h>
 #include <sys/time.h>
 #include <sys/types.h>
 #ifdef USE_RUSAGE
@@ -152,6 +153,8 @@ void chiudi_sessione(struct sessione *d);
 
 static void chiusura_sessioni(int s);
 static void flush_code_sessione(struct sessione *d);
+static void crea_directory_runtime(void);
+static void crea_directory_se_manca(const char *path);
 
 void serverlock_create(void);
 pid_t serverlock_check(void);
@@ -407,6 +410,9 @@ void avvio_server(int porta)
 
 	citta_log("Cattura segnali.");
 	setup_segnali();
+
+	/* Garantisce che un checkout pulito abbia le directory dati minime. */
+	crea_directory_runtime();
 
 	/* Inizializzazione per il prossimo reboot */
 	timestamp_write(LAST_REBOOT);   /* Serve ? */
@@ -1473,9 +1479,13 @@ void carica_dati_server(void)
 	int i;
 
 	fp = fopen(FILE_DATI_SERVER, "r");
-	if (!fp)
-		citta_log("SYSERR: Non posso aprire in lettura il file dati_server.");
-	else {
+	if (!fp) {
+		if (errno == ENOENT)
+			citta_log("SYSTEM: file dati_server assente, inizializzo i default.");
+		else
+			citta_logf("SYSERR: Non posso aprire in lettura il file dati_server: %s.",
+				   strerror(errno));
+	} else {
 		fseek(fp,0L,0);
 		hh=fread((struct dati_server *) &dati_server,
 			 sizeof(struct dati_server), 1, fp);
@@ -1542,6 +1552,52 @@ void carica_dati_server(void)
 			dati_server.ws_chat[i] = 0;
 		}
 	}
+}
+
+static void crea_directory_runtime(void)
+{
+	crea_directory_se_manca(LIBDIR);
+	crea_directory_se_manca(BANNER_DIR);
+	crea_directory_se_manca(FILES_DIR);
+#ifdef USE_FLOORS
+	crea_directory_se_manca(FLOOR_DIR);
+	crea_directory_se_manca(FLOOR_INFO);
+	crea_directory_se_manca(FLOOR_DIR "/room_list");
+#endif
+	crea_directory_se_manca(FILE_MSG_DIR);
+	crea_directory_se_manca(HELP_DIR);
+	crea_directory_se_manca(IMAGES_DIR);
+	crea_directory_se_manca(MESSAGGI_DIR);
+	crea_directory_se_manca(ROOMS_DIR);
+	crea_directory_se_manca(ROOMS_DIR "/msgdata");
+	crea_directory_se_manca(ROOMS_INFO);
+	crea_directory_se_manca(SERVER_DIR);
+	crea_directory_se_manca(UTENTI_DIR);
+#ifdef USE_BLOG
+	crea_directory_se_manca(BLOG_DIR);
+#endif
+#ifdef USE_BADGES
+	crea_directory_se_manca(BADGES_DIR);
+#endif
+	crea_directory_se_manca(MAIL_DIR);
+	crea_directory_se_manca(PROFILE_PATH);
+	crea_directory_se_manca(UTENTI_DIR "/utr_data");
+#ifdef USE_REFERENDUM
+	crea_directory_se_manca(URNA_DIR);
+#endif
+	crea_directory_se_manca(TMPDIR);
+}
+
+static void crea_directory_se_manca(const char *path)
+{
+	if (mkdir(path, 0775) == 0) {
+		citta_logf("SYSTEM: creata directory dati %s.", path);
+		return;
+	}
+
+	if (errno != EEXIST)
+		citta_logf("SYSERR: Non posso creare la directory %s: %s.",
+			   path, strerror(errno));
 }
 
 /*
