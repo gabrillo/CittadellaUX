@@ -30,11 +30,11 @@ sig_atomic_t segnale_messaggio;      /* TRUE se nuovo messaggio in arrivo. */
 /* Prototipi funzioni in questo file */
 void setup_segnali(void);
 static void setsig_checkpoint(void);
-void logsig();
-void hupsig();
-void elimina_soloaide();
-void checkpointing();
-void elimina_no_nuovi();
+void logsig(int sig);
+void hupsig(int sig);
+void elimina_soloaide(int sig);
+void checkpointing(int sig);
+void elimina_no_nuovi(int sig);
 void handler_messaggio(int sig);
 
 /*****************************************************************************
@@ -72,8 +72,10 @@ static void setsig_checkpoint(void)
         signal(SIGALRM, checkpointing);
 }
 
-void checkpointing()
+void checkpointing(int sig)
 {
+        (void)sig;
+
         if (!tics) {
                 citta_log("CHECKPOINT shutdown: I tics non vengono aggiornati.");
                 /* abort(); TODO VEDERE semmai vai di shutdown */
@@ -84,15 +86,19 @@ void checkpointing()
         }
 }
 
-void elimina_soloaide()
+void elimina_soloaide(int sig)
 {
+        (void)sig;
+
         signal(SIGUSR1, elimina_soloaide);
         citta_log("SIGUSR1 - Eliminata restrizione a soli Aide");
         solo_aide = 0;
 }
 
-void elimina_no_nuovi()
+void elimina_no_nuovi(int sig)
 {
+        (void)sig;
+
         signal(SIGUSR2, elimina_no_nuovi);
         citta_log("SIGUSR2 - Eliminata restrizione a soli utenti gia' esistenti.");
         no_nuovi_utenti = 0;
@@ -101,8 +107,10 @@ void elimina_no_nuovi()
 /******************************************************************************
 ******************************************************************************/
 
-void hupsig(void)
+void hupsig(int sig)
 {
+        (void)sig;
+
         citta_log("SYSTEM: Ricevuto SIGHUP, SIGINT, o SIGTERM.  Shut down...");
 
 	shutdown_server();
@@ -114,13 +122,17 @@ void hupsig(void)
         exit(0);
 }
 
-void logsig(void)
+void logsig(int sig)
 {
+        (void)sig;
+
         citta_log("SYSTEM: Segnale ricevuto e ignorato.");
 }
 
 void handler_messaggio(int sig)
 {
+        (void)sig;
+
         signal(SIGUSR1, handler_messaggio);
 	segnale_messaggio = TRUE;
 }
