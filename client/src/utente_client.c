@@ -52,7 +52,6 @@ void edit_user(void);
 void chpwd(void);
 void chupwd(void);
 void enter_profile(void);
-static int check_email_syntax(const char *email);
 
 /***************************************************************************/
 /***************************************************************************/
@@ -122,118 +121,13 @@ void lista_utenti(void)
  */
 void registrazione(int nuovo)
 {
-	int c;
-	char buf[LBUF], tmp[LBUF];
-	char nome_reale[MAXLEN_RNAME] = ""; /* Nome 'Real-life'             */
-	char via[MAXLEN_VIA] = "";	    /* Street address               */
-	char citta[MAXLEN_CITTA] = "";	    /* Municipality                 */
-	char stato[MAXLEN_STATO] = "";	    /* State or province            */
-	char cap[MAXLEN_CAP] = "";	    /* Codice di avviamento postale */
-	char tel[MAXLEN_TEL] = "";	    /* Numero di telefono           */
-	char email[MAXLEN_EMAIL] = "";	    /* Indirizzo E-mail             */
-	char url[MAXLEN_URL] = "";	    /* Home page URL                */
-
-        nome_reale[0] = 0;
-	if (nuovo == 0) {
-		/* Avverte il server che vogliamo editare la registrazione */
-		serv_puts("BREG");
-		serv_gets(buf);
-		/* Chiede al server la registrazione attuale               */
-		serv_puts("GREG");
-		serv_gets(buf);
-		if (buf[0] == '2') {
-			extractn(nome_reale, buf+4, 0, MAXLEN_RNAME);
-			extractn(via, buf+4, 1, MAXLEN_VIA);
-			extractn(citta, buf+4, 2, MAXLEN_CITTA);
-			extractn(cap, buf+4, 3, MAXLEN_CAP);
-			extractn(stato, buf+4, 4, MAXLEN_STATO);
-			extractn(tel, buf+4, 5, MAXLEN_TEL);
-			extractn(email, buf+4, 6, MAXLEN_EMAIL);
-			extractn(url, buf+4, 7, MAXLEN_URL);
-			sesso = extract_int(buf+4, 8);
-                        
-		}
-	}
+	char buf[LBUF];
 
 	printf(_("Registrazione:\n\n"));
-	/* Inserire un `leggi_file' sulla privacy */
-	if (nuovo)
-		do {
-			new_str_def_M(_("Nome e Cognome (VERI)"), nome_reale,
-				      nome_reale, MAXLEN_RNAME-1);
-			if (nome_reale[0] == 0) {
-				printf(_("Devi inserire il tuo nome reale, altrimenti non verrai validato.\nSe vuoi solo dare un'occhiata entra come 'Ospite'.\n"));
-			}
-		} while (nome_reale[0] == 0);
-	else
-		new_str_def_M(_("Nome e Cognome (VERI)"), nome_reale,
-			      nome_reale, MAXLEN_RNAME-1);
-	printf(_("Sesso: (M/F) "));
-	if (nuovo)
-		printf(": ");
-	else {
-		if (sesso)
-			c = 'F';
-		else
-			c = 'M';
-		printf("[%c]: ", c);
-	}
-	c = 0;
-	while (((c != 'm') && (c != 'M') && (c != 'f') && (c != 'F')
-		&& (c != 10) && (c != 13)) || (((c == 10) || (c == 13))
-					       && nuovo))
-		c = inkey_sc(0);
-	printf("%c\n", c);
-	if ((c == 'M') || (c == 'm')) {
-                sesso = 0;
-		putchar('\n');
-	} else if ((c == 'F') || (c == 'f')) {
-		sesso = 1;
-		putchar('\n');
-	}
-
-	new_str_def_M(_("Indirizzo"), via, via, MAXLEN_VIA-1);
-	new_str_def_M(_("Citt&agrave;"), citta, citta, MAXLEN_CITTA-1);
-	new_str_def_m(_("Codice di avviamento postale"),cap,cap, MAXLEN_CAP-1);
-	new_str_def_M(_("Stato"), stato, stato, MAXLEN_STATO-1);
-	new_str_def_m(_("Numero di telefono"), tel, tel, MAXLEN_TEL-1);
-
-	if (nuovo)
-		cml_print(_(
-"\nOra devi fornire il tuo indirizzo Email. Esso &egrave; essenziale per\n"
-"inviarti la chiave di validazione: senza di essa non potrai\n"
-"lasciare messaggi e usufruire di tutti i servizi della BBS.\n"
-"Se vuoi semplicemente entrare per dare un'occhiata,\n"
-"puoi comunque collegarti con il nome 'Ospite'.\n\n"));
-	c = 0;
-	do {
-		c++;
-		tmp[0] = '\0';
-		new_str_def_m(_("Indirizzo e-mail"),email,tmp,MAXLEN_EMAIL-1);
-
-		/* Verifica se l'email e` ben formato */
-		if (!check_email_syntax(tmp))
-			cml_print(_(
-"L'indirizzo Email fornito non &egrave; valido.\n"
-"L'indirizzo Email &egrave; essenziale per ottenere una chiave di validazione.\n"));
-		else {
-			c = 0;
-			strcpy(email, tmp);
-		}
-	} while (c && (c < 3));
-	if (c) { /* Email non valido */
-		if (nuovo) {
-			printf(_("\nCi dispiace, ma se non fornisci il tuo Email non puoi creare un tuo\n"
-				 "account personale. Puoi comunque visitare la BBS come 'Ospite'.\n"));
-			pulisci_ed_esci();
-		} else
-			printf(_("\nOk, teniamo il vecchio Email visto che non riesci a digitare quello nuovo :-)\n\n"));
-	}
-	
-	new_str_def_m(_("URL della Home Page"), url, url, MAXLEN_URL-1);
+	cml_print(_("Questa BBS conserva solo nickname e password per la registrazione.\n"));
 	
 	if (!nuovo) {
-	        printf(sesso ? _("Sei sicura di voler mantenere le modifiche? ") : _("Sei sicuro di voler mantenere le modifiche? "));
+	        printf(sesso ? _("Sei sicura di pulire i dati personali salvati? ") : _("Sei sicuro di pulire i dati personali salvati? "));
 		if (si_no() == 'n') {
 		        serv_putf("RGST 0");
 			serv_gets(buf);
@@ -241,13 +135,11 @@ void registrazione(int nuovo)
 		}
 	}
 	/* Spedisce la registrazione al server */
-	serv_putf("RGST 1|%s|%s|%s|%s|%s|%s|%s|%s|%d", nome_reale, via, citta,
-		  stato, cap, tel, email, url, sesso);
+	serv_putf("RGST 1");
 	serv_gets(buf);
 	if (buf[0] != '2') {
                 
 	        printf(_("\n*** Problema con il server: registrazione non accettata.\n\n"));
-                cml_printf(_("Probabilmente l'email che hai fornito &egrave; gi&agrave; stato usato per un altro utente.\n&Egrave; vietato avere un doppio account su questa BBS. Riprova.\n\n"));
                 hit_any_key();
         }
 }
@@ -653,7 +545,7 @@ void edit_user(void)
 	char url[MAXLEN_URL] = "";          /* Home page URL         */
 	char valkey[MAXLEN_VALKEY] = "";    /* Validation key        */
         /*	char sex;  */
-	int lvl, newlvl, val, secpmsg, msgph, newmsgph, divieti, flags;
+	int lvl, newlvl, val = 0, secpmsg, msgph, newmsgph, divieti, flags;
 
 	get_username(_("Dati sull'utente: "), nick);
 	if (nick[0] == 0)
@@ -691,15 +583,7 @@ void edit_user(void)
         setcolor(C_CONFIG_H);
 	printf(_("\nRegistrazione:\n"));
         setcolor(C_CONFIG_B);
-	new_str_def_M(_(" Nome e Cognome (VERI)"), nome_reale, nome_reale,
-		      MAXLEN_RNAME-1);
-	new_str_def_M(_(" Indirizzo"), via, via, MAXLEN_VIA-1);
-	new_str_def_M(_(" Citt&agrave;"), citta, citta, MAXLEN_CITTA-1);
-	new_str_def_m(_(" Codice di avviamento postale"), cap, cap, MAXLEN_CAP-1);
-	new_str_def_M(_(" Stato"), stato, stato, MAXLEN_STATO-1);
-	new_str_def_m(_(" Numero di telefono"), tel, tel, MAXLEN_TEL-1);
-	new_str_def_m(_(" Indirizzo e-mail"), email, email, MAXLEN_EMAIL-1);
-	new_str_def_m(_(" URL della Home Page"), url, url, MAXLEN_URL-1);
+	cml_print(_(" La BBS conserva solo nickname e password: i dati personali strutturati vengono lasciati vuoti.\n"));
 	
         setcolor(C_CONFIG_H);
         cml_printf(_("\nPropriet&agrave; utente:\n"));
@@ -966,67 +850,4 @@ void enter_profile(void)
 		serv_gets(buf);
 	}
 	txt_free(&txt);
-}
-
-/****************************************************************************/
-        /* DA SPOSTARE IN SHARE */
-/*
- * Semplice verifica dell'email fornito.
- * (che sia della forma "*@*.*". Puo' esserci un unico '@', e nell'host ci
- * devono essere al piu' quattro '.', e non due successivi).
- * Restituisce 1 se l'indirizzo e' ben formato, altrimenti 0.
- */
-enum {
-	CES_USERNAME,
-	CES_AFTERAT,
-	CES_AFTERDOT,
-	CES_SUBDOMAIN,
-	CES_INDOMAIN
-};
-
-/*
- * in questo caso i caratteri accettati per il dominio o per l'username
- * sono uguali altrimenti si potrebbe fare un distinguo per quando sono
- * in CES_USERNAME o meno.
- */
-#define CE_CONTEXT_VERIFY_CHAR(c) ( ( ((c) >= 'a') && ((c) <= 'z') ) || \
-				    ( ((c) >= 'A') && ((c) <= 'Z') ) || \
-                                    ( ((c) >= '0') && ((c) <= '9') ) || \
-				    ((c) == '-') || ((c) == '_') ) 
-
-static int check_email_syntax(const char *email)
-{
-	register const char *p;
-	register int curr_state = CES_USERNAME;
-	int num_dots = 0;
-	
-	if (*email == '@') return(0);
-
-	for (p = email+1; *p; p++) {
-		switch (*p) {
-		case '@':
-			if (curr_state != CES_USERNAME)
-				return(FALSE);
-			curr_state = CES_AFTERAT;
-			break;
-		case '.':
-			if ( (curr_state == CES_AFTERDOT) ||
-			     (curr_state == CES_AFTERAT) ) 
-				return(FALSE);
-			/* controllo il doppio punto solo dopo l'@ */
-			if (curr_state != CES_USERNAME) {
-				num_dots++;
-				curr_state = CES_AFTERDOT;
-			}
-			break;
-		default:
-			if ( !CE_CONTEXT_VERIFY_CHAR(*p) ) 
-				return(FALSE);
-			
-			curr_state = (curr_state == CES_USERNAME) ?
-				CES_USERNAME : CES_INDOMAIN;
-		}
-	}
-	
-	return ((curr_state == CES_INDOMAIN) && num_dots);
 }

@@ -64,12 +64,15 @@ void cmd_pwdc(struct sessione *t, char *pwd);
 void cmd_pwdn(struct sessione *t, char *buf);
 void cmd_pwdu(struct sessione *t, char *buf);
 void cmd_prfg(struct sessione *t, char *nome);
+void cmd_prgp(struct sessione *t, char *arg);
 void cmd_cfgg(struct sessione *t, char *cmd);
 void cmd_cfgp(struct sessione *t, char *arg);
 void cmd_frdg(struct sessione *t);
 void cmd_frdp(struct sessione *t, char *arg);
 void cmd_gmtr(struct sessione *t, char *nome);
 void notify_logout(struct sessione *t, int tipo);
+static int privacy_field_has_data(const char *field, size_t len);
+static int privacy_clear_registration_data(struct dati_ut *utente);
 
 /******************************************************************************
 ******************************************************************************/
@@ -456,14 +459,12 @@ void cmd_rusr(struct sessione *t)
 }
 
 /*
- * Riceve i dati di registrazione da parte del client e li immette nella
- * stuttura dati dell'utente.
- * Syntax: "RGST mode|nome_reale|via|citta|stato|cap|tel|email|url|sesso"
+ * Completa la registrazione senza raccogliere dati personali.
+ * Syntax: "RGST mode"
  *         mode = 0 : non mantiene le modifiche, 1 : effettua le modifiche
  */
 void cmd_rgst(struct sessione *t, char *buf)
 {
-        char sesso;
 	int stato;
 
 	stato = t->stato;
@@ -479,30 +480,8 @@ void cmd_rgst(struct sessione *t, char *buf)
 		cprintf(t, "%d\n", OK);
 		return;
 	}
-        /* TODO Aggiungere controllo su utente->registrato                   */
-	/* Se viene modificato l'email, e' necessaria una nuova validazione. */
-        /* Inoltre se nome_reale non viene fornito, errore.                  */
-        extractn(t->utente->nome_reale, buf, 1, MAXLEN_RNAME);
-        extractn(t->utente->via, buf, 2, MAXLEN_VIA);
-        extractn(t->utente->citta, buf, 3, MAXLEN_CITTA);
-        extractn(t->utente->stato, buf, 4, MAXLEN_STATO);
-        extractn(t->utente->cap, buf, 5, MAXLEN_CAP);
-        extractn(t->utente->tel, buf, 6, MAXLEN_TEL);
-        extractn(t->utente->email, buf, 7, MAXLEN_EMAIL);
-        extractn(t->utente->url, buf, 8, MAXLEN_URL);
-        sesso = extract_int(buf, 9);
-#ifdef NO_DOUBLE_EMAIL
-        if (!t->utente->registrato && !check_double_email(t->utente->email)) {
-                cprintf(t, "%d\n", ERROR);
-                return;
-        }
-#endif /*NO_DOUBLE_EMAIL*/
-
+        privacy_clear_registration_data(t->utente);
         t->utente->registrato = TRUE;
-        if (sesso)
-                t->utente->sflags[0] |= SUT_SEX;
-        else
-                t->utente->sflags[0] &= ~SUT_SEX;
         cprintf(t, "%d\n", OK);
 }
 
@@ -521,12 +500,7 @@ void cmd_breg(struct sessione *t)
  */
 void cmd_greg(struct sessione *t)
 {
-        struct dati_ut *ut;
-
-	ut = t->utente;
-	cprintf(t, "%d %s|%s|%s|%s|%s|%s|%s|%s|%d\n", OK, ut->nome_reale,
-		ut->via, ut->citta, ut->cap, ut->stato, ut->tel, ut->email,
-		ut->url, (ut->sflags[0]) & SUT_SEX);
+	cprintf(t, "%d\n", OK);
 }
 
 /*
@@ -650,14 +624,7 @@ void cmd_eusr(struct sessione *t, char *buf)
 		if (lvl > t->utente->livello) {
 			cprintf(t, "%d\n", ERROR+ARG_NON_VAL);
 		} else {
-			extractn(utente->nome_reale, buf, 1, MAXLEN_RNAME);
-			extractn(utente->via, buf, 2, MAXLEN_VIA);
-			extractn(utente->citta, buf, 3, MAXLEN_CITTA);
-			extractn(utente->stato, buf, 4, MAXLEN_STATO);
-			extractn(utente->cap, buf, 5, MAXLEN_CAP);
-			extractn(utente->tel, buf, 6, MAXLEN_TEL);
-			extractn(utente->email, buf, 7, MAXLEN_EMAIL);
-			extractn(utente->url, buf, 8, MAXLEN_URL);
+                        privacy_clear_registration_data(utente);
 			spp = extract_int(buf, 11);
 			utente->sflags[1] = extract_int(buf, 12);
 			if (spp > 255)
@@ -689,9 +656,10 @@ void cmd_eusr(struct sessione *t, char *buf)
                                 txt_putf(txt, "Il nickname del tuo utente [%s]", nome);
 				txt_putf(txt, "e` stato cambiato in [%s].",
 					 newnick);
-                                if (!send_email(txt, NULL,
+                                if (utente->email[0]
+                                    && !send_email(txt, NULL,
                                          "Il tuo nickname e` stato modificato!",
-                                                utente->email, EMAIL_SINGLE))
+                                         utente->email, EMAIL_SINGLE))
                                         citta_logf("Email di notifica %s -> %s non inviato.",
                                               nome, newnick);
 				txt_free(&txt);
@@ -727,10 +695,8 @@ void cmd_gusr(struct sessione *t, char *nome)
                 t->stato = CON_COMANDI;
 		return;
 	}
-	cprintf(t, "%d %s|%s|%s|%s|%s|%s|%s|%s|%d|%s|%d|%d\n", OK, ut->nome_reale,
-		ut->via, ut->citta, ut->cap, ut->stato, ut->tel, ut->email,
-		ut->url, ut->livello, ut->val_key, ut->secondi_per_post,
-                ut->sflags[1]);
+	cprintf(t, "%d ||||||||%d||%d|%d\n", OK, ut->livello,
+		ut->secondi_per_post, ut->sflags[1]);
 }
 
 /*
@@ -918,6 +884,59 @@ void cmd_prfg (struct sessione *t, char *nome)
 }
 
 /*
+ * Privacy ReGistration Purge.
+ * PRGP 0: dry-run, conta gli utenti che hanno dati personali salvati.
+ * PRGP 1: pulisce i dati personali strutturati di registrazione.
+ */
+void cmd_prgp(struct sessione *t, char *arg)
+{
+        struct lista_ut *punto;
+        int apply, changed = 0, total = 0;
+
+        apply = extract_int(arg, 0);
+        for (punto = lista_utenti; punto; punto = punto->prossimo) {
+                total++;
+                if (apply)
+                        changed += privacy_clear_registration_data(punto->dati);
+                else {
+                        struct dati_ut *ut = punto->dati;
+                        if (privacy_field_has_data(ut->nome_reale,
+                                                   sizeof(ut->nome_reale))
+                            || privacy_field_has_data(ut->via, sizeof(ut->via))
+                            || privacy_field_has_data(ut->citta,
+                                                      sizeof(ut->citta))
+                            || privacy_field_has_data(ut->stato,
+                                                      sizeof(ut->stato))
+                            || privacy_field_has_data(ut->cap, sizeof(ut->cap))
+                            || privacy_field_has_data(ut->tel, sizeof(ut->tel))
+                            || privacy_field_has_data(ut->email,
+                                                      sizeof(ut->email))
+                            || privacy_field_has_data(ut->url, sizeof(ut->url))
+                            || privacy_field_has_data(ut->val_key,
+                                                      sizeof(ut->val_key))
+                            || privacy_field_has_data(ut->lasthost,
+                                                      sizeof(ut->lasthost))
+                            || (ut->flags[2] & (UT_VNOME | UT_VADDR | UT_VTEL
+                                                | UT_VEMAIL | UT_VURL | UT_VSEX
+                                                | UT_VFRIEND))
+                            || (ut->flags[5] & (UT_MAIL2EMAIL | UT_NEWSLETTER))
+                            || (ut->sflags[0] & SUT_SEX))
+                                changed++;
+                }
+        }
+
+        if (apply) {
+                salva_utenti();
+#ifdef NO_DOUBLE_EMAIL
+                unlink(FILE_DOUBLE_EMAIL);
+#endif
+                citta_logf("PRIVACY: dati registrazione puliti per %d utenti da [%s].",
+                     changed, t->utente->nome);
+        }
+        cprintf(t, "%d %d|%d|%d\n", OK, changed, total, apply ? 1 : 0);
+}
+
+/*
  * Invia la configurazione dell'utente al client
  */
 void cmd_cfgg(struct sessione *t, char *cmd)
@@ -933,6 +952,62 @@ void cmd_cfgg(struct sessione *t, char *cmd)
 		t->utente->sflags[2], t->utente->sflags[3],
 		t->utente->sflags[4], t->utente->sflags[5],
 		t->utente->sflags[6], t->utente->sflags[7]);
+}
+
+static int privacy_field_has_data(const char *field, size_t len)
+{
+        size_t i;
+
+        for (i = 0; i < len; i++)
+                if (field[i] != 0)
+                        return 1;
+        return 0;
+}
+
+static int privacy_clear_registration_data(struct dati_ut *utente)
+{
+        int changed = 0;
+        char old_flags2, old_flags5, old_sflags0;
+
+        if (utente == NULL)
+                return 0;
+
+#define CLEAR_FIELD(field) \
+        do { \
+                if (privacy_field_has_data((field), sizeof(field))) { \
+                        memset((field), 0, sizeof(field)); \
+                        changed = 1; \
+                } \
+        } while (0)
+
+        CLEAR_FIELD(utente->nome_reale);
+        CLEAR_FIELD(utente->via);
+        CLEAR_FIELD(utente->citta);
+        CLEAR_FIELD(utente->stato);
+        CLEAR_FIELD(utente->cap);
+        CLEAR_FIELD(utente->tel);
+        CLEAR_FIELD(utente->email);
+        CLEAR_FIELD(utente->url);
+        CLEAR_FIELD(utente->val_key);
+        CLEAR_FIELD(utente->lasthost);
+
+#undef CLEAR_FIELD
+
+        old_flags2 = utente->flags[2];
+        old_flags5 = utente->flags[5];
+        old_sflags0 = utente->sflags[0];
+
+        utente->flags[2] &= ~(UT_VNOME | UT_VADDR | UT_VTEL | UT_VEMAIL
+                              | UT_VURL | UT_VSEX | UT_VFRIEND);
+        utente->flags[5] &= ~(UT_MAIL2EMAIL | UT_NEWSLETTER);
+        utente->sflags[0] &= ~SUT_SEX;
+
+        if ((utente->flags[2] != old_flags2)
+            || (utente->flags[5] != old_flags5)
+            || (utente->sflags[0] != old_sflags0))
+                changed = 1;
+
+        return changed;
 }
 
 /*

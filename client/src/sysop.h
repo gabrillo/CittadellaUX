@@ -26,5 +26,6 @@ void fm_msgdel(void);
 void fm_expand(void);
 void banners_modify(void);
 void banners_rehash(void);
+void privacy_purge_registration_data(void);
 
 #endif /* sysop.h */

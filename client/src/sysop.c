@@ -41,6 +41,7 @@ void fm_msgdel(void);
 void fm_expand(void);
 void banners_modify(void);
 void banners_rehash(void);
+void privacy_purge_registration_data(void);
 
 /***************************************************************************/
 /*
@@ -316,4 +317,41 @@ void banners_rehash(void)
 void banners_add(void)
 {
 	
+}
+
+void privacy_purge_registration_data(void)
+{
+	char buf[LBUF];
+	int changed, total;
+
+	serv_puts("PRGP 0");
+	serv_gets(buf);
+	if (buf[0] != '2') {
+		printf(sesso ? _("\nNon sei autorizzata.\n") :
+		       _("\nNon sei autorizzato.\n"));
+		return;
+	}
+
+	changed = extract_int(&buf[4], 0);
+	total = extract_int(&buf[4], 1);
+	printf(_("\nUtenti con dati personali di registrazione da pulire: %d su %d.\n"),
+	       changed, total);
+
+	if (changed == 0)
+		return;
+
+	printf(sesso ? _("\nSei sicura di pulire questi dati ora (s/n)? ") :
+	       _("\nSei sicuro di pulire questi dati ora (s/n)? "));
+	if (si_no() == 'n')
+		return;
+
+	serv_puts("PRGP 1");
+	serv_gets(buf);
+	if (buf[0] == '2') {
+		changed = extract_int(&buf[4], 0);
+		total = extract_int(&buf[4], 1);
+		printf(_("\nPulizia completata: %d utenti aggiornati su %d.\n"),
+		       changed, total);
+	} else
+		printf(_("\n*** Problema con il server: pulizia non eseguita.\n"));
 }
