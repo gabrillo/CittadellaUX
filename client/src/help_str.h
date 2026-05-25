@@ -119,6 +119,7 @@
                            " <b>anner commands\n"            \
 			   " <e>nter message\n"              \
 			   " <f>ile message commands\n"      \
+			   " <p>rivacy commands\n"           \
 			   " <r>ead commands\n"              \
 			   " set <u>pdate flag\n"            \
 			   " <s>hutdown commands\n"

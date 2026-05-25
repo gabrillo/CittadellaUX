@@ -165,6 +165,7 @@ static const struct comando cmd_list[] = {
 { "PRFE", { (void *)&cmd_prfe }, NO_ARG,   CON_PROFILE, MINLVL_EDITPRFL },
 { "PRFG", { (void *)&cmd_prfg }, PASS_ARG, CON_COMANDI, ILC_NOCHECK },
 { "PRFL", { (void *)&cmd_prfl }, PASS_ARG, CON_COMANDI, ILC_NOCHECK },
+{ "PRGP", { (void *)&cmd_prgp }, PASS_ARG, CON_COMANDI, LVL_SYSOP },
 { "PSTB", { (void *)&cmd_pstb }, PASS_ARG, CON_COMANDI, ILC_UTENTE  },
 { "PSTE", { (void *)&cmd_pste }, PASS_ARG, CON_POST,    ILC_NOCHECK },/*veder*/
 { "PWDC", { (void *)&cmd_pwdc }, PASS_ARG, CON_COMANDI, ILC_NOCHECK },/*verif*/

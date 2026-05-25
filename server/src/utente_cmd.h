@@ -40,6 +40,7 @@ void cmd_pwdc(struct sessione *t, char *pwd);
 void cmd_pwdn(struct sessione *t, char *buf);
 void cmd_pwdu(struct sessione *t, char *buf);
 void cmd_prfg (struct sessione *t, char *nome);
+void cmd_prgp(struct sessione *t, char *arg);
 void cmd_cfgg(struct sessione *t, char *cmd);
 void cmd_cfgp(struct sessione *t, char *arg);
 void cmd_frdg(struct sessione *t);

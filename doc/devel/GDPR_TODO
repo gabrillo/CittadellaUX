@@ -1,0 +1,18 @@
+GDPR / LOG E MODERAZIONE
+========================
+
+Promemoria per la prossima iterazione:
+
+- Oltre alla gestione dei dati personali di registrazione, prevedere log
+  tecnici minimi e proporzionati per gli abusi.
+- In caso di registrazione aperta e contenuti generati dagli utenti,
+  mantenere almeno IP, timestamp, account/sessione e riferimenti al contenuto
+  o all'evento di pubblicazione/moderazione.
+- I log devono servire a gestire casi di diffamazione o altri contenuti
+  illeciti, eventuali richieste delle autorita' e la difesa legale del
+  gestore.
+- Definire esplicitamente retention, base giuridica e finalita'
+  nell'informativa privacy.
+- Prevedere una procedura di rimozione tempestiva dei contenuti segnalati
+  come illeciti, conservando le evidenze essenziali dell'evento e della
+  decisione di moderazione.

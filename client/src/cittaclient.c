@@ -839,6 +839,9 @@ static char ciclo_client(void)
 		 case 145:
                          room_goto(7, TRUE, NULL);
 			break;
+		 case 146:
+			 privacy_purge_registration_data();
+			break;
 		} /* fine switch */
 
                 /* Se qui la coda comandi non e` vuota e` perche' qualcosa */

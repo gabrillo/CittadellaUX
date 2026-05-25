@@ -163,8 +163,7 @@ static int login_new_user (void)
 "Sei il primo utente di questa BBS, e sar&agrave; tuo compito gestirla.\n"
 "Hai automaticamente il livello 'Sysop', che ti rende onnipotente.\n\n"
 "Questo non ti risparmia per&ograve; dal compito di dare il buon esempio\n"
-"agli altri utenti, perci&ograve; passiamo comunque alla fase di\n"
-"registrazione, anche se non hai bisogno di validarti... :)\n\n");
+"agli altri utenti, perci&ograve; completiamo la registrazione minima.\n\n");
 		hit_any_key();
 	}
         leggi_file(0, 3);

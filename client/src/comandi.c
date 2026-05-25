@@ -52,6 +52,7 @@ static int room_command(void);
 static int sysop_command(void);
 static int sysop_banners_command(void);
 static int sysop_fm_command(void);
+static int sysop_privacy_command(void);
 static int sysop_read_command(void);
 static int sysop_shutdown_command(void);
 static int toggle_command(void);
@@ -1033,10 +1034,13 @@ static int sysop_command(void)
                         return 79;
 		case 'f':
 			cmd = sysop_fm_command();
-                        break;
+			break;
+		case 'p':
+			cmd = sysop_privacy_command();
+			break;
 		case 'r':
 			cmd = sysop_read_command();
-                        break;
+			break;
 		case 's': 
 			cmd = sysop_shutdown_command();
                         break;
@@ -1052,6 +1056,30 @@ static int sysop_command(void)
                 }
                 if (cmd)
                         return cmd;
+        }
+}
+
+static int sysop_privacy_command(void)
+{
+        int a;
+
+	printf(_("Privacy "));
+        while (1) {
+                a = inkey_sc(1);
+                switch(a) {
+		case Key_BS:
+                        delnchar(8);
+                        return 0;
+		case 'r':
+                        printf(_("Registration data purge.\n"));
+			return 146;
+		case '?': /* HELP */
+		case Key_F(1):
+                        cml_print(_("\n.<S><p><r>  Pulisce i dati personali strutturati di registrazione.\n"));
+                        print_prompt();
+                        printf(_(".Sysop Privacy "));
+                        break;
+                }
         }
 }
 
