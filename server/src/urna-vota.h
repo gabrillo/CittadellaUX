@@ -24,7 +24,7 @@
 int rs_vota(struct sessione *t, struct urna_conf *ucf);
 void urna_vota(struct sessione *t, char *buf);
 void rs_add_vote(struct urna *u, struct sessione * t, char *ris);
-int rs_add_proposta();
+int rs_add_proposta(struct urna *u, struct sessione *t);
 void rs_add_slots(struct urna *u);
 void rs_add_ques(struct urna_stat *ustat);
 int rs_inizia_voto(struct sessione *t, int num);

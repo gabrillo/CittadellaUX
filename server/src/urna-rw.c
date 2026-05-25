@@ -49,8 +49,7 @@ int compara(char *a, char *b);
 void azzera_stat();
 void rs_load_data();
 int read_prop(unsigned long progressivo, int nvoti, char ***ptesto);
-int compstr(char **a, char **b);
-extern void qsort();
+int compstr(const void *a, const void *b);
 
 /* 
  * compatibilita` col vecchio
@@ -909,14 +908,17 @@ int read_prop(unsigned long progressivo, int nvoti, char ***ptesto)
    }
 
    fclose(fp);
-   qsort(testo, n, sizeof(char *), (void *)compstr);
+   qsort(testo, n, sizeof(char *), compstr);
    *ptesto = testo;
    return (n);
 };
 
-int compstr(char **a, char **b)
+int compstr(const void *a, const void *b)
 {
-   return strcasecmp(*a, *b);
+   const char * const *sa = a;
+   const char * const *sb = b;
+
+   return strcasecmp(*sa, *sb);
 }
 
 

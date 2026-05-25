@@ -4,3 +4,5 @@ server/syslog
 **/bin
 **/*~
 server/lib/
+lib/server/lock
+syslog

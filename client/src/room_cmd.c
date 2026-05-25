@@ -461,7 +461,7 @@ void room_delete(void)
 	        cml_printf(_("Le room virtuali non si possono cancellare.\n"));
 }
 
-void X(str, flag)
+void X(const char *str, int flag)
 {
         if (flag) {
                 setcolor(C_ROOM_INFO_X);

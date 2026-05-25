@@ -20,10 +20,10 @@ extern sig_atomic_t segnale_messaggio;
 
 /* Prototipi funzioni in signals.c */
 void setup_segnali(void);
-void logsig();
-void hupsig();
-void elimina_soloaide();
-void checkpointing();
-void elimina_no_nuovi();
+void logsig(int sig);
+void hupsig(int sig);
+void elimina_soloaide(int sig);
+void checkpointing(int sig);
+void elimina_no_nuovi(int sig);
 
 #endif /* signals.h */
